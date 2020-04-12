@@ -1,2 +1,2 @@
-# debian-router-scripts
-Scripts para administrar Debian cuando lo tenemos configurado como router.
+# r-scripts
+Mis scripts en bash para administrar Debian cuando está configurado como router.
