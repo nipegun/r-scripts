@@ -16,7 +16,7 @@ echo ""
 echo -e "${ColorVerde}Creando alias para los r-scripts...${FinColor}"
 echo ""
 
-ln -s /root/scripts/r-scripts/x.sh                     /root/scripts/r-scripts/Alias/x
+ln -s /root/scripts/r-scripts/SINcronizarRScript.sh                     /root/scripts/r-scripts/Alias/sinrs
 
 echo ""
 echo -e "${ColorVerde}Alias creados. Deberías poder ejecutar los r-scripts escribiendo el nombre de su alias.${FinColor}"
