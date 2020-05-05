@@ -16,10 +16,11 @@ echo ""
 echo -e "${ColorVerde}Creando alias para los r-scripts...${FinColor}"
 echo ""
 
-ln -s /root/scripts/r-scripts/SINcronizarRScripts.sh /root/scripts/r-scripts/Alias/sinrs
+ln -s /root/scripts/r-scripts/SINcronizarRScripts.sh       /root/scripts/r-scripts/Alias/sinrs
 
-ln -s /root/scripts/r-scripts/DHCP-Editar.sh         /root/scripts/r-scripts/Alias/edhcp
-ln -s /root/scripts/r-scripts/HostAPD-Editar.sh      /root/scripts/r-scripts/Alias/ehostapd
+ln -s /root/scripts/r-scripts/DHCP-Editar.sh               /root/scripts/r-scripts/Alias/edhcp
+ln -s /root/scripts/r-scripts/HostAPD-Editar.sh            /root/scripts/r-scripts/Alias/ehostapd
+ln -s /root/scripts/r-scripts/MostrarAparatosConectados.sh /root/scripts/r-scripts/Alias/aparatos
 
 echo ""
 echo -e "${ColorVerde}Alias creados. Deberías poder ejecutar los r-scripts escribiendo el nombre de su alias.${FinColor}"
