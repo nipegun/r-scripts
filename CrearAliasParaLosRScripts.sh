@@ -18,7 +18,7 @@ echo ""
 
 ln -s /root/scripts/r-scripts/SINcronizarRScripts.sh /root/scripts/r-scripts/Alias/sinrs
 
-ln -s /root/scripts/r-scripts/x.sh                   /root/scripts/r-scripts/Alias/x
+ln -s /root/scripts/r-scripts/HostAPD-Editar.sh      /root/scripts/r-scripts/Alias/ehostapd
 
 echo ""
 echo -e "${ColorVerde}Alias creados. Deberías poder ejecutar los r-scripts escribiendo el nombre de su alias.${FinColor}"
