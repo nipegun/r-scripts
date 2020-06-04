@@ -9,5 +9,5 @@
 #  Script de NiPeGun para ver los logs de dhcpd en tiempo real
 #---------------------------------------------------------------
 
-tail -f /var/log/syslog | grep dns
+tail -f /var/log/syslog | grep bind
 
