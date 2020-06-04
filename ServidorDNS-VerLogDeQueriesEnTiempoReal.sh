@@ -9,5 +9,5 @@
 #  Script de NiPeGun para ver los logs del servidor DNS en tiempo real
 #-----------------------------------------------------------------------
 
-tail -f /var/log/syslog | grep bind
+tail -f /var/log/named/queries.log
 
