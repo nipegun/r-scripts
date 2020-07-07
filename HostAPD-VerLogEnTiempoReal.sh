@@ -9,4 +9,6 @@
 #  Script de NiPeGun para ver los logs de hostapd en tiempo real
 #-----------------------------------------------------------------
 
-tailf /var/log/syslog | grep hostapd
+#tail -f /var/log/syslog | grep hostapd
+tail -f /etc/default/hostapd
+
