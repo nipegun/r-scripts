@@ -116,6 +116,7 @@ do
       echo ""
       cp /etc/default/hostapd /etc/default/hostapd.bak
       sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
+      sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
       echo ""
       echo "--------------------------------------------"
       echo "   INDICANDO LA UBICACIÓN DEL ARCHIVO DE"
