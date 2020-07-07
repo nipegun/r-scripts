@@ -10,5 +10,5 @@
 #-----------------------------------------------------------------
 
 #tail -f /var/log/syslog | grep hostapd
-tail -f /etc/default/hostapd
+tail -f /var/log/hostapd.log
 
