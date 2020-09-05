@@ -175,13 +175,13 @@ do
       echo "" >> /etc/hostapd/hostapd.conf
       echo "#Compex WLE1216v5-20 Atheros QCA9984/QCA9994" >> /etc/hostapd/hostapd.conf
       echo "driver=nl80211" >> /etc/hostapd/hostapd.conf
-      echo "channel=0     # El canal a usar. 0 significa que buscará automáticamente el canal con menos interferencias" >> /etc/hostapd/hostapd.conf
+      echo "channel=0       # El canal a usar. 0 significa que buscará automáticamente el canal con menos interferencias" >> /etc/hostapd/hostapd.conf
       echo "hw_mode=a" >> /etc/hostapd/hostapd.conf
       echo "ieee80211n=1" >> /etc/hostapd/hostapd.conf
       echo "ieee80211ac=1" >> /etc/hostapd/hostapd.conf
       echo "wme_enabled=1" >> /etc/hostapd/hostapd.conf
-      echo "wmm_enabled=1 # Soporte para QoS" >> /etc/hostapd/hostapd.conf
-      echo "ieee80211d=1  # Limitar las frecuencias sólo a las disponibles en el país" >> /etc/hostapd/hostapd.conf
+      echo "wmm_enabled=1   # Soporte para QoS" >> /etc/hostapd/hostapd.conf
+      echo "ieee80211d=1    # Limitar las frecuencias sólo a las disponibles en el país" >> /etc/hostapd/hostapd.conf
       echo "country_code=ES" >> /etc/hostapd/hostapd.conf
       echo "ht_capab=[RXLDPC][HT20][HT40][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
       echo "vht_capab=[MAX-MPDU-11454][VHT160-80PLUS80][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC][SU-BEAMFORMER][SU-BEAMFORMEE][MU-BEAMFORMER][MU-BEAMFORMEE][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]" >> /etc/hostapd/hostapd.conf
