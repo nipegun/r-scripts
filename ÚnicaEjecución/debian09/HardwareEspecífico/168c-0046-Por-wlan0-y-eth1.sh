@@ -154,6 +154,13 @@ do
       echo ""
       echo "#/etc/hostapd/hostapd.conf" > /etc/hostapd/hostapd.conf
       echo "" >> /etc/hostapd/hostapd.conf
+      echo "# Punto de acceso básico" >> /etc/hostapd/hostapd.conf
+      echo "bridge=br0" >> /etc/hostapd/hostapd.conf
+      echo "interface=wlan0" >> /etc/hostapd/hostapd.conf
+      echo "ssid=BasicAP" >> /etc/hostapd/hostapd.conf
+      echo "channel=0" >> /etc/hostapd/hostapd.conf
+      echo "hw_mode=a" >> /etc/hostapd/hostapd.conf
+      echo "" >> /etc/hostapd/hostapd.conf
       echo "# Primer punto de acceso" >> /etc/hostapd/hostapd.conf
       echo "bridge=br0" >> /etc/hostapd/hostapd.conf
       echo "interface=$interfazinalambrica1" >> /etc/hostapd/hostapd.conf
