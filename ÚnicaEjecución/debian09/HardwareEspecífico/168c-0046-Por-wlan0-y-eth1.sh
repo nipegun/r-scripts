@@ -155,6 +155,7 @@ do
       echo "#/etc/hostapd/hostapd.conf" > /etc/hostapd/hostapd.conf
       echo "" >> /etc/hostapd/hostapd.conf
       echo "# Primer punto de acceso" >> /etc/hostapd/hostapd.conf
+      echo "bridge=br0" >> /etc/hostapd/hostapd.conf
       echo "interface=$interfazinalambrica1" >> /etc/hostapd/hostapd.conf
       echo "wpa=2" >> /etc/hostapd/hostapd.conf
       echo "wpa_key_mgmt=WPA-PSK" >> /etc/hostapd/hostapd.conf
