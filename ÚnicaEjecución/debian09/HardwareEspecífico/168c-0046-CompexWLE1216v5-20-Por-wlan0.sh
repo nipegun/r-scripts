@@ -180,7 +180,8 @@ do
       echo "wmm_enabled=1   # Soporte para QoS" >> /etc/hostapd/hostapd.conf
       echo "ieee80211d=1    # Limitar las frecuencias sólo a las disponibles en el país" >> /etc/hostapd/hostapd.conf
       echo "country_code=ES" >> /etc/hostapd/hostapd.conf
-      echo "ht_capab=[RXLDPC][HT20][HT40][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
+      echo "ht_capab=[RXLDPC][HT40+][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
+      echo "#[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz" >> /etc/hostapd/hostapd.conf
       echo "vht_capab=[MAX-MPDU-11454][VHT160-80PLUS80][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC][SU-BEAMFORMER][SU-BEAMFORMEE][MU-BEAMFORMER][MU-BEAMFORMEE][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]" >> /etc/hostapd/hostapd.conf
       echo ""
       echo "----------------------------------"
