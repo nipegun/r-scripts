@@ -10,19 +10,14 @@
 #----------------------------------------------------------------------
 
 echo ""
-echo "  Deteniendo el servicio hostapd..."
-echo ""
-service hostapd stop
-
-echo ""
 echo "  Editando el archivo de configuración..."
 echo ""
 nano /etc/hostapd/hostapd.conf
 
 echo ""
-echo "  Volviendo a iniciar el servicio hostapd..."
+echo "  Cargando el nuevo archivo de configuración..."
 echo ""
-service hostapd start
+service hostapd reload
 
 echo ""
 echo "  Mostrando el estado del servicio hostapd..."
