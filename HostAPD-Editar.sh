@@ -10,7 +10,7 @@
 #----------------------------------------------------------------------
 
 echo ""
-echo "  Editando el archivo de configuración..."
+echo "  Editando el archivo de configuración de hostapd..."
 echo ""
 nano /etc/hostapd/hostapd.conf
 
