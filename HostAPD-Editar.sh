@@ -17,7 +17,7 @@ nano /etc/hostapd/hostapd.conf
 echo ""
 echo "  Cargando el nuevo archivo de configuración..."
 echo ""
-service hostapd reload
+service hostapd restart
 
 echo ""
 echo "  Mostrando el estado del servicio hostapd..."
