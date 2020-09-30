@@ -41,8 +41,8 @@ if [ $# -ne $CantArgsCorrectos ]
     menu=(dialog --timeout 5 --checklist "Inspeccionar la subred $1:" 22 76 16)
       opciones=(1 "Inspeccionar sólo enviando ping" off
                 2 "Inspeccionar enviando TCP 3 way handshake" off
-                3 "Inspeccionar enviando TCP pero abortando al recibir el ACK" off
-                4 "" off)
+                3 "Inspeccionar enviando TCP 3 way handshake y averiguando el SO" off
+                4 "AntiFirewalls - Inspeccionar enviando TCP pero abortando al recibir el ACK" off)
       choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
     clear
 
@@ -84,15 +84,20 @@ if [ $# -ne $CantArgsCorrectos ]
 
           3)
             echo ""
+            echo "Enviando TCP (SYN---SYN-ACK---ACK---RST-ACK)..."
+            echo ""
+
+            nmap -O $1 > /tmp/SubredTCPySO.txt
+            cat /tmp/SubredTCPySO.txt
+          ;;
+
+          4)
+            echo ""
             echo "Enviando TCP (SYN---SYN-ACK---RST)..."
             echo ""
 
             nmap -sS $1 > /tmp/SubredTCPAborted.txt
             cat /tmp/SubredTCPAborted.txt
-          ;;
-
-          4)
-
           ;;
 
         esac
