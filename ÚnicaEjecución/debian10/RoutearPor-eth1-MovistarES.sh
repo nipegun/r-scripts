@@ -85,16 +85,16 @@ echo "  provider MovistarWAN" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
-echo -e "${ColorVerde}Configurando la vlan de voz (3)...${FinColor}"
-echo ""
-#echo "auto $InterfazCableada1.3" >> /etc/network/interfaces
-#echo "  iface $InterfazCableada1.3 inet dhcp" >> /etc/network/interfaces
-
-echo ""
 echo -e "${ColorVerde}Configurando la vlan de televisión (2)...${FinColor}"
 echo ""
-#echo "auto $InterfazCableada1.2" >> /etc/network/interfaces
-#echo "  iface $InterfazCableada1.2 inet dhcp" >> /etc/network/interfaces
+echo "auto $InterfazCableada1.2" >> /etc/network/interfaces
+echo "  iface $InterfazCableada1.2 inet dhcp" >> /etc/network/interfaces
+
+echo ""
+echo -e "${ColorVerde}Configurando la vlan de voz (3)...${FinColor}"
+echo ""
+echo "auto $InterfazCableada1.3" >> /etc/network/interfaces
+echo "  iface $InterfazCableada1.3 inet dhcp" >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Creando el archivo para el proveedor PPPoE...${FinColor}"
@@ -134,7 +134,7 @@ tasksel install ssh-server
 echo ""
 echo -e "${ColorVerde}Creando las reglas de IPTables...${FinColor}"
 echo ""
-echo "*mangle" > /root/ReglasIPTablesIP4RouterVodafone
+echo "*mangle" > /root/ReglasIPTablesIP4RouterMovistar
 echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
 echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
 echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
@@ -156,7 +156,7 @@ echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
 echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
 echo "-A FORWARD -i ppp0 -o $InterfazCableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesIP4RouterMovistar
 echo "-A FORWARD -i $InterfazCableada2 -o ppp0 -j ACCEPT" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "COMMIT" >> /root/ReglasIPTablesIP4RouterVodafone
+echo "COMMIT" >> /root/ReglasIPTablesIP4RouterMovistar
 
 echo ""
 echo -e "${ColorVerde}Habilitando ip-forwarding...${FinColor}"
