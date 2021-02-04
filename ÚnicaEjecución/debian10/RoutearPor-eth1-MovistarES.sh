@@ -22,9 +22,9 @@ ColorVerde='\033[1;32m'
 FinColor='\033[0m'
 
 echo ""
-echo -e "${ColorVerde}---------------------------------------------------------------${FinColor}"
-echo -e "${ColorVerde}Iniciando el script de preparación para la fibra de Movistar...${FinColor}"
-echo -e "${ColorVerde}---------------------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}---------------------------------------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}Iniciando el script de preparación para conectar Debian con la ONT de Movistar...${FinColor}"
+echo -e "${ColorVerde}---------------------------------------------------------------------------------${FinColor}"
 echo ""
 
 echo ""
