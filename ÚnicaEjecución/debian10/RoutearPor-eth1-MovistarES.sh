@@ -12,7 +12,7 @@
 #--------------------------------------------------------------------------------------
 
 InterfazCableada1=eth0
-InterfazCableada2=lan0
+InterfazCableada2=eth1
 UsuarioPPPMovistar=adslppp@telefonicanetpa
 ClavePPPMovistar=adslppp
 MacDelRouterMovistar=00:00:00:00:00:00
