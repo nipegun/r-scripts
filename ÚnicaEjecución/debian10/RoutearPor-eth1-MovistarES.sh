@@ -5,11 +5,11 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#-------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------
 #  Script de NiPeGun para preparar un Armbian Buster recién instalado en un NanoPi R2S
 #  para que pueda conectarse a una ONT que esté recibiendo la fibra de Movistar ES
 #  y pueda rootear una conexión de internet a través la la interfaz LAN
-#--------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------
 
 InterfazCableada1=eth0
 InterfazCableada2=eth1
@@ -39,7 +39,7 @@ echo -e "${ColorVerde}Configurando la interfaz loopback...${FinColor}"
 echo ""
 echo "auto lo" > /etc/network/interfaces
 echo "  iface lo inet loopback" >> /etc/network/interfaces
-echo "  pre-up iptables-restore < /root/ReglasIPTablesIP4RouterMovistar" >> /etc/network/interfaces
+echo "  pre-up iptables-restore < /root/ReglasIPTablesIP4RouterMovistar.ipt" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
@@ -48,7 +48,7 @@ echo ""
 echo "auto $InterfazCableada1" >> /etc/network/interfaces
 echo "  allow-hotplug $InterfazCableada1" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1 inet dhcp" >> /etc/network/interfaces
-echo "  hwaddress ether $MacDelRouterMovistar # Necesario para evitar futuros problemas" >> /etc/network/interfaces
+echo "  #hwaddress ether $MacDelRouterMovistar # Necesario para evitar futuros problemas" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
@@ -62,17 +62,12 @@ echo "  netmask 255.255.255.0" >> /etc/network/interfaces
 echo "  broadcast 192.168.0.255" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
-
-    Datos: ID 6 Prioridad 1
-    Voz: ID 3 Prioridad 4
-    Televisión: ID 2 Prioridad 4
-
-
 echo ""
-echo -e "${ColorVerde}Configurando la vlan de datos (6)...${FinColor}"
+echo -e "${ColorVerde}Configurando la vlan de datos (6) y prioridad (1)...${FinColor}"
 echo ""
 echo "auto $InterfazCableada1.6" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.6 inet manual" >> /etc/network/interfaces
+echo "  metric 1" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
@@ -85,16 +80,20 @@ echo "  provider MovistarWAN" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
-echo -e "${ColorVerde}Configurando la vlan de televisión (2)...${FinColor}"
+echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
 echo ""
 echo "auto $InterfazCableada1.2" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.2 inet dhcp" >> /etc/network/interfaces
+echo "  metric 4" >> /etc/network/interfaces
+echo "" >> /etc/network/interfaces
 
 echo ""
-echo -e "${ColorVerde}Configurando la vlan de voz (3)...${FinColor}"
+echo -e "${ColorVerde}Configurando la vlan de voz (3) y prioridad (4)...${FinColor}"
 echo ""
 echo "auto $InterfazCableada1.3" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.3 inet dhcp" >> /etc/network/interfaces
+echo "  metric 4" >> /etc/network/interfaces
+echo "" >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Creando el archivo para el proveedor PPPoE...${FinColor}"
@@ -134,29 +133,29 @@ tasksel install ssh-server
 echo ""
 echo -e "${ColorVerde}Creando las reglas de IPTables...${FinColor}"
 echo ""
-echo "*mangle" > /root/ReglasIPTablesIP4RouterMovistar
-echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "COMMIT" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "*nat" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "-A POSTROUTING -o ppp0 -j MASQUERADE" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "COMMIT" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "*filter" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "-A FORWARD -i ppp0 -o $InterfazCableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "-A FORWARD -i $InterfazCableada2 -o ppp0 -j ACCEPT" >> /root/ReglasIPTablesIP4RouterMovistar
-echo "COMMIT" >> /root/ReglasIPTablesIP4RouterMovistar
+echo "*mangle" > /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "COMMIT" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "*nat" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "-A POSTROUTING -o ppp0 -j MASQUERADE" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "COMMIT" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "*filter" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "-A FORWARD -i ppp0 -o $InterfazCableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "-A FORWARD -i $InterfazCableada2 -o ppp0 -j ACCEPT" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
+echo "COMMIT" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
 
 echo ""
 echo -e "${ColorVerde}Habilitando ip-forwarding...${FinColor}"
