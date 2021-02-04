@@ -28,10 +28,20 @@ echo -e "${ColorVerde}----------------------------------------------------------
 echo ""
 
 echo ""
-echo -e "${ColorVerde}Instalando herramientas de red...${FinColor}"
+echo -e "${ColorVerde}Instalando el servidor SSH...${FinColor}"
 echo ""
 apt-get update
+apt-get -y install tasksel
+tasksel install ssh-server
+
+echo ""
+echo -e "${ColorVerde}Instalando paquetes de red...${FinColor}"
+echo ""
 apt-get -y install vlan pppoe isc-dhcp-server wget
+
+echo ""
+echo -e "${ColorVerde}Activando el módulo 8021q para VLANs...${FinColor}"
+echo ""
 echo 8021q >> /etc/modules
 
 echo ""
@@ -123,12 +133,6 @@ echo ""
 echo -e "${ColorVerde}Agregando datos al archivo pap-secrets...${FinColor}"
 echo ""
 echo '"'$UsuarioPPPMovistar'" * "'$ClavePPPMovistar'"' >> /etc/ppp/pap-secrets
-
-echo ""
-echo -e "${ColorVerde}Instalando el servidor SSH...${FinColor}"
-echo ""
-apt-get -y install tasksel
-tasksel install ssh-server
 
 echo ""
 echo -e "${ColorVerde}Creando las reglas de IPTables...${FinColor}"
