@@ -199,6 +199,11 @@ echo ""
 wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
 
 echo ""
+echo -e "${ColorVerde}Agregando la conexión ppp0 a los ComandosPostArranque...${FinColor}"
+echo ""
+echo "pon MovistarWAN" >> /root/scripts/ComandosPostArranque.sh
+
+echo ""
 echo -e "${ColorVerde}--------------------------------------------------------------------------------------------${FinColor}"
 echo -e "${ColorVerde}Ejecución del script de preparación para la fibra de Movistar, finalizada.${FinColor}"
 echo ""
