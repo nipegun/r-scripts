@@ -198,27 +198,15 @@ echo -e "${ColorVerde}Descargando archivos de nombres de fabricantes...${FinColo
 echo ""
 wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
 
-
 echo ""
-echo -e "${ColorVerde}--------------------------------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}-------------------------------------------------------------------------------------------${FinColor}"
 echo -e "${ColorVerde}Ejecución del script de preparación para la fibra de Movistar, finalizada.${FinColor}"
 echo ""
+echo -e "${ColorVerde}Apagando el dispositivo...${FinColor}"
+echo ""
+echo -e "${ColorVerde}Al acabar de apagarse ya podrás conectar un cable desde el puerto eth0 a la ONT de Movistar${FinColor}"
+echo -e "${ColorVerde}y el puerto eth1 a la WAN de otro router o a cualquier dispositivo que necesite internet.  ${FinColor}"
+echo -e "${ColorVerde}-------------------------------------------------------------------------------------------${FinColor}"
+echo ""
+shutdown -h now
 
-echo -e "${ColorVerde}--------------------------------------------------------------------------${FinColor}"
-echo ""
-
-
-echo ""
-echo "----------------------------------------------------------------------"
-echo "  FINALIZADO."
-echo "  AHORA, EL CABLE ETHERNET QUE VA DEL ORDENADOR AL ROUTER SERCOMM,"
-echo "  DESCONÉCTALO DEL ROUTER Y CONÉCTASELO DIRECTAMENTE A LA ONT"
-echo ""
-echo "  DESPUÉS DE HACERLO REINICIA EL SISTEMA EJECUTANDO:"
-echo "  shutdown -r now"
-echo "  Y DESPUÉS DE REINICIAR TU DEBIAN DEBERÍA ESTAR CONECTADO A LA RED"
-echo "  DE VODAFONE Y YA ESTAR OPERANDO COMO ROUTER."
-echo "  PODRÁS CONECTARLE AL 2DO PUERTO ETHERNET TANTO UN PUNTO DE ACCESO"
-echo "  COMO UN ROUTER EN MODO PUENTE Y YA PODRÄS TENER WIFI"
-echo "----------------------------------------------------------------------"
-echo ""
