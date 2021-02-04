@@ -65,7 +65,7 @@ echo "" >> /etc/network/interfaces
 echo ""
 echo -e "${ColorVerde}Configurando la vlan de datos (6) y prioridad (1)...${FinColor}"
 echo ""
-echo "auto $InterfazCableada1.6" >> /etc/network/interfaces
+echo "auto $InterfazCableada1.6 # Datos" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.6 inet manual" >> /etc/network/interfaces
 echo "  metric 1" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
@@ -82,7 +82,7 @@ echo "" >> /etc/network/interfaces
 echo ""
 echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
 echo ""
-echo "auto $InterfazCableada1.2" >> /etc/network/interfaces
+echo "auto $InterfazCableada1.2 # Televisión" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.2 inet dhcp" >> /etc/network/interfaces
 echo "  metric 4" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
@@ -90,7 +90,7 @@ echo "" >> /etc/network/interfaces
 echo ""
 echo -e "${ColorVerde}Configurando la vlan de voz (3) y prioridad (4)...${FinColor}"
 echo ""
-echo "auto $InterfazCableada1.3" >> /etc/network/interfaces
+echo "auto $InterfazCableada1.3 # Telefonía" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.3 inet dhcp" >> /etc/network/interfaces
 echo "  metric 4" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
