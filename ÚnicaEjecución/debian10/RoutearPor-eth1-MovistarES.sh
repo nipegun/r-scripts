@@ -199,14 +199,18 @@ echo ""
 wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
 
 echo ""
-echo -e "${ColorVerde}-------------------------------------------------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}--------------------------------------------------------------------------------------------${FinColor}"
 echo -e "${ColorVerde}Ejecución del script de preparación para la fibra de Movistar, finalizada.${FinColor}"
 echo ""
 echo -e "${ColorVerde}Apagando el dispositivo...${FinColor}"
 echo ""
-echo -e "${ColorVerde}Al acabar de apagarse ya podrás conectar un cable desde el puerto eth0 a la ONT de Movistar${FinColor}"
-echo -e "${ColorVerde}y el puerto eth1 a la WAN de otro router o a cualquier dispositivo que necesite internet.  ${FinColor}"
-echo -e "${ColorVerde}-------------------------------------------------------------------------------------------${FinColor}"
+echo -e "${ColorVerde}Al acabar de apagarse ya podrás conectar un cable desde el puerto eth0 a la ONT de Movistar ${FinColor}"
+echo -e "${ColorVerde}y el puerto eth1 a la WAN de otro router o a cualquier dispositivo que necesite internet.   ${FinColor}"
+echo ""
+echo -e "${ColorVerde}Si por alguna razónla interfaz ppp0 no se levanta, puedes levantarla manualmente ejecutando:${FinColor}"
+echo ""
+echo "pon MovistarWAN"
+echo -e "${ColorVerde}--------------------------------------------------------------------------------------------${FinColor}"
 echo ""
 shutdown -h now
 
