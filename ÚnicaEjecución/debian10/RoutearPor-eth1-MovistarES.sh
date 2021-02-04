@@ -31,7 +31,7 @@ echo ""
 echo -e "${ColorVerde}Instalando herramientas de red...${FinColor}"
 echo ""
 apt-get update
-apt-get -y install vlan pppoe isc-dhcp-server
+apt-get -y install vlan pppoe isc-dhcp-server wget
 echo 8021q >> /etc/modules
 
 echo ""
