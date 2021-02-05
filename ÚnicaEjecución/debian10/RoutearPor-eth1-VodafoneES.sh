@@ -77,7 +77,8 @@ echo -e "${ColorVerde}Configurando la vlan de datos (100) y voz (100)...${FinCol
 echo ""
 echo "auto $InterfazCableada1.100 # Datos y voz" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.100 inet manual" >> /etc/network/interfaces
-echo "  metric 1" >> /etc/network/interfaces
+echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
+echo "  metric 0" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
@@ -90,18 +91,11 @@ echo "  provider VodafoneWAN" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
-echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
+echo -e "${ColorVerde}Configurando la vlan de televisión (105) y prioridad (4)...${FinColor}"
 echo ""
-echo "auto $InterfazCableada1.2 # Televisión" >> /etc/network/interfaces
-echo "  iface $InterfazCableada1.2 inet dhcp" >> /etc/network/interfaces
-echo "  metric 4" >> /etc/network/interfaces
-echo "" >> /etc/network/interfaces
-
-echo ""
-echo -e "${ColorVerde}Configurando la vlan de voz (3) y prioridad (4)...${FinColor}"
-echo ""
-echo "auto $InterfazCableada1.3 # Telefonía" >> /etc/network/interfaces
-echo "  iface $InterfazCableada1.3 inet dhcp" >> /etc/network/interfaces
+echo "auto $InterfazCableada1.105 # Televisión" >> /etc/network/interfaces
+echo "  iface $InterfazCableada1.105 inet dhcp" >> /etc/network/interfaces
+echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
 echo "  metric 4" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
@@ -120,7 +114,7 @@ echo "#mtu 1492" >> /etc/ppp/peers/VodafoneWAN
 echo "#maxfail 0" >> /etc/ppp/peers/VodafoneWAN
 echo "#holdoff 20" >> /etc/ppp/peers/VodafoneWAN
 echo "plugin rp-pppoe.so" >> /etc/ppp/peers/VodafoneWAN
-echo "nic-$InterfazCableada1.6" >> /etc/ppp/peers/VodafoneWAN
+echo "nic-$InterfazCableada1.100" >> /etc/ppp/peers/VodafoneWAN
 echo 'user "'$UsuarioPPPVodafone'"' >> /etc/ppp/peers/VodafoneWAN
 echo "usepeerdns" >> /etc/ppp/peers/VodafoneWAN
 
