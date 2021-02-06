@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 #------------------------------------------------------------------------------------
-#  Script de NiPeGun para crear instalar el firmware ath10k de Candela Technologies 
+#  Script de NiPeGun para crear instalar el firmware ath10k de Candela Technologies
 #------------------------------------------------------------------------------------
 
 ColorVerde="\033[1;32m"
@@ -39,7 +39,7 @@ echo -e "${ColorVerde}Descomprimiendo el ipk...${FinColor}"
 echo ""
 cd /tmp
 tar zxpvf /tmp/qca9984-ct-htt.ipk
-tar zxpvf /tmp/data.tar.gz 
+tar zxpvf /tmp/data.tar.gz
 
 echo ""
 echo -e "${ColorVerde}Copiando archivos de firmware a la ubicación correspondiente...${FinColor}"
