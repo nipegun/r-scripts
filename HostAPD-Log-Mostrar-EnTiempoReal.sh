@@ -10,5 +10,5 @@
 #--------------------------------------------------
 
 #cat /var/log/syslog | grep hostapd
-tail /var/log/hostapd.log
+tail -f /var/log/hostapd.log
 
