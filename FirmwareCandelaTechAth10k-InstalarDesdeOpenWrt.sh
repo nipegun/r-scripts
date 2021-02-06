@@ -56,6 +56,20 @@ cp /tmp/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin        /usr/lib/firmware/a
 cp /tmp/lib/firmware/ath10k/QCA9984/hw1.0/ct-firmware-5.bin  /usr/lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
 
 echo ""
+echo -e "${ColorVerde}Copiando archivos de firmware a la ubicación correspondiente...${FinColor}"
+echo ""
+# QCA9984 /lib/
+rm -rf /lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
+rm -rf /lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
+wget --no-check-certificate hacks4geeks.com/_/premium/descargas/Debian/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin     -O /lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
+wget --no-check-certificate hacks4geeks.com/_/premium/descargas/Debian/lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin  -O /lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
+# QCA9984 /usr/lib/
+rm -rf /usr/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
+rm -rf /usr/lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
+wget --no-check-certificate hacks4geeks.com/_/premium/descargas/Debian/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin     -O /usr/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
+wget --no-check-certificate hacks4geeks.com/_/premium/descargas/Debian/lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin  -O /usr/lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
+
+echo ""
 echo -e "${ColorVerde}-----------------------------------------------------------------------${FinColor}"
 echo -e "${ColorVerde}Script de instalación de los drivers ath10k de CandelaTech, finalizado.${FinColor}"
 echo -e "${ColorVerde}-----------------------------------------------------------------------${FinColor}"
