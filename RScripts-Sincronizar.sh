@@ -29,7 +29,7 @@ wget -q --tries=10 --timeout=20 --spider https://github.com
     mkdir -p /root/scripts/r-scripts/Alias/
     rm /root/scripts/r-scripts/.git -R 2> /dev/null
     find /root/scripts/r-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
-    /root/scripts/r-scripts/RScripts-CrearAlias.sh.sh
+    /root/scripts/r-scripts/RScripts-CrearAlias.sh
     echo ""
     echo -e "${ColorVerde}-------------------------------------${FinColor}"
     echo -e "${ColorVerde}r-scripts sincronizados correctamente${FinColor}"
