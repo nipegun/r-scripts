@@ -45,9 +45,13 @@ echo ""
 echo -e "${ColorVerde}Copiando archivos de firmware a la ubicación correspondiente...${FinColor}"
 echo ""
 # QCA9984 /lib/
+rm -rf /lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
+rm -rf /lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
 cp /tmp/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin        /lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
 cp /tmp/lib/firmware/ath10k/QCA9984/hw1.0/ct-firmware-5.bin  /lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
 # QCA9984 /usr/lib/
+rm -rf /usr/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
+rm -rf /usr/lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
 cp /tmp/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin        /usr/lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
 cp /tmp/lib/firmware/ath10k/QCA9984/hw1.0/ct-firmware-5.bin  /usr/lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
 
