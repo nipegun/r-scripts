@@ -9,6 +9,9 @@
 #  Script de NiPeGun para ver los logs de hostapd
 #--------------------------------------------------
 
-#cat /var/log/syslog | grep hostapd
-tail /var/log/hostapd.log | grep AP-STA
+# En el archivo de registro por defecto
+#cat /var/log/syslog | grep hostapd | grep AP-STA
+
+# En el archivo de registro personalizado
+cat /var/log/hostapd.log | grep AP-STA
 
