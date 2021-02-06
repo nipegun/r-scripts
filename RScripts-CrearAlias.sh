@@ -16,7 +16,7 @@ echo ""
 echo -e "${ColorVerde}Creando alias para los r-scripts...${FinColor}"
 echo ""
 
-ln -s /root/scripts/r-scripts/SINcronizarRScripts.sh       /root/scripts/r-scripts/Alias/sinrs
+ln -s /root/scripts/r-scripts/RScripts-Sincronizar.sh      /root/scripts/r-scripts/Alias/sinrs
 
 ln -s /root/scripts/r-scripts/DHCP-Editar.sh               /root/scripts/r-scripts/Alias/edhcp
 ln -s /root/scripts/r-scripts/HostAPD-Editar.sh            /root/scripts/r-scripts/Alias/ehostapd
