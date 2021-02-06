@@ -9,6 +9,6 @@
 #  Script de NiPeGun para ver los logs de hostapd
 #--------------------------------------------------
 
-#cat /var/log/syslog | grep hostapd
+#cat -f /var/log/syslog | grep hostapd
 tail -f /var/log/hostapd.log
 
