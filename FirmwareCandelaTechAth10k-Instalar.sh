@@ -30,9 +30,13 @@ apt-get -y autoremove
 apt-get -y install firmware-atheros
 
 echo ""
-echo -e "${ColorVerde}Bajando el firmware desde OpenWrt...${FinColor}"
+echo -e "${ColorVerde}Bajando el paquete del firmware desde OpenWrt...${FinColor}"
 echo ""
 wget --no-check-certificate $URLFirmAthHTTOpenWrt -O /tmp/qca9984-ct-htt.ipk
+
+echo ""
+echo -e "${ColorVerde}Descomprimiendo el ipk...${FinColor}"
+echo ""
 cd /tmp
 tar zxpvf /tmp/qca9984-ct-htt.ipk
 tar zxpvf /tmp/data.tar.gz 
