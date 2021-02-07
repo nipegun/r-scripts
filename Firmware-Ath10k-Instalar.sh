@@ -24,6 +24,8 @@ echo ""
 apt-get -y update
 apt-get -y purge firmware-atheros
 apt-get -y autoremove
+rm -rf /lib/firmware/ath10k/QCA9984/hw1.0/board-2.bin
+rm -rf /lib/firmware/ath10k/QCA9984/hw1.0/firmware-5.bin
 apt-get -y install firmware-atheros
 
 echo ""
