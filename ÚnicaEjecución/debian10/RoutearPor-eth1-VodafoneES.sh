@@ -13,9 +13,9 @@
 
 InterfazCableada1=eth0
 InterfazCableada2=eth1
-UsuarioPPPVodafone=xxx
-ClavePPPVodafone=xxx
-MacDelRouterVodafone=00:00:00:00:00:00
+UsuarioPPPVodafone="xxx"
+ClavePPPVodafone="xxx"
+MacDelRouterVodafone="00:00:00:00:00:00"
 
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
@@ -57,7 +57,7 @@ echo -e "${ColorVerde}Configurando la interfaz WAN...${FinColor}"
 echo ""
 echo "auto $InterfazCableada1" >> /etc/network/interfaces
 echo "  allow-hotplug $InterfazCableada1" >> /etc/network/interfaces
-echo "  iface $InterfazCableada1 inet dhcp" >> /etc/network/interfaces
+echo "  iface $InterfazCableada1 inet manual" >> /etc/network/interfaces
 echo "  #hwaddress ether $MacDelRouterVodafone # Necesario para evitar futuros problemas" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
@@ -73,8 +73,9 @@ echo "  broadcast 192.168.0.255" >> /etc/network/interfaces
 echo "" >> /etc/network/interfaces
 
 echo ""
-echo -e "${ColorVerde}Configurando la vlan de datos (100) y voz (100)...${FinColor}"
+echo -e "${ColorVerde}Configurando la vlan de datos (100) y telefonía (100)...${FinColor}"
 echo ""
+echo "# VLAN de Datos y Telefonía" >> /etc/network/interfaces
 echo "auto $InterfazCableada1.100 # Datos y voz" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.100 inet manual" >> /etc/network/interfaces
 echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
@@ -93,7 +94,8 @@ echo "" >> /etc/network/interfaces
 echo ""
 echo -e "${ColorVerde}Configurando la vlan de televisión (105) y prioridad (4)...${FinColor}"
 echo ""
-echo "auto $InterfazCableada1.105 # Televisión" >> /etc/network/interfaces
+echo "# VLAN de Televisión" >> /etc/network/interfaces
+echo "auto $InterfazCableada1.105" >> /etc/network/interfaces
 echo "  iface $InterfazCableada1.105 inet dhcp" >> /etc/network/interfaces
 echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
 echo "  metric 4" >> /etc/network/interfaces
@@ -212,3 +214,4 @@ echo "pon VodafoneWAN"
 echo -e "${ColorVerde}--------------------------------------------------------------------------------------------${FinColor}"
 echo ""
 shutdown -h now
+
