@@ -15,7 +15,8 @@ InterfazCableada1=eth0
 InterfazCableada2=eth1
 UsuarioPPPMovistar="adslppp@telefonicanetpa"
 ClavePPPMovistar="adslppp"
-MacDelRouterMovistar="00:00:00:00:00:00"
+IPDeIPTV="10.0.0.1"
+MacWANDelRouterMovistar="00:00:00:00:00:00"
 
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
@@ -55,11 +56,11 @@ echo ""                                                                      >> 
 echo ""
 echo -e "${ColorVerde}Configurando la interfaz WAN...${FinColor}"
 echo ""
-echo "auto $InterfazCableada1"                                                            >> /etc/network/interfaces
-echo "  allow-hotplug $InterfazCableada1"                                                 >> /etc/network/interfaces
-echo "  iface $InterfazCableada1 inet manual"                                             >> /etc/network/interfaces
-echo "  #hwaddress ether $MacDelRouterMovistar # Necesario para evitar futuros problemas" >> /etc/network/interfaces
-echo ""                                                                                   >> /etc/network/interfaces
+echo "auto $InterfazCableada1"                                                               >> /etc/network/interfaces
+echo "  allow-hotplug $InterfazCableada1"                                                    >> /etc/network/interfaces
+echo "  iface $InterfazCableada1 inet manual"                                                >> /etc/network/interfaces
+echo "  #hwaddress ether $MacWANDelRouterMovistar # Necesario para evitar futuros problemas" >> /etc/network/interfaces
+echo ""                                                                                      >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Configurando la interfaz LAN...${FinColor}"
@@ -106,7 +107,8 @@ echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...
 echo ""
 echo "# VLAN de Televisión"                                                                              >> /etc/network/interfaces
 echo "auto $InterfazCableada1.2"                                                                         >> /etc/network/interfaces
-echo "  iface $InterfazCableada1.2 inet dhcp"                                                            >> /etc/network/interfaces
+echo "  iface $InterfazCableada1.2 inet static"                                                          >> /etc/network/interfaces
+echo "  address $IPDeIPTV"                                                                               >> /etc/network/interfaces
 echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
 echo "  metric 4"                                                                                        >> /etc/network/interfaces
 echo ""                                                                                                  >> /etc/network/interfaces
@@ -153,7 +155,8 @@ echo "nopcomp"                                 >> /etc/ppp/peers/MovistarWAN
 echo "novj"                                    >> /etc/ppp/peers/MovistarWAN
 echo "novjccomp"                               >> /etc/ppp/peers/MovistarWAN
 echo "persist"                                 >> /etc/ppp/peers/MovistarWAN
-echo "plugin rp-pppoe.so $InterfazCableada1.6" >> /etc/ppp/peers/MovistarWAN
+echo "plugin rp-pppoe.so"                      >> /etc/ppp/peers/MovistarWAN
+echo "nic-$InterfazCableada1.6"                >> /etc/ppp/peers/MovistarWAN
 echo "updetach"                                >> /etc/ppp/peers/MovistarWAN
 echo "usepeerdns"                              >> /etc/ppp/peers/MovistarWAN
 echo 'user "'$UsuarioPPPMovistar'"'            >> /etc/ppp/peers/MovistarWAN
