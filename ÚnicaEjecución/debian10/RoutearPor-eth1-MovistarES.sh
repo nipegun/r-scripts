@@ -63,25 +63,14 @@ echo "  #hwaddress ether $MacWANDelRouterMovistar # Necesario para evitar futuro
 echo ""                                                                                      >> /etc/network/interfaces
 
 echo ""
-echo -e "${ColorVerde}Configurando la interfaz LAN...${FinColor}"
-echo ""
-echo "auto $InterfazCableada2"                >> /etc/network/interfaces
-echo "  iface $InterfazCableada2 inet static" >> /etc/network/interfaces
-echo "  address 192.168.0.1"                  >> /etc/network/interfaces
-echo "  network 192.168.0.0"                  >> /etc/network/interfaces
-echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
-echo "  broadcast 192.168.0.255"              >> /etc/network/interfaces
-echo ""                                       >> /etc/network/interfaces
-
-echo ""
 echo -e "${ColorVerde}Configurando la vlan de datos (6) y prioridad (1)...${FinColor}"
 echo ""
-echo "# VLAN de Datos"                                                                                   >> /etc/network/interfaces
-echo "auto $InterfazCableada1.6"                                                                         >> /etc/network/interfaces
-echo "  iface $InterfazCableada1.6 inet manual"                                                          >> /etc/network/interfaces
-echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
-echo "  metric 1"                                                                                        >> /etc/network/interfaces
-echo ""                                                                                                  >> /etc/network/interfaces
+echo "# VLAN de Datos"                                                                                    >> /etc/network/interfaces
+echo "auto $InterfazCableada1.6"                                                                          >> /etc/network/interfaces
+echo "  iface $InterfazCableada1.6 inet manual"                                                           >> /etc/network/interfaces
+echo "  #vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
+echo "  metric 1"                                                                                         >> /etc/network/interfaces
+echo ""                                                                                                   >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Configurando la conexión PPP...${FinColor}"
@@ -95,27 +84,40 @@ echo ""                                                  >> /etc/network/interfa
 echo ""
 echo -e "${ColorVerde}Configurando la vlan de voz (3) y prioridad (4)...${FinColor}"
 echo ""
-echo "# VLAN de Telefonía"                                                                               >> /etc/network/interfaces
-echo "auto $InterfazCableada1.3"                                                                         >> /etc/network/interfaces
-echo "  iface $InterfazCableada1.3 inet dhcp"                                                            >> /etc/network/interfaces
-echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
-echo "  metric 4"                                                                                        >> /etc/network/interfaces
-echo ""                                                                                                  >> /etc/network/interfaces
+echo "# VLAN de VoIP"                                                                                     >> /etc/network/interfaces
+echo "auto $InterfazCableada1.3"                                                                          >> /etc/network/interfaces
+echo "  iface $InterfazCableada1.3 inet dhcp"                                                             >> /etc/network/interfaces
+echo "  #vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
+echo "  metric 4"                                                                                         >> /etc/network/interfaces
+echo ""                                                                                                   >> /etc/network/interfaces
+
+#echo ""
+#echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
+#echo ""
+#echo "# VLAN de IPTV"                                                                                     >> /etc/network/interfaces
+#echo "auto $InterfazCableada1.2"                                                                          >> /etc/network/interfaces
+#echo "  iface $InterfazCableada1.2 inet static"                                                           >> /etc/network/interfaces
+#echo "  address $IPDeIPTV"                                                                                >> /etc/network/interfaces
+#echo "  #vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
+#echo "  metric 4"                                                                                         >> /etc/network/interfaces
+#echo ""                                                                                                   >> /etc/network/interfaces
 
 echo ""
-echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
+echo -e "${ColorVerde}Configurando la interfaz LAN...${FinColor}"
 echo ""
-echo "# VLAN de Televisión"                                                                              >> /etc/network/interfaces
-echo "auto $InterfazCableada1.2"                                                                         >> /etc/network/interfaces
-echo "  iface $InterfazCableada1.2 inet static"                                                          >> /etc/network/interfaces
-echo "  address $IPDeIPTV"                                                                               >> /etc/network/interfaces
-echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
-echo "  metric 4"                                                                                        >> /etc/network/interfaces
-echo ""                                                                                                  >> /etc/network/interfaces
+echo "auto $InterfazCableada2"                >> /etc/network/interfaces
+echo "  iface $InterfazCableada2 inet static" >> /etc/network/interfaces
+echo "  address 192.168.0.1"                  >> /etc/network/interfaces
+echo "  network 192.168.0.0"                  >> /etc/network/interfaces
+echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
+echo "  broadcast 192.168.0.255"              >> /etc/network/interfaces
+echo ""                                       >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Creando el archivo para el proveedor PPPoE...${FinColor}"
 echo ""
+
+######################################################################
 echo "noipdefault" > /etc/ppp/peers/MovistarWAN
 echo "defaultroute" >> /etc/ppp/peers/MovistarWAN
 echo "replacedefaultroute" >> /etc/ppp/peers/MovistarWAN
@@ -131,7 +133,7 @@ echo "plugin rp-pppoe.so" >> /etc/ppp/peers/MovistarWAN
 echo "nic-$InterfazCableada1.6" >> /etc/ppp/peers/MovistarWAN
 echo 'user "'$UsuarioPPPMovistar'"' >> /etc/ppp/peers/MovistarWAN
 echo "usepeerdns" >> /etc/ppp/peers/MovistarWAN
-
+######################################################################
 
 echo "connect /bin/true"                        > /etc/ppp/peers/MovistarWAN
 echo "default-asyncmap"                        >> /etc/ppp/peers/MovistarWAN
