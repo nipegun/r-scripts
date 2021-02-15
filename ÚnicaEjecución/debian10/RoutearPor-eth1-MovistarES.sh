@@ -15,7 +15,7 @@ InterfazCableada1=eth0
 InterfazCableada2=eth1
 UsuarioPPPMovistar="adslppp@telefonicanetpa"
 ClavePPPMovistar="adslppp"
-IPDeIPTV="10.x.x.x"
+IPDeIPTV="2.2.2.2"
 MacWANDelRouterMovistar="00:00:00:00:00:00"
 
 ColorRojo='\033[1;31m'
@@ -91,16 +91,16 @@ echo "  #vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con u
 echo "  metric 4"                                                                                         >> /etc/network/interfaces
 echo ""                                                                                                   >> /etc/network/interfaces
 
-#echo ""
-#echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
-#echo ""
-#echo "# VLAN de IPTV"                                                                                     >> /etc/network/interfaces
-#echo "auto $InterfazCableada1.2"                                                                          >> /etc/network/interfaces
-#echo "  iface $InterfazCableada1.2 inet static"                                                           >> /etc/network/interfaces
-#echo "  address $IPDeIPTV"                                                                                >> /etc/network/interfaces
-#echo "  #vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
-#echo "  metric 4"                                                                                         >> /etc/network/interfaces
-#echo ""                                                                                                   >> /etc/network/interfaces
+echo ""
+echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
+echo ""
+echo "# VLAN de IPTV"                                                                                     >> /etc/network/interfaces
+echo "auto $InterfazCableada1.2"                                                                          >> /etc/network/interfaces
+echo "  iface $InterfazCableada1.2 inet static"                                                           >> /etc/network/interfaces
+echo "  address $IPDeIPTV"                                                                                >> /etc/network/interfaces
+echo "  #vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
+echo "  metric 4"                                                                                         >> /etc/network/interfaces
+echo ""                                                                                                   >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Configurando la interfaz LAN...${FinColor}"
