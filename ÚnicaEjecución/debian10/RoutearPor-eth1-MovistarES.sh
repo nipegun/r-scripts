@@ -105,36 +105,25 @@ echo ""                                                                         
 echo ""
 echo -e "${ColorVerde}Configurando la interfaz LAN...${FinColor}"
 echo ""
-echo "auto $InterfazCableada2"                >> /etc/network/interfaces
-echo "  iface $InterfazCableada2 inet static" >> /etc/network/interfaces
-echo "  address 192.168.0.1"                  >> /etc/network/interfaces
-echo "  network 192.168.0.0"                  >> /etc/network/interfaces
-echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
-echo "  broadcast 192.168.0.255"              >> /etc/network/interfaces
-echo ""                                       >> /etc/network/interfaces
+echo "auto $InterfazCableada2"                                                                                                >> /etc/network/interfaces
+echo "  iface $InterfazCableada2 inet static"                                                                                 >> /etc/network/interfaces
+echo "  address 192.168.0.1"                                                                                                  >> /etc/network/interfaces
+echo "  network 192.168.0.0"                                                                                                  >> /etc/network/interfaces
+echo "  netmask 255.255.255.0"                                                                                                >> /etc/network/interfaces
+echo "  broadcast 192.168.0.255"                                                                                              >> /etc/network/interfaces
+echo "  post-up   echo 1 > /proc/sys/net/ipv4/ip_forward"                                                                     >> /etc/network/interfaces
+echo "  post-down echo 0 > /proc/sys/net/ipv4/ip_forward"                                                                     >> /etc/network/interfaces
+echo "  post-up   iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE"                                                       >> /etc/network/interfaces 
+echo "  post-down iptables -t nat -D POSTROUTING -o ppp0 -j MASQUERADE"                                                       >> /etc/network/interfaces
+echo "  post-up   iptables -t filter -A FORWARD -i ppp0 -o $InterfazCableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /etc/network/interfaces
+echo "  post-down iptables -t filter -D FORWARD -i ppp0 -o $InterfazCableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /etc/network/interfaces
+echo "  post-up   iptables -t filter -A FORWARD -i $InterfazCableada2 -o ppp0 -j ACCEPT"                                      >> /etc/network/interfaces
+echo "  post-down iptables -t filter -D FORWARD -i $InterfazCableada2 -o ppp0 -j ACCEPT"                                      >> /etc/network/interfaces
+echo ""                                                                                                                       >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Creando el archivo para el proveedor PPPoE...${FinColor}"
 echo ""
-
-######################################################################
-echo "noipdefault" > /etc/ppp/peers/MovistarWAN
-echo "defaultroute" >> /etc/ppp/peers/MovistarWAN
-echo "replacedefaultroute" >> /etc/ppp/peers/MovistarWAN
-echo "hide-password" >> /etc/ppp/peers/MovistarWAN
-echo "#lcp-echo-interval 30" >> /etc/ppp/peers/MovistarWAN
-echo "#lcp-echo-failure 4" >> /etc/ppp/peers/MovistarWAN
-echo "noauth" >> /etc/ppp/peers/MovistarWAN
-echo "persist" >> /etc/ppp/peers/MovistarWAN
-echo "#mtu 1492" >> /etc/ppp/peers/MovistarWAN
-echo "#maxfail 0" >> /etc/ppp/peers/MovistarWAN
-echo "#holdoff 20" >> /etc/ppp/peers/MovistarWAN
-echo "plugin rp-pppoe.so" >> /etc/ppp/peers/MovistarWAN
-echo "nic-$InterfazCableada1.6" >> /etc/ppp/peers/MovistarWAN
-echo 'user "'$UsuarioPPPMovistar'"' >> /etc/ppp/peers/MovistarWAN
-echo "usepeerdns" >> /etc/ppp/peers/MovistarWAN
-######################################################################
-
 echo "connect /bin/true"                        > /etc/ppp/peers/MovistarWAN
 echo "default-asyncmap"                        >> /etc/ppp/peers/MovistarWAN
 echo "defaultroute"                            >> /etc/ppp/peers/MovistarWAN
@@ -174,39 +163,6 @@ echo ""
 echo '"'$UsuarioPPPMovistar'" * "'$ClavePPPMovistar'"' >> /etc/ppp/pap-secrets
 
 echo ""
-echo -e "${ColorVerde}Creando las reglas de IPTables...${FinColor}"
-echo ""
-echo "*mangle"                                                                                  > /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":PREROUTING ACCEPT [0:0]"                                                                >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":INPUT ACCEPT [0:0]"                                                                     >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":FORWARD ACCEPT [0:0]"                                                                   >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":OUTPUT ACCEPT [0:0]"                                                                    >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":POSTROUTING ACCEPT [0:0]"                                                               >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "COMMIT"                                                                                  >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ""                                                                                        >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "*nat"                                                                                    >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":PREROUTING ACCEPT [0:0]"                                                                >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":INPUT ACCEPT [0:0]"                                                                     >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":OUTPUT ACCEPT [0:0]"                                                                    >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":POSTROUTING ACCEPT [0:0]"                                                               >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "-A POSTROUTING -o ppp0 -j MASQUERADE"                                                    >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "COMMIT"                                                                                  >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ""                                                                                        >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "*filter"                                                                                 >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":INPUT ACCEPT [0:0]"                                                                     >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":FORWARD ACCEPT [0:0]"                                                                   >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo ":OUTPUT ACCEPT [0:0]"                                                                    >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "-A FORWARD -i ppp0 -o $InterfazCableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "-A FORWARD -i $InterfazCableada2 -o ppp0 -j ACCEPT"                                      >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-echo "COMMIT"                                                                                  >> /root/ReglasIPTablesIP4RouterMovistar.ipt
-
-echo ""
-echo -e "${ColorVerde}Habilitando ip-forwarding...${FinColor}"
-echo ""
-cp /etc/sysctl.conf /etc/sysctl.conf.bak
-sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
-
-echo ""
 echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
 echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
 echo ""
@@ -237,10 +193,10 @@ echo -e "${ColorVerde}Descargando archivos de nombres de fabricantes...${FinColo
 echo ""
 wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
 
-echo ""
-echo -e "${ColorVerde}Agregando la conexión ppp0 a los ComandosPostArranque...${FinColor}"
-echo ""
-echo "pon MovistarWAN" >> /root/scripts/ComandosPostArranque.sh
+#echo ""
+#echo -e "${ColorVerde}Agregando la conexión ppp0 a los ComandosPostArranque...${FinColor}"
+#echo ""
+#echo "pon MovistarWAN" >> /root/scripts/ComandosPostArranque.sh
 
 echo ""
 echo -e "${ColorVerde}--------------------------------------------------------------------------------------------${FinColor}"
