@@ -13,7 +13,7 @@ ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
 ColorFin='\033[0m'
 
-SubredLAN="192.168.1.0/24"
+RangoDeIPsAControlar="192.168.1.0/24"
 IPLANDelRouter="192.168.1.1"
 
 echo ""
@@ -33,19 +33,19 @@ fi
 /root/scripts/r-scripts/DNS-DNATHaciaLaIPLANDelRouter-Desactivar.sh
 
 # Crear el archivo con las reglas
-echo "table NAT {"                                                       > /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo ""                                                                 >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "  chain prerouting {"                                             >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "    type nat hook prerouting priority 0"                          >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "    tcp dport   53 ip saddr $SubredLAN dnat $IPLANDelRouter:53"   >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "    udp dport   53 ip saddr $SubredLAN dnat $IPLANDelRouter:53"   >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "    tcp dport  853 ip saddr $SubredLAN dnat $IPLANDelRouter:853"  >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "    udp dport  853 ip saddr $SubredLAN dnat $IPLANDelRouter:853"  >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "    tcp dport 5353 ip saddr $SubredLAN dnat $IPLANDelRouter:5353" >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "    udp dport 5353 ip saddr $SubredLAN dnat $IPLANDelRouter:5353" >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "  }"                                                              >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo ""                                                                 >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
-echo "}"                                                                >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "table NAT {"                                                                  > /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo ""                                                                            >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "  chain prerouting {"                                                        >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "    type nat hook prerouting priority 0"                                     >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "    tcp dport   53 ip saddr $RangoDeIPsAControlar dnat $IPLANDelRouter:53"   >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "    udp dport   53 ip saddr $RangoDeIPsAControlar dnat $IPLANDelRouter:53"   >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "    tcp dport  853 ip saddr $RangoDeIPsAControlar dnat $IPLANDelRouter:853"  >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "    udp dport  853 ip saddr $RangoDeIPsAControlar dnat $IPLANDelRouter:853"  >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "    tcp dport 5353 ip saddr $RangoDeIPsAControlar dnat $IPLANDelRouter:5353" >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "    udp dport 5353 ip saddr $RangoDeIPsAControlar dnat $IPLANDelRouter:5353" >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "  }"                                                                         >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo ""                                                                            >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+echo "}"                                                                           >> /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
 
 # Incluir el archivo con las reglas en el archivo de configuración de NFTables
 sed -i '/^flush ruleset/a include "/root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft"' /etc/nftables.conf
