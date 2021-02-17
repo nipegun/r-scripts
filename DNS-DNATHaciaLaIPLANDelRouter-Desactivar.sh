@@ -9,6 +9,12 @@
 #  Script de NiPeGun para desactivar el reenvio de todo el tráfico DNS hacia la IP LAN del router
 #--------------------------------------------------------------------------------------------------
 
+# Borrar el archivo de reglas
 rm -rf /root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft
+
+# Borrar la inclusión de la reglas en el archivo de configuración de NFTables
 sed -i -e 's|include "/root/scripts/NFTables-DNS-DNATHaciaLaIPLANDelRouter.nft"||g' /etc/nftables.conf
+
+# Recargar NFTables
+nft --file /etc/nftables.conf
 
