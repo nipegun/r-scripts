@@ -23,7 +23,7 @@ echo ""
 # Comprobar si el paquete nftables está instalado. Si no lo está, instalarlo.
 if [[ $(dpkg-query -s nftables 2>/dev/null | grep installed) == "" ]]; then
     echo ""
-    echo "nftables no está instalado. Se procederá a su instalación..."
+    echo "nftables no está instalado. Iniciando su instalación..."
     echo ""
     apt-get -y update
     apt-get -y install nftables
