@@ -20,7 +20,7 @@ echo ""
 echo -e "${ColorVerde}Activando el reenvio del tráfico DNS hacia la IP LAN del router...${ColorFin}"
 echo ""
 
-# Comprobar si el paquete nftables está instalado. Si no está, instalarlo.
+# Comprobar si el paquete nftables está instalado. Si no lo está, instalarlo.
 if [[ $(dpkg-query -s nftables 2>/dev/null | grep installed) == "" ]]; then
     echo ""
     echo "nftables no está instalado. Se procederá a su instalación..."
