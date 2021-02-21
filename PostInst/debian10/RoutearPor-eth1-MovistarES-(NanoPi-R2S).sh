@@ -17,6 +17,7 @@ UsuarioPPPMovistar="adslppp@telefonicanetpa"
 ClavePPPMovistar="adslppp"
 IPDeIPTV="2.2.2.2"
 MacWANDelRouterMovistar="00:00:00:00:00:00"
+MacDelRouterAConectarAlPuertoLAN="00:00:00:00:00:00"
 
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
@@ -31,7 +32,7 @@ echo ""
 echo ""
 echo -e "${ColorVerde}Instalando paquetes de red...${FinColor}"
 echo ""
-apt-get -y install vlan pppoe isc-dhcp-server wget
+#apt-get -y install vlan pppoe isc-dhcp-server wget
 
 echo ""
 echo -e "${ColorVerde}Activando el módulo 8021q para VLANs...${FinColor}"
@@ -75,21 +76,21 @@ echo ""
 echo -e "${ColorVerde}Configurando la vlan de voz (3) y prioridad (4)...${FinColor}"
 echo ""
 echo "# VLAN de VoIP"                                                                               >> /etc/network/interfaces
-echo "auto $InterfazWAN.3"                                                                          >> /etc/network/interfaces
-echo "  iface $InterfazWAN.3 inet dhcp"                                                             >> /etc/network/interfaces
-echo "  vlan-raw-device $InterfazWAN # Necesario si la vlan se crea con un nombre no convencional"  >> /etc/network/interfaces
-echo "  metric 4"                                                                                   >> /etc/network/interfaces
+echo "#auto $InterfazWAN.3"                                                                         >> /etc/network/interfaces
+echo "#  iface $InterfazWAN.3 inet dhcp"                                                            >> /etc/network/interfaces
+echo "#  vlan-raw-device $InterfazWAN # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
+echo "#  metric 4"                                                                                  >> /etc/network/interfaces
 echo ""                                                                                             >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Configurando la vlan de televisión (2) y prioridad (4)...${FinColor}"
 echo ""
 echo "# VLAN de IPTV"                                                                               >> /etc/network/interfaces
-echo "auto $InterfazWAN.2"                                                                          >> /etc/network/interfaces
-echo "  iface $InterfazWAN.2 inet static"                                                           >> /etc/network/interfaces
-echo "  address $IPDeIPTV"                                                                          >> /etc/network/interfaces
-echo "  vlan-raw-device $InterfazWAN # Necesario si la vlan se crea con un nombre no convencional"  >> /etc/network/interfaces
-echo "  metric 4"                                                                                   >> /etc/network/interfaces
+echo "#auto $InterfazWAN.2"                                                                          >> /etc/network/interfaces
+echo "#  iface $InterfazWAN.2 inet static"                                                           >> /etc/network/interfaces
+echo "#  address $IPDeIPTV"                                                                          >> /etc/network/interfaces
+echo "#  vlan-raw-device $InterfazWAN # Necesario si la vlan se crea con un nombre no convencional"  >> /etc/network/interfaces
+echo "#  metric 4"                                                                                   >> /etc/network/interfaces
 echo ""                                                                                             >> /etc/network/interfaces
 
 echo ""
@@ -103,13 +104,14 @@ echo "  netmask 255.255.255.0"                                                  
 echo "  broadcast 192.168.0.255"                                                                                        >> /etc/network/interfaces
 echo "  post-up   echo 1 > /proc/sys/net/ipv4/ip_forward"                                                               >> /etc/network/interfaces
 echo "  post-down echo 0 > /proc/sys/net/ipv4/ip_forward"                                                               >> /etc/network/interfaces
-echo "  post-up   iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE"                                                 >> /etc/network/interfaces 
+echo "  post-up   iptables -t nat -A POSTROUTING -o ppp0 -j MASQUERADE"                                                 >> /etc/network/interfaces
 echo "  post-down iptables -t nat -D POSTROUTING -o ppp0 -j MASQUERADE"                                                 >> /etc/network/interfaces
 echo "  post-up   iptables -t filter -A FORWARD -i ppp0 -o $InterfazLAN -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /etc/network/interfaces
 echo "  post-down iptables -t filter -D FORWARD -i ppp0 -o $InterfazLAN -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /etc/network/interfaces
 echo "  post-up   iptables -t filter -A FORWARD -i $InterfazLAN -o ppp0 -j ACCEPT"                                      >> /etc/network/interfaces
 echo "  post-down iptables -t filter -D FORWARD -i $InterfazLAN -o ppp0 -j ACCEPT"                                      >> /etc/network/interfaces
 echo ""                                                                                                                 >> /etc/network/interfaces
+
 
 echo ""
 echo -e "${ColorVerde}Configurando la conexión PPP...${FinColor}"
@@ -130,15 +132,15 @@ echo "/root/scripts/LevantarInterfazPPP.sh" >> /root/scripts/ComandosPostArranqu
 echo ""
 echo -e "${ColorVerde}Configurando la rutas...${FinColor}"
 echo ""
-echo '#!/bin/bash'                                                                               > /root/scripts/ConfigurarRutas.sh
-echo ""                                                                                         >> /root/scripts/ConfigurarRutas.sh
-echo "IPMovistarWAN=$(ifconfig ppp0 | grep inet | cut -dt -f2 | cut -d' ' -f2)"                 >> /root/scripts/ConfigurarRutas.sh
-echo "IPLAN=$(ifconfig $InterfazLAN | grep inet | cut -dt -f2 | cut -d' ' -f2)"                 >> /root/scripts/ConfigurarRutas.sh
-echo ""                                                                                         >> /root/scripts/ConfigurarRutas.sh
-echo "ip route flush table main"                                                                >> /root/scripts/ConfigurarRutas.sh
-echo "ip route add default scope link dev ppp0"                                                 >> /root/scripts/ConfigurarRutas.sh
-echo "ip route add 192.168.0.0/24 dev $InterfazLAN"                                             >> /root/scripts/ConfigurarRutas.sh
-echo "ip route add 192.168.144.1 dev $InterfazWAN proto kernel scope link src '$IPMovistarWAN'" >> /root/scripts/ConfigurarRutas.sh
+echo '#!/bin/bash'                                                                                 > /root/scripts/ConfigurarRutas.sh
+echo ""                                                                                           >> /root/scripts/ConfigurarRutas.sh
+echo "IPMovistarWAN="'$'"(ifconfig ppp0 | grep inet | cut -dt -f2 | cut -d' ' -f2)"               >> /root/scripts/ConfigurarRutas.sh
+echo "IPLAN="'$'"(ifconfig $InterfazLAN | grep inet | cut -dt -f2 | cut -d' ' -f2)"               >> /root/scripts/ConfigurarRutas.sh
+echo ""                                                                                           >> /root/scripts/ConfigurarRutas.sh
+echo "ip route flush table main"                                                                  >> /root/scripts/ConfigurarRutas.sh
+echo "ip route add default dev ppp0 scope link"                                                   >> /root/scripts/ConfigurarRutas.sh
+echo "ip route add 192.168.0.0/24 dev $InterfazLAN proto kernel scope link src "'$'"IPLAN"        >> /root/scripts/ConfigurarRutas.sh
+echo "ip route add 192.168.144.1 dev ppp0 proto kernel scope link src "'$'"IPMovistarWAN"         >> /root/scripts/ConfigurarRutas.sh
 echo "/root/scripts/ConfigurarRutas.sh" >> /root/scripts/ComandosPostArranque.sh
 
 echo ""
@@ -188,26 +190,26 @@ echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
 echo ""
 cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
 echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
-echo 'INTERFACESv4="$InterfazLAN"'       >> /etc/default/isc-dhcp-server
+echo 'INTERFACESv4='"$InterfazLAN"''     >> /etc/default/isc-dhcp-server
 echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
 
 echo ""
 echo -e "${ColorVerde}Configurando el servidor DHCP...${FinColor}"
 echo ""
 cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
-echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
-echo "subnet 192.168.0.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
-echo "  range 192.168.0.100 192.168.0.199;"           >> /etc/dhcp/dhcpd.conf
-echo "  option routers 192.168.0.1;"                  >> /etc/dhcp/dhcpd.conf
-echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
-echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
-echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
-echo ""                                               >> /etc/dhcp/dhcpd.conf
-echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
-echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
-echo "    fixed-address 192.168.0.2;"                 >> /etc/dhcp/dhcpd.conf
-echo "  }"                                            >> /etc/dhcp/dhcpd.conf
-echo "}"                                              >> /etc/dhcp/dhcpd.conf
+echo "authoritative;"                                            > /etc/dhcp/dhcpd.conf
+echo "subnet 192.168.0.0 netmask 255.255.255.0 {"               >> /etc/dhcp/dhcpd.conf
+echo "  range 192.168.0.100 192.168.0.199;"                     >> /etc/dhcp/dhcpd.conf
+echo "  option routers 192.168.0.1;"                            >> /etc/dhcp/dhcpd.conf
+echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;"           >> /etc/dhcp/dhcpd.conf
+echo "  default-lease-time 600;"                                >> /etc/dhcp/dhcpd.conf
+echo "  max-lease-time 7200;"                                   >> /etc/dhcp/dhcpd.conf
+echo ""                                                         >> /etc/dhcp/dhcpd.conf
+echo "  host PrimeraReserva {"                                  >> /etc/dhcp/dhcpd.conf
+echo "    hardware ethernet $MacDelRouterAConectarAlPuertoLAN;" >> /etc/dhcp/dhcpd.conf
+echo "    fixed-address 192.168.0.2;"                           >> /etc/dhcp/dhcpd.conf
+echo "  }"                                                      >> /etc/dhcp/dhcpd.conf
+echo "}"                                                        >> /etc/dhcp/dhcpd.conf
 
 echo ""
 echo -e "${ColorVerde}--------------------------------------------------------------------------------------------${FinColor}"
