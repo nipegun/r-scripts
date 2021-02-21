@@ -141,7 +141,7 @@ echo "ip route flush table main"                                                
 echo "ip route add default dev ppp0 scope link"                                                   >> /root/scripts/ConfigurarRutas.sh
 echo "ip route add 192.168.0.0/24 dev $InterfazLAN proto kernel scope link src "'$'"IPLAN"        >> /root/scripts/ConfigurarRutas.sh
 echo "ip route add 192.168.144.1 dev ppp0 proto kernel scope link src "'$'"IPMovistarWAN"         >> /root/scripts/ConfigurarRutas.sh
-echo "/root/scripts/ConfigurarRutas.sh" >> /root/scripts/ComandosPostArranque.sh
+echo "#/root/scripts/ConfigurarRutas.sh" >> /root/scripts/ComandosPostArranque.sh
 
 echo ""
 echo -e "${ColorVerde}Creando el archivo para el proveedor PPPoE...${FinColor}"
