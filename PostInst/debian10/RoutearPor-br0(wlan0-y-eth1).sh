@@ -95,15 +95,16 @@ do
       sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g'      /etc/default/hostapd
       sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
       echo ""
-      echo "--------------------------------------------"
-      echo "   INDICANDO LA UBICACIÓN DEL ARCHIVO DE"
-      echo "  CONFIGURACIÓN DEL DEMONIO DHCPD ASI COMO"
-      echo "     LA INTERFAZ SOBRE LA QUE CORRERÁ"
-      echo "--------------------------------------------"
+
+      echo ""
+      echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
+      echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
       echo ""
       cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
-      sed -i -e 's|#DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|g' /etc/default/isc-dhcp-server
-      sed -i -e 's|INTERFACESv4=""|INTERFACESv4="'br0'"|g'                                 /etc/default/isc-dhcp-server
+      echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
+      echo 'INTERFACESv4="br0"'                >> /etc/default/isc-dhcp-server
+      echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
+
       echo ""
       echo "---------------------------------"
       echo "  CONFIGURANDO EL SERVIDOR DHCP"
