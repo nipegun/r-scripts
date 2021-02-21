@@ -37,16 +37,15 @@ do
   case $choice in
     1)
       cp /etc/apt/sources.list /etc/apt/sources.list.bak
-      echo "deb http://deb.debian.org/debian/ buster main contrib non-free" > /etc/apt/sources.list
-      echo "deb-src http://deb.debian.org/debian/ buster main contrib non-free" >> /etc/apt/sources.list
-      echo "" >> /etc/apt/sources.list
-      echo "deb http://deb.debian.org/debian/ buster-updates main contrib non-free" >> /etc/apt/sources.list
+      echo "deb http://deb.debian.org/debian/ buster main contrib non-free"              > /etc/apt/sources.list
+      echo "deb-src http://deb.debian.org/debian/ buster main contrib non-free"         >> /etc/apt/sources.list
+      echo ""                                                                           >> /etc/apt/sources.list
+      echo "deb http://deb.debian.org/debian/ buster-updates main contrib non-free"     >> /etc/apt/sources.list
       echo "deb-src http://deb.debian.org/debian/ buster-updates main contrib non-free" >> /etc/apt/sources.list
-      echo "" >> /etc/apt/sources.list
-      echo "deb http://security.debian.org/ buster/updates main contrib non-free" >> /etc/apt/sources.list
-      echo "deb-src http://security.debian.org/ buster/updates main contrib non-free" >> /etc/apt/sources.list
-      echo "" >> /etc/apt/sources.list
-      echo ""
+      echo ""                                                                           >> /etc/apt/sources.list
+      echo "deb http://security.debian.org/ buster/updates main contrib non-free"       >> /etc/apt/sources.list
+      echo "deb-src http://security.debian.org/ buster/updates main contrib non-free"   >> /etc/apt/sources.list
+      echo ""                                                                           >> /etc/apt/sources.list
     ;;
 
     2)
@@ -93,7 +92,7 @@ do
       echo "------------------------------------"
       echo ""
       cp /etc/default/hostapd /etc/default/hostapd.bak
-      sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
+      sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g'      /etc/default/hostapd
       sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
       echo ""
       echo "--------------------------------------------"
@@ -104,55 +103,55 @@ do
       echo ""
       cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
       sed -i -e 's|#DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|g' /etc/default/isc-dhcp-server
-      sed -i -e 's|INTERFACESv4=""|INTERFACESv4="'br0'"|g' /etc/default/isc-dhcp-server
+      sed -i -e 's|INTERFACESv4=""|INTERFACESv4="'br0'"|g'                                 /etc/default/isc-dhcp-server
       echo ""
       echo "---------------------------------"
       echo "  CONFIGURANDO EL SERVIDOR DHCP"
       echo "---------------------------------"
       echo ""
       cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
-      echo "authoritative;" > /etc/dhcp/dhcpd.conf
-      echo "subnet 192.168.1.0 netmask 255.255.255.0 {" >> /etc/dhcp/dhcpd.conf
-      echo "  range 192.168.1.100 192.168.1.199;" >> /etc/dhcp/dhcpd.conf
-      echo "  option routers 192.168.1.1;" >> /etc/dhcp/dhcpd.conf
+      echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
+      echo "subnet 192.168.1.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
+      echo "  range 192.168.1.100 192.168.1.199;"           >> /etc/dhcp/dhcpd.conf
+      echo "  option routers 192.168.1.1;"                  >> /etc/dhcp/dhcpd.conf
       echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
-      echo "  default-lease-time 600;" >> /etc/dhcp/dhcpd.conf
-      echo "  max-lease-time 7200;" >> /etc/dhcp/dhcpd.conf
-      echo "" >> /etc/dhcp/dhcpd.conf
-      echo "  host PrimeraReserva {" >> /etc/dhcp/dhcpd.conf
-      echo "    hardware ethernet 00:00:00:00:00:01;" >> /etc/dhcp/dhcpd.conf
-      echo "    fixed-address 192.168.1.10;" >> /etc/dhcp/dhcpd.conf
-      echo "  }" >> /etc/dhcp/dhcpd.conf
-      echo "}" >> /etc/dhcp/dhcpd.conf
+      echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
+      echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
+      echo ""                                               >> /etc/dhcp/dhcpd.conf
+      echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
+      echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
+      echo "    fixed-address 192.168.1.10;"                >> /etc/dhcp/dhcpd.conf
+      echo "  }"                                            >> /etc/dhcp/dhcpd.conf
+      echo "}"                                              >> /etc/dhcp/dhcpd.conf
       echo ""
       echo "-----------------------------------"
       echo "  CONFIGURANDO EL DEMONIO HOSTAPD"
       echo "-----------------------------------"
       echo ""
-      echo "#/etc/hostapd/hostapd.conf" > /etc/hostapd/hostapd.conf
-      echo "" >> /etc/hostapd/hostapd.conf
-      echo "driver=nl80211" >> /etc/hostapd/hostapd.conf
+      echo "#/etc/hostapd/hostapd.conf"                                                                           > /etc/hostapd/hostapd.conf
+      echo ""                                                                                                    >> /etc/hostapd/hostapd.conf
+      echo "driver=nl80211"                                                                                      >> /etc/hostapd/hostapd.conf
       echo "channel=0                     # El canal a usar. 0 significa que buscará automáticamente el canal con menos interferencias" >> /etc/hostapd/hostapd.conf
-      echo "hw_mode=g" >> /etc/hostapd/hostapd.conf
-      echo "wme_enabled=1" >> /etc/hostapd/hostapd.conf
-      echo "ieee80211n=1" >> /etc/hostapd/hostapd.conf
-      echo "wmm_enabled=1                 # Soporte para QoS" >> /etc/hostapd/hostapd.conf
-      echo "ieee80211d=1                  # Limitar las frecuencias sólo a las disponibles en el país" >> /etc/hostapd/hostapd.conf
-      echo "country_code=ES" >> /etc/hostapd/hostapd.conf
-      echo "ht_capab=[RXLDPC][HT20+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
-      echo "#[HT40-][HT40+]" >> /etc/hostapd/hostapd.conf
-      echo "" >> /etc/hostapd/hostapd.conf
-      echo "# Primer punto de acceso" >> /etc/hostapd/hostapd.conf
-      echo "interface=$interfazinalambrica1" >> /etc/hostapd/hostapd.conf
-      echo "bridge=br0" >> /etc/hostapd/hostapd.conf
-      echo "ssid=RouterX86" >> /etc/hostapd/hostapd.conf
-      echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf
-      echo "wpa=2" >> /etc/hostapd/hostapd.conf
-      echo "wpa_key_mgmt=WPA-PSK" >> /etc/hostapd/hostapd.conf
-      echo "wpa_pairwise=TKIP" >> /etc/hostapd/hostapd.conf
-      echo "rsn_pairwise=CCMP" >> /etc/hostapd/hostapd.conf
-      echo "wpa_passphrase=RouterX86" >> /etc/hostapd/hostapd.conf
-      echo "eap_reauth_period=360000000" >> /etc/hostapd/hostapd.conf
+      echo "hw_mode=g"                                                                                           >> /etc/hostapd/hostapd.conf
+      echo "wme_enabled=1"                                                                                       >> /etc/hostapd/hostapd.conf
+      echo "ieee80211n=1"                                                                                        >> /etc/hostapd/hostapd.conf
+      echo "wmm_enabled=1                 # Soporte para QoS"                                                    >> /etc/hostapd/hostapd.conf
+      echo "ieee80211d=1                  # Limitar las frecuencias sólo a las disponibles en el país"           >> /etc/hostapd/hostapd.conf
+      echo "country_code=ES"                                                                                     >> /etc/hostapd/hostapd.conf
+      echo "#ht_capab=[RXLDPC][HT20+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
+      echo "#[HT40-][HT40+]"                                                                                     >> /etc/hostapd/hostapd.conf
+      echo ""                                                                                                    >> /etc/hostapd/hostapd.conf
+      echo "# Primer punto de acceso"                                                                            >> /etc/hostapd/hostapd.conf
+      echo "interface=$interfazinalambrica1"                                                                     >> /etc/hostapd/hostapd.conf
+      echo "bridge=br0"                                                                                          >> /etc/hostapd/hostapd.conf
+      echo "ssid=RouterX86"                                                                                      >> /etc/hostapd/hostapd.conf
+      echo "ignore_broadcast_ssid=0"                                                                             >> /etc/hostapd/hostapd.conf
+      echo "wpa=2"                                                                                               >> /etc/hostapd/hostapd.conf
+      echo "wpa_key_mgmt=WPA-PSK"                                                                                >> /etc/hostapd/hostapd.conf
+      echo "wpa_pairwise=TKIP"                                                                                   >> /etc/hostapd/hostapd.conf
+      echo "rsn_pairwise=CCMP"                                                                                   >> /etc/hostapd/hostapd.conf
+      echo "wpa_passphrase=RouterX86"                                                                            >> /etc/hostapd/hostapd.conf
+      echo "eap_reauth_period=360000000"                                                                         >> /etc/hostapd/hostapd.conf
       systemctl unmask hostapd
       systemctl enable hostapd
       systemctl start hostapd
@@ -163,23 +162,23 @@ do
       echo "----------------------------------"
       echo ""
       cp /etc/network/interfaces /etc/network/interfaces.bak
-      echo "auto lo" > /etc/network/interfaces
-      echo "  iface lo inet loopback" >> /etc/network/interfaces
-      echo "  pre-up /root/scripts/ComandosNFTables.sh" >> /etc/network/interfaces
-      echo "" >> /etc/network/interfaces
-      echo "auto $interfazcableada1" >> /etc/network/interfaces
-      echo "  allow-hotplug $interfazcableada1" >> /etc/network/interfaces
-      echo "  iface $interfazcableada1 inet dhcp" >> /etc/network/interfaces
-      echo "" >> /etc/network/interfaces
-      echo "auto $interfazinalambrica1" >> /etc/network/interfaces
-      echo "  iface $interfazinalambrica1 inet manual" >> /etc/network/interfaces
-      echo "" >> /etc/network/interfaces
-      echo "auto br0" >> /etc/network/interfaces
-      echo "  iface br0 inet static" >> /etc/network/interfaces
-      echo "  network 192.168.1.0" >> /etc/network/interfaces
-      echo "  address 192.168.1.1" >> /etc/network/interfaces
-      echo "  broadcast 192.168.1.255" >> /etc/network/interfaces
-      echo "  netmask 255.255.255.0" >> /etc/network/interfaces
+      echo "auto lo"                                                  > /etc/network/interfaces
+      echo "  iface lo inet loopback"                                >> /etc/network/interfaces
+      echo "  pre-up /root/scripts/ComandosNFTables.sh"              >> /etc/network/interfaces
+      echo ""                                                        >> /etc/network/interfaces
+      echo "auto $interfazcableada1"                                 >> /etc/network/interfaces
+      echo "  allow-hotplug $interfazcableada1"                      >> /etc/network/interfaces
+      echo "  iface $interfazcableada1 inet dhcp"                    >> /etc/network/interfaces
+      echo ""                                                        >> /etc/network/interfaces
+      echo "auto $interfazinalambrica1"                              >> /etc/network/interfaces
+      echo "  iface $interfazinalambrica1 inet manual"               >> /etc/network/interfaces
+      echo ""                                                        >> /etc/network/interfaces
+      echo "auto br0"                                                >> /etc/network/interfaces
+      echo "  iface br0 inet static"                                 >> /etc/network/interfaces
+      echo "  network 192.168.1.0"                                   >> /etc/network/interfaces
+      echo "  address 192.168.1.1"                                   >> /etc/network/interfaces
+      echo "  broadcast 192.168.1.255"                               >> /etc/network/interfaces
+      echo "  netmask 255.255.255.0"                                 >> /etc/network/interfaces
       echo "  bridge-ports $interfazcableada2 $interfazinalambrica1" >> /etc/network/interfaces
       
       echo ""
@@ -194,12 +193,12 @@ do
       service bind9 restart
       sed -i "1s|^|nameserver 127.0.0.1\n|" /etc/resolv.conf
       sed -i -e 's|// forwarders {|forwarders {|g' /etc/bind/named.conf.options
-      sed -i "/0.0.0.0;/c\1.1.1.1;" /etc/bind/named.conf.options
-      sed -i -e 's|// };|};|g' /etc/bind/named.conf.options
-      echo 'zone "prueba.com" {' >> /etc/bind/named.conf.local
-      echo "  type master;" >> /etc/bind/named.conf.local
+      sed -i "/0.0.0.0;/c\1.1.1.1;"                /etc/bind/named.conf.options
+      sed -i -e 's|// };|};|g'                     /etc/bind/named.conf.options
+      echo 'zone "prueba.com" {'               >> /etc/bind/named.conf.local
+      echo "  type master;"                    >> /etc/bind/named.conf.local
       echo '  file "/etc/bind/db.prueba.com";' >> /etc/bind/named.conf.local
-      echo "};" >> /etc/bind/named.conf.local
+      echo "};"                                >> /etc/bind/named.conf.local
       service bind9 restart
     ;;
     
