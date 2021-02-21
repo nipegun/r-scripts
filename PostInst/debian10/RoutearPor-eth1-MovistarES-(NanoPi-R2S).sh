@@ -29,13 +29,6 @@ echo -e "${ColorVerde}----------------------------------------------------------
 echo ""
 
 echo ""
-echo -e "${ColorVerde}Instalando el servidor SSH...${FinColor}"
-echo ""
-apt-get update
-apt-get -y install tasksel
-tasksel install ssh-server
-
-echo ""
 echo -e "${ColorVerde}Instalando paquetes de red...${FinColor}"
 echo ""
 apt-get -y install vlan pppoe isc-dhcp-server wget
@@ -43,15 +36,21 @@ apt-get -y install vlan pppoe isc-dhcp-server wget
 echo ""
 echo -e "${ColorVerde}Activando el módulo 8021q para VLANs...${FinColor}"
 echo ""
-echo 8021q >> /etc/modules
+if grep -Fxq "8021q" /etc/modules
+  then
+    echo ""
+    echo "El módulo ya está activado en /etc/modules. No hace falta activarlo."
+    echo ""
+  else
+    echo "8021q" >> /etc/modules
+  fi
 
 echo ""
 echo -e "${ColorVerde}Configurando la interfaz loopback...${FinColor}"
 echo ""
-echo "auto lo"                                                                > /etc/network/interfaces
-echo "  iface lo inet loopback"                                              >> /etc/network/interfaces
-echo "  pre-up iptables-restore < /root/ReglasIPTablesIP4RouterMovistar.ipt" >> /etc/network/interfaces
-echo ""                                                                      >> /etc/network/interfaces
+echo "auto lo"                   > /etc/network/interfaces
+echo "  iface lo inet loopback" >> /etc/network/interfaces
+echo ""                         >> /etc/network/interfaces
 
 echo ""
 echo -e "${ColorVerde}Configurando la interfaz WAN...${FinColor}"
