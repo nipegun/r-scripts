@@ -5,10 +5,10 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#---------------------------------------------------------------------------------------
-#  Script de NiPeGun para preparar un Armbian Buster recién instalado en un NanoPi R2S
-#  para que pueda conectarse a una ONT que esté recibiendo la fibra de Movistar ES
-#  y pueda rootear una conexión de internet a través la la interfaz LAN
+#-------------------------------------------------------------------------------------------
+#  Script de NiPeGun para preparar un Debian 10 recién instalado para que pueda conectarse
+#  a una ONT que esté recibiendo la fibra de Movistar ES y pueda routear una conexión
+#  de internet a través la la interfaz LAN
 #----------------------------------------------------------------------------------------
 
 InterfazCableada1=eth0
