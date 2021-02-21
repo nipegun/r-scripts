@@ -117,16 +117,17 @@ echo ""
 cp /etc/sysctl.conf /etc/sysctl.conf.bak
 sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
 
-echo ""
-echo "--------------------------------------------"
-echo "   INDICANDO LA UBICACIÓN DEL ARCHIVO DE"
-echo "  CONFIGURACIÓN DEL DEMONIO DHCPD ASI COMO"
-echo "     LA INTERFAZ SOBRE LA QUE CORRERÁ"
-echo "--------------------------------------------"
-echo ""
-cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
-sed -i -e 's|#DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|g' /etc/default/isc-dhcp-server
-sed -i -e 's|INTERFACESv4=""|INTERFACESv4="'$interfazcableada2'"|g' /etc/default/isc-dhcp-server
+
+      echo ""
+      echo ""
+      echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
+      echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
+      echo ""
+      cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
+      echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
+      echo 'INTERFACESv4="$interfazcableada2"' >> /etc/default/isc-dhcp-server
+      echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
+
 
 echo ""
 echo "---------------------------------"
