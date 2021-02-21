@@ -168,8 +168,9 @@ echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del 
 echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
 echo ""
 cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
-sed -i -e 's|#DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|DHCPDv4_CONF=/etc/dhcp/dhcpd.conf|g' /etc/default/isc-dhcp-server
-sed -i -e 's|INTERFACESv4=""|INTERFACESv4="'$InterfazCableada2'"|g'                  /etc/default/isc-dhcp-server
+echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
+echo 'INTERFACESv4="$InterfazCableada2"' >> /etc/default/isc-dhcp-server
+echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
 
 echo ""
 echo -e "${ColorVerde}Configurando el servidor DHCP...${FinColor}"
