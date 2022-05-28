@@ -153,29 +153,29 @@ elif [ $OS_VERS == "9" ]; then
   echo "  CREANDO LAS REGLAS DE IPTABLES"
   echo "----------------------------------"
   echo ""
-  echo "*mangle" > /root/ReglasIPTablesIP4Router
-  echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo "COMMIT" >> /root/ReglasIPTablesIP4Router
-  echo "" >> /root/ReglasIPTablesIP4Router
-  echo "*nat" >> /root/ReglasIPTablesIP4Router
-  echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE" >> /root/ReglasIPTablesIP4Router
-  echo "COMMIT" >> /root/ReglasIPTablesIP4Router
-  echo "" >> /root/ReglasIPTablesIP4Router
-  echo "*filter" >> /root/ReglasIPTablesIP4Router
-  echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
-  echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesIP4Router
+  echo "*mangle"                                                                                                > /root/ReglasIPTablesIP4Router
+  echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesIP4Router
+  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
+  echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesIP4Router
+  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
+  echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesIP4Router
+  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
+  echo ""                                                                                                      >> /root/ReglasIPTablesIP4Router
+  echo "*nat"                                                                                                  >> /root/ReglasIPTablesIP4Router
+  echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesIP4Router
+  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
+  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
+  echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesIP4Router
+  echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE"                                                    >> /root/ReglasIPTablesIP4Router
+  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
+  echo ""                                                                                                      >> /root/ReglasIPTablesIP4Router
+  echo "*filter"                                                                                               >> /root/ReglasIPTablesIP4Router
+  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
+  echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesIP4Router
+  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
   echo "-A FORWARD -i $interfazcableada1 -o $interfazcableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesIP4Router
-  echo "-A FORWARD -i $interfazcableada2 -o $interfazcableada1 -j ACCEPT" >> /root/ReglasIPTablesIP4Router
-  echo "COMMIT" >> /root/ReglasIPTablesIP4Router
+  echo "-A FORWARD -i $interfazcableada2 -o $interfazcableada1 -j ACCEPT"                                      >> /root/ReglasIPTablesIP4Router
+  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
 
   echo ""
   echo "-----------------------------"
