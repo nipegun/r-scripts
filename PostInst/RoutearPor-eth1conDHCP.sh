@@ -92,13 +92,6 @@ elif [ $OS_VERS == "9" ]; then
   echo "------------------------------------------------------------------------------"
   echo ""
 
-  apt-get update
-
-  echo ""
-  echo "  Instalando el servidor DHCP..."
-  echo ""
-  apt-get -y install isc-dhcp-server
-
   echo ""
   echo "  Configurando la interfaz loopback"
   echo ""
@@ -127,10 +120,10 @@ elif [ $OS_VERS == "9" ]; then
   echo ""                                       >> /etc/network/interfaces
 
   echo ""
-  echo "  Instalando el servidor SSH..."
+  echo "  Habilitando el forwarding entre interfaces de red..."
   echo ""
-  apt-get -y install tasksel
-  tasksel install ssh-server
+  cp /etc/sysctl.conf /etc/sysctl.conf.bak
+  sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
 
   echo ""
   echo "  Creando las reglas de IPTables..."
@@ -160,11 +153,21 @@ elif [ $OS_VERS == "9" ]; then
   echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
 
   echo ""
-  echo "  Habilitando el forwarding entre interfaces de red..."
+  echo "  Actualizando la lista de paquetes disponibles..."
   echo ""
-  cp /etc/sysctl.conf /etc/sysctl.conf.bak
-  sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
+  apt-get -y update
 
+  echo ""
+  echo "  Instalando el servidor SSH..."
+  echo ""
+  apt-get -y install tasksel
+  tasksel install ssh-server
+
+  echo ""
+  echo "  Instalando el servidor DHCP..."
+  echo ""
+  apt-get -y install isc-dhcp-server
+  
   echo ""
   echo ""
   echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
@@ -230,8 +233,125 @@ elif [ $OS_VERS == "11" ]; then
   echo ""
 
   echo ""
-  echo "  Comandos para Debian 11 todavía no preparados. Prueba ejecutar el script en otra versión de Debian."
+  echo "  Configurando la interfaz loopback"
   echo ""
+  echo "auto lo"                                                    > /etc/network/interfaces
+  echo "  iface lo inet loopback"                                  >> /etc/network/interfaces
+  echo "  pre-up iptables-restore < /root/ReglasIPTablesIP4Router" >> /etc/network/interfaces
+  echo ""                                                          >> /etc/network/interfaces
+
+  echo ""
+  echo "  Configurando la 1ra interfaz ethernet"
+  echo ""
+  echo "auto $interfazcableada1"              >> /etc/network/interfaces
+  echo "  allow-hotplug $interfazcableada1"   >> /etc/network/interfaces
+  echo "  iface $interfazcableada1 inet dhcp" >> /etc/network/interfaces
+  echo ""                                     >> /etc/network/interfaces
+
+  echo ""
+  echo "  Configurando la 2da interfaz ethernet"
+  echo ""
+  echo "auto $interfazcableada2"                >> /etc/network/interfaces
+  echo "  iface $interfazcableada2 inet static" >> /etc/network/interfaces
+  echo "  address 192.168.1.1"                  >> /etc/network/interfaces
+  echo "  network 192.168.1.0"                  >> /etc/network/interfaces
+  echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
+  echo "  broadcast 192.168.1.255"              >> /etc/network/interfaces
+  echo ""                                       >> /etc/network/interfaces
+
+  echo ""
+  echo "  Habilitando el forwarding entre interfaces de red..."
+  echo ""
+  cp /etc/sysctl.conf /etc/sysctl.conf.bak
+  sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
+
+  echo ""
+  echo "  Creando las reglas de IPTables..."
+  echo ""
+  echo "*mangle"                                                                                                > /root/ReglasIPTablesIP4Router
+  echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesIP4Router
+  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
+  echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesIP4Router
+  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
+  echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesIP4Router
+  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
+  echo ""                                                                                                      >> /root/ReglasIPTablesIP4Router
+  echo "*nat"                                                                                                  >> /root/ReglasIPTablesIP4Router
+  echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesIP4Router
+  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
+  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
+  echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesIP4Router
+  echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE"                                                    >> /root/ReglasIPTablesIP4Router
+  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
+  echo ""                                                                                                      >> /root/ReglasIPTablesIP4Router
+  echo "*filter"                                                                                               >> /root/ReglasIPTablesIP4Router
+  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
+  echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesIP4Router
+  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
+  echo "-A FORWARD -i $interfazcableada1 -o $interfazcableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesIP4Router
+  echo "-A FORWARD -i $interfazcableada2 -o $interfazcableada1 -j ACCEPT"                                      >> /root/ReglasIPTablesIP4Router
+  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
+
+  echo ""
+  echo "  Actualizando la lista de paquetes disponibles..."
+  echo ""
+  apt-get -y update
+
+  echo ""
+  echo "  Instalando el servidor SSH..."
+  echo ""
+  apt-get -y install tasksel
+  tasksel install ssh-server
+
+  echo ""
+  echo "  Instalando el servidor DHCP..."
+  echo ""
+  apt-get -y install isc-dhcp-server
+  
+  echo ""
+  echo ""
+  echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
+  echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
+  echo ""
+  cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
+  echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
+  echo 'INTERFACESv4="$interfazcableada2"' >> /etc/default/isc-dhcp-server
+  echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
+
+  echo ""
+  echo "  Configurando el servidor DHCP..."
+  echo ""
+  cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
+  echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
+  echo "subnet 192.168.1.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
+  echo "  range 192.168.1.100 192.168.1.199;"           >> /etc/dhcp/dhcpd.conf
+  echo "  option routers 192.168.1.1;"                  >> /etc/dhcp/dhcpd.conf
+  echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
+  echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
+  echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
+  echo ""                                               >> /etc/dhcp/dhcpd.conf
+  echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
+  echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
+  echo "    fixed-address 192.168.1.10;"                >> /etc/dhcp/dhcpd.conf
+  echo "  }"                                            >> /etc/dhcp/dhcpd.conf
+  echo "}"                                              >> /etc/dhcp/dhcpd.conf
+
+  echo ""
+  echo "Descargando archivo de nombres de fabricantes..."
+  echo ""
+  wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
+
+  echo ""
+  echo "----------------------------------------------------------------------"
+  echo "  FINALIZADO. REINICIA EL SISTEMA EJECUTANDO:"
+  echo "  shutdown -r now"
+  echo "  Y DESPUÉS DE REINICIAR TU DEBIAN DEBERÍA ESTAR SIRVIENDO IPs"
+  echo "  EN LA SEGUNDA INTERFAZ CABLEADA Y OPERANDO COMO ROUTER."
+  echo "  PODRÁS CONECTARLE AL 2DO PUERTO ETHERNET TANTO UN PUNTO DE ACCESO"
+  echo "  COMO UN ROUTER EN MODO PUENTE Y YA PODRÄS TENER WIFI"
+  echo "----------------------------------------------------------------------"
+  echo ""
+
 
 fi
 
