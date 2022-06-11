@@ -28,6 +28,8 @@
 
 interfazcableada1=eth0
 interfazcableada2=eth1
+vSubred=""
+v
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
 FinColor='\033[0m'
@@ -93,65 +95,45 @@ elif [ $OS_VERS == "9" ]; then
   apt-get update
 
   echo ""
-  echo "----------------------------------"
-  echo "  INSTALANDO HERRAMIENTAS DE RED"
-  echo "----------------------------------"
+  echo "  Instalando el servidor DHCP..."
   echo ""
   apt-get -y install isc-dhcp-server
 
   echo ""
-  echo "-------------------------------------"
-  echo "  CONFIGURANDO LA INTERFAZ LOOPBACK"
-  echo "-------------------------------------"
+  echo "  Configurando la interfaz loopback"
   echo ""
-  echo "auto lo" > /etc/network/interfaces
-  echo "  iface lo inet loopback" >> /etc/network/interfaces
+  echo "auto lo"                                                    > /etc/network/interfaces
+  echo "  iface lo inet loopback"                                  >> /etc/network/interfaces
   echo "  pre-up iptables-restore < /root/ReglasIPTablesIP4Router" >> /etc/network/interfaces
-  echo "" >> /etc/network/interfaces
+  echo ""                                                          >> /etc/network/interfaces
 
   echo ""
-  echo "---------------------------------------------"
-  echo "  CONFIGURANDO LA PRIMERA INTERFAZ CABLEADA"
-  echo "---------------------------------------------"
+  echo "  Configurando la 1ra interfaz ethernet"
   echo ""
-  echo "auto $interfazcableada1" >> /etc/network/interfaces
-  echo "  allow-hotplug $interfazcableada1" >> /etc/network/interfaces
+  echo "auto $interfazcableada1"              >> /etc/network/interfaces
+  echo "  allow-hotplug $interfazcableada1"   >> /etc/network/interfaces
   echo "  iface $interfazcableada1 inet dhcp" >> /etc/network/interfaces
-  echo "" >> /etc/network/interfaces
+  echo ""                                     >> /etc/network/interfaces
 
   echo ""
-  echo "---------------------------------------------"
-  echo "  CONFIGURANDO LA SEGUNDA INTERFAZ CABLEADA"
-  echo "---------------------------------------------"
+  echo "  Configurando la 2da interfaz ethenet"
   echo ""
-  echo "auto $interfazcableada2" >> /etc/network/interfaces
+  echo "auto $interfazcableada2"                >> /etc/network/interfaces
   echo "  iface $interfazcableada2 inet static" >> /etc/network/interfaces
-  echo "  address 192.168.1.1" >> /etc/network/interfaces
-  echo "  network 192.168.1.0" >> /etc/network/interfaces
-  echo "  netmask 255.255.255.0" >> /etc/network/interfaces
-  echo "  broadcast 192.168.1.255" >> /etc/network/interfaces
-  echo "" >> /etc/network/interfaces
+  echo "  address 192.168.1.1"                  >> /etc/network/interfaces
+  echo "  network 192.168.1.0"                  >> /etc/network/interfaces
+  echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
+  echo "  broadcast 192.168.1.255"              >> /etc/network/interfaces
+  echo ""                                       >> /etc/network/interfaces
 
   echo ""
-  echo "------------------------------"
-  echo "  INSTALANDO EL SERVIDOR SSH"
-  echo "------------------------------"
+  echo "  Instalando el servidor SSH..."
   echo ""
   apt-get -y install tasksel
   tasksel install ssh-server
 
   echo ""
-  echo "-----------------------------"
-  echo "  DESHABILITANDO EL SPEAKER"
-  echo "-----------------------------"
-  echo ""
-  cp /etc/inputrc /etc/inputrc.bak
-  sed -i 's|^# set bell-style none|set bell-style none|g' /etc/inputrc
-
-  echo ""
-  echo "----------------------------------"
-  echo "  CREANDO LAS REGLAS DE IPTABLES"
-  echo "----------------------------------"
+  echo "  Creando las reglas de IPTables..."
   echo ""
   echo "*mangle"                                                                                                > /root/ReglasIPTablesIP4Router
   echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesIP4Router
@@ -178,9 +160,7 @@ elif [ $OS_VERS == "9" ]; then
   echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
 
   echo ""
-  echo "-----------------------------"
-  echo "  HABILITANDO IP FORWARDING"
-  echo "-----------------------------"
+  echo "  Habilitando el forwarding entre interfaces de red..."
   echo ""
   cp /etc/sysctl.conf /etc/sysctl.conf.bak
   sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
@@ -196,24 +176,22 @@ elif [ $OS_VERS == "9" ]; then
   echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
 
   echo ""
-  echo "---------------------------------"
-  echo "  CONFIGURANDO EL SERVIDOR DHCP"
-  echo "---------------------------------"
+  echo "  Configurando el servidor DHCP..."
   echo ""
   cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
-  echo "authoritative;" > /etc/dhcp/dhcpd.conf
-  echo "subnet 192.168.1.0 netmask 255.255.255.0 {" >> /etc/dhcp/dhcpd.conf
-  echo "  range 192.168.1.100 192.168.1.199;" >> /etc/dhcp/dhcpd.conf
-  echo "  option routers 192.168.1.1;" >> /etc/dhcp/dhcpd.conf
+  echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
+  echo "subnet 192.168.1.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
+  echo "  range 192.168.1.100 192.168.1.199;"           >> /etc/dhcp/dhcpd.conf
+  echo "  option routers 192.168.1.1;"                  >> /etc/dhcp/dhcpd.conf
   echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
-  echo "  default-lease-time 600;" >> /etc/dhcp/dhcpd.conf
-  echo "  max-lease-time 7200;" >> /etc/dhcp/dhcpd.conf
-  echo "" >> /etc/dhcp/dhcpd.conf
-  echo "  host PrimeraReserva {" >> /etc/dhcp/dhcpd.conf
-  echo "    hardware ethernet 00:00:00:00:00:01;" >> /etc/dhcp/dhcpd.conf
-  echo "    fixed-address 192.168.1.10;" >> /etc/dhcp/dhcpd.conf
-  echo "  }" >> /etc/dhcp/dhcpd.conf
-  echo "}" >> /etc/dhcp/dhcpd.conf
+  echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
+  echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
+  echo ""                                               >> /etc/dhcp/dhcpd.conf
+  echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
+  echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
+  echo "    fixed-address 192.168.1.10;"                >> /etc/dhcp/dhcpd.conf
+  echo "  }"                                            >> /etc/dhcp/dhcpd.conf
+  echo "}"                                              >> /etc/dhcp/dhcpd.conf
 
   echo ""
   echo "Descargando archivo de nombres de fabricantes..."
