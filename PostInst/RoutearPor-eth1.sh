@@ -95,9 +95,161 @@ elif [ $OS_VERS == "10" ]; then
   echo -e "${ColorAzul}  Iniciando el script de preparación de Debian 10 (Buster) como router por eth1...${FinColor}"
   echo ""
 
-  echo ""
-  echo -e "${ColorRojo}  Comandos para Debian 10 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${FinColor}"
-  echo ""
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${ColorRojo}  dialog no está instalado. Iniciando su instalación...${FinColor}"
+      echo ""
+      apt-get -y update
+      apt-get -y install dialog
+      echo ""
+    fi
+
+  menu=(dialog --timeout 5 --checklist "Selecciona las funcionalidades a instalar:" 22 96 16)
+    opciones=(
+      1 "Configurar tarjetas de red." on
+      2 "Habilitar el forwarding entre interfaces." on
+      3 "Agregar funcioalidad NAT." on
+      4 "Agregar funcionalidad DHCP." off
+      5 "Agregar funcionalidad DNS." off
+      6 "..." off
+      7 "..." off
+      8 "..." off
+      9 "..." off
+     10 "..." off
+     11 "..." off
+     12 "..." off
+    )
+    choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+    clear
+
+    for choice in $choices
+      do
+        case $choice in
+
+          1)
+
+            echo ""
+            echo -e "${ColorAzulClaro}  Configurando tarjetas de red...${FinColor}"
+            echo ""
+
+            echo ""
+            echo "    Configurando la interfaz loopback"
+            echo ""
+            echo "auto lo"                                                    > /etc/network/interfaces
+            echo "  iface lo inet loopback"                                  >> /etc/network/interfaces
+            echo "  pre-up iptables-restore < /root/ReglasIPTablesNAT.rules" >> /etc/network/interfaces
+            echo ""                                                          >> /etc/network/interfaces
+
+            echo ""
+            echo "    Configurando la 1ra interfaz ethernet"
+            echo ""
+            echo "auto $interfazcableada1"                                   >> /etc/network/interfaces
+            echo "  allow-hotplug $interfazcableada1"                        >> /etc/network/interfaces
+            echo "  iface $interfazcableada1 inet dhcp"                      >> /etc/network/interfaces
+            echo ""                                                          >> /etc/network/interfaces
+
+            echo ""
+            echo "    Configurando la 2da interfaz ethenet"
+            echo ""
+            echo "auto $interfazcableada2"                                   >> /etc/network/interfaces
+            echo "  iface $interfazcableada2 inet static"                    >> /etc/network/interfaces
+            echo "  address $vSubred.1"                                      >> /etc/network/interfaces
+            echo "  network $vSubred.0"                                      >> /etc/network/interfaces
+            echo "  netmask 255.255.255.0"                                   >> /etc/network/interfaces
+            echo "  broadcast $vSubred.255"                                  >> /etc/network/interfaces
+            echo ""                                                          >> /etc/network/interfaces
+
+          ;;
+
+          2)
+
+            echo ""
+            echo -e "${ColorAzulClaro}    Habilitando el forwarding entre interfaces...${FinColor}"
+            echo ""
+            cp /etc/sysctl.conf /etc/sysctl.conf.bak
+            sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
+
+          ;;
+
+          3)
+
+            echo ""
+            echo -e "${ColorAzulClaro}  Agregando la funcionalidad NAT...${FinColor}"
+            echo ""
+            # Crear el archivo de reglas
+              echo "*mangle"                                                                                                > /root/ReglasIPTablesNAT.rules
+              echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesNAT.rules
+              echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesNAT.rules
+              echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesNAT.rules
+              echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesNAT.rules
+              echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesNAT.rules
+              echo "COMMIT"                                                                                                >> /root/ReglasIPTablesNAT.rules
+              echo ""                                                                                                      >> /root/ReglasIPTablesNAT.rules
+              echo "*nat"                                                                                                  >> /root/ReglasIPTablesNAT.rules
+              echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesNAT.rules
+              echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesNAT.rules
+              echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesNAT.rules
+              echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesNAT.rules
+              echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE"                                                    >> /root/ReglasIPTablesNAT.rules
+              echo "COMMIT"                                                                                                >> /root/ReglasIPTablesNAT.rules
+              echo ""                                                                                                      >> /root/ReglasIPTablesNAT.rules
+              echo "*filter"                                                                                               >> /root/ReglasIPTablesNAT.rules
+              echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesNAT.rules
+              echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesNAT.rules
+              echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesNAT.rules
+              echo "-A FORWARD -i $interfazcableada1 -o $interfazcableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesNAT.rules
+              echo "-A FORWARD -i $interfazcableada2 -o $interfazcableada1 -j ACCEPT"                                      >> /root/ReglasIPTablesNAT.rules
+              echo "COMMIT"                                                                                                >> /root/ReglasIPTablesNAT.rules
+
+            # Recargar las reglas generales de NFTables
+              iptables-restore < /root/ReglasIPTablesNAT.rules
+
+            # Agregar las reglas a los ComandosPostArranque
+              sed -i -e 's|iptables-restore < /root/ReglasIPTablesNAT.rules||g' /root/scripts/ComandosPostArranque.sh
+              echo "iptables-restore < /root/ReglasIPTablesNAT.rules" >>        /root/scripts/ComandosPostArranque.sh
+
+          ;;
+
+          4)
+
+            echo ""
+            echo -e "${ColorAzulClaro}  Agregando la funcionalidad DHCP...${FinColor}"
+            echo ""
+
+          ;;
+
+          5)
+
+            echo ""
+            echo -e "${ColorAzulClaro}  Agregando la funcionalidad DNS...${FinColor}"
+            echo ""
+
+          ;;
+
+          6)
+
+          ;;
+    
+          9)
+
+          ;;
+
+          10)
+
+          ;;
+
+          11)
+
+          ;;
+
+          12)
+
+          ;;
+
+        esac
+
+  done
 
 elif [ $OS_VERS == "11" ]; then
 
@@ -115,7 +267,7 @@ elif [ $OS_VERS == "11" ]; then
       echo ""
     fi
 
-  menu=(dialog --timeout 5 --checklist "Marca los mineros que quieras instalar:" 22 96 16)
+  menu=(dialog --timeout 5 --checklist "Selecciona las funcionalidades a instalar:" 22 96 16)
     opciones=(
       1 "Configurar tarjetas de red." on
       2 "Habilitar el forwarding entre interfaces." on
