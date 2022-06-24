@@ -217,6 +217,51 @@ elif [ $OS_VERS == "10" ]; then
             echo -e "${ColorAzulClaro}  Agregando la funcionalidad DHCP...${FinColor}"
             echo ""
 
+            echo ""
+            echo "    Instalando isc-dhcp-server..."
+            echo ""
+            apt-get -y install isc-dhcp-server
+  
+            echo ""
+            echo "    Indicando la ubicación del archivo de configuración del demonio dhcpd"
+            echo "    y la interfaz sobre la que correrá..."
+            echo ""
+            cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
+            echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
+            echo 'INTERFACESv4="$interfazcableada2"' >> /etc/default/isc-dhcp-server
+            echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
+
+            echo ""
+            echo "    Configurando dhcp..."
+            echo ""
+            cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
+            echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
+            echo "subnet $vSubred.0 netmask 255.255.255.0 {"      >> /etc/dhcp/dhcpd.conf
+            echo "  range $vSubred.100 $vSubred.199;"             >> /etc/dhcp/dhcpd.conf
+            echo "  option routers $vSubred.1;"                   >> /etc/dhcp/dhcpd.conf
+            echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
+            echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
+            echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
+            echo ""                                               >> /etc/dhcp/dhcpd.conf
+            echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
+            echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
+            echo "    fixed-address $vSubred.10;"                 >> /etc/dhcp/dhcpd.conf
+            echo "  }"                                            >> /etc/dhcp/dhcpd.conf
+            echo "}"                                              >> /etc/dhcp/dhcpd.conf
+
+            echo ""
+            echo "    Descargando archivo de nombres de fabricantes..."
+            echo ""
+            # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s wget 2>/dev/null | grep installed) == "" ]]; then
+                echo ""
+                echo -e "${ColorRojo}  wget no está instalado. Iniciando su instalación...${FinColor}"
+                echo ""
+                apt-get -y update && apt-get -y install wget
+                echo ""
+              fi
+            wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
+
           ;;
 
           5)
@@ -378,6 +423,51 @@ elif [ $OS_VERS == "11" ]; then
             echo ""
             echo -e "${ColorAzulClaro}  Agregando la funcionalidad DHCP...${FinColor}"
             echo ""
+
+            echo ""
+            echo "    Instalando isc-dhcp-server..."
+            echo ""
+            apt-get -y install isc-dhcp-server
+  
+            echo ""
+            echo "    Indicando la ubicación del archivo de configuración del demonio dhcpd"
+            echo "    y la interfaz sobre la que correrá..."
+            echo ""
+            cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
+            echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
+            echo 'INTERFACESv4="$interfazcableada2"' >> /etc/default/isc-dhcp-server
+            echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
+
+            echo ""
+            echo "    Configurando dhcp..."
+            echo ""
+            cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
+            echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
+            echo "subnet $vSubred.0 netmask 255.255.255.0 {"      >> /etc/dhcp/dhcpd.conf
+            echo "  range $vSubred.100 $vSubred.199;"             >> /etc/dhcp/dhcpd.conf
+            echo "  option routers $vSubred.1;"                   >> /etc/dhcp/dhcpd.conf
+            echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
+            echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
+            echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
+            echo ""                                               >> /etc/dhcp/dhcpd.conf
+            echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
+            echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
+            echo "    fixed-address $vSubred.10;"                 >> /etc/dhcp/dhcpd.conf
+            echo "  }"                                            >> /etc/dhcp/dhcpd.conf
+            echo "}"                                              >> /etc/dhcp/dhcpd.conf
+
+            echo ""
+            echo "    Descargando archivo de nombres de fabricantes..."
+            echo ""
+            # Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
+              if [[ $(dpkg-query -s wget 2>/dev/null | grep installed) == "" ]]; then
+                echo ""
+                echo -e "${ColorRojo}  wget no está instalado. Iniciando su instalación...${FinColor}"
+                echo ""
+                apt-get -y update && apt-get -y install wget
+                echo ""
+              fi
+            wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
 
           ;;
 
