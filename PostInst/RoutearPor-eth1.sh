@@ -10,6 +10,7 @@
 #
 #  Ejecución remota:
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-eth1.sh | bash
+#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-eth1.sh | sed 's-vLANIP="192.168.1"-vLANIP="192.168.90"-g' | bash
 # ----------
 
 vIntEth0="eth0"
