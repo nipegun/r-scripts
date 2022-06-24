@@ -62,7 +62,7 @@ FinColor='\033[0m'
 if [ $OS_VERS == "7" ]; then
 
   echo ""
-  echo -e "${ColorAzulClaro}  Iniciando el script de preparación de Debian 7 (Wheezy) como router por eth1...${FinColor}"
+  echo -e "${ColorAzul}  Iniciando el script de preparación de Debian 7 (Wheezy) como router por eth1...${FinColor}"
   echo ""
 
   echo ""
@@ -72,7 +72,7 @@ if [ $OS_VERS == "7" ]; then
 elif [ $OS_VERS == "8" ]; then
 
   echo ""
-  echo -e "${ColorAzulClaro}  Iniciando el script de preparación de Debian 8 (Jessie) como router por eth1...${FinColor}"
+  echo -e "${ColorAzul}  Iniciando el script de preparación de Debian 8 (Jessie) como router por eth1...${FinColor}"
   echo ""
 
   echo ""
@@ -82,7 +82,7 @@ elif [ $OS_VERS == "8" ]; then
 elif [ $OS_VERS == "9" ]; then
 
   echo ""
-  echo -e "${ColorAzulClaro}  Iniciando el script de preparación de Debian 9 (Stretch) como router por eth1...${FinColor}"
+  echo -e "${ColorAzul}  Iniciando el script de preparación de Debian 9 (Stretch) como router por eth1...${FinColor}"
   echo ""
 
   echo ""
@@ -92,7 +92,7 @@ elif [ $OS_VERS == "9" ]; then
 elif [ $OS_VERS == "10" ]; then
 
   echo ""
-  echo -e "${ColorAzulClaro}  Iniciando el script de preparación de Debian 10 (Buster) como router por eth1...${FinColor}"
+  echo -e "${ColorAzul}  Iniciando el script de preparación de Debian 10 (Buster) como router por eth1...${FinColor}"
   echo ""
 
   echo ""
@@ -102,7 +102,7 @@ elif [ $OS_VERS == "10" ]; then
 elif [ $OS_VERS == "11" ]; then
 
   echo ""
-  echo -e "${ColorAzulClaro}  Iniciando el script de preparación de Debian 11 (Bullseye) como router por eth1...${FinColor}"
+  echo -e "${ColorAzul}  Iniciando el script de preparación de Debian 11 (Bullseye) como router por eth1...${FinColor}"
   echo ""
 
   # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
@@ -117,18 +117,18 @@ elif [ $OS_VERS == "11" ]; then
 
   menu=(dialog --timeout 5 --checklist "Marca los mineros que quieras instalar:" 22 96 16)
     opciones=(
-      1 "Configurar tarjetas de red" on
-      2 "Habilitar el forwarding entre interfaces" off
-      3 "Instalar el minero de RVN con AMD para el usuario root" off
-      4 "  - Mover el minero de RVN con AMD a la carpeta de usuario no root" off
-      5 "Instalar el minero de RVN con nVidia para el usuario root" off
-      6 "  - Mover el minero de RVN con nVidia a la carpeta de usuario no root" off
-      7 "Instalar el minero de CRP para el usuario root" on
-      8 "  - Mover el minero de CRP a la carpeta de usuario no root" off
-      9 "Instalar el minero de LTC para el usuario root" off
-     10 "  - Mover el minero de LTC a la carpeta de usuario $UsuarioNoRoot" off
-     11 "Agregar los mineros del root a los ComandosPostArranque" on
-     12 "Agregar los mineros del usuario $UsuarioNoRoot a los ComandosPostArranque" off
+      1 "Configurar tarjetas de red." on
+      2 "Habilitar el forwarding entre interfaces." on
+      3 "Agregar funcioalidad NAT." on
+      4 "Agregar funcionalidad DHCP." off
+      5 "Agregar funcionalidad DNS." off
+      6 "..." off
+      7 "..." off
+      8 "..." off
+      9 "..." off
+     10 "..." off
+     11 "..." off
+     12 "..." off
     )
     choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
     clear
@@ -140,7 +140,7 @@ elif [ $OS_VERS == "11" ]; then
           1)
 
             echo ""
-            echo -e "${ColorVerde}  Configurando tarjetas de red...${FinColor}"
+            echo -e "${ColorAzulClaro}  Configurando tarjetas de red...${FinColor}"
             echo ""
 
             echo ""
@@ -152,15 +152,15 @@ elif [ $OS_VERS == "11" ]; then
             echo ""                                       >> /etc/network/interfaces
 
             echo ""
-            echo "  Configurando la 1ra interfaz ethernet"
+            echo "    Configurando la 1ra interfaz ethernet"
             echo ""
             echo "auto $interfazcableada1"                >> /etc/network/interfaces
             echo "  allow-hotplug $interfazcableada1"     >> /etc/network/interfaces
             echo "  iface $interfazcableada1 inet dhcp"   >> /etc/network/interfaces
             echo ""                                       >> /etc/network/interfaces
-            echo ""
 
-            echo "  Configurando la 2da interfaz ethenet"
+            echo ""
+            echo "    Configurando la 2da interfaz ethenet"
             echo ""
             echo "auto $interfazcableada2"                >> /etc/network/interfaces
             echo "  iface $interfazcableada2 inet static" >> /etc/network/interfaces
@@ -175,7 +175,7 @@ elif [ $OS_VERS == "11" ]; then
           2)
 
             echo ""
-            echo "  Habilitando el forwarding entre interfaces..."
+            echo -e "${ColorAzulClaro}    Habilitando el forwarding entre interfaces...${FinColor}"
             echo ""
             cp /etc/sysctl.conf /etc/sysctl.conf.bak
             sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
@@ -184,6 +184,9 @@ elif [ $OS_VERS == "11" ]; then
 
           3)
 
+            echo ""
+            echo -e "${ColorAzulClaro}  Agregando la funcionalidad NAT...${FinColor}"
+            echo ""
             # Crear el archivo de reglas
               echo ""
               echo "  Creando las reglas para el NATeo..."
@@ -220,9 +223,17 @@ elif [ $OS_VERS == "11" ]; then
 
           4)
 
+            echo ""
+            echo -e "${ColorAzulClaro}  Agregando la funcionalidad DHCP...${FinColor}"
+            echo ""
+
           ;;
 
           5)
+
+            echo ""
+            echo -e "${ColorAzulClaro}  Agregando la funcionalidad DNS...${FinColor}"
+            echo ""
 
           ;;
 
