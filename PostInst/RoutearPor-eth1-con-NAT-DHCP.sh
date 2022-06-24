@@ -9,7 +9,7 @@
 #  Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
 #
 #  Ejecución remota:
-#  curl -s x | bash
+#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-eth1-con-NAT-DHCP.sh | bash
 # ----------
 
 #-------------------------------------------------------------------
