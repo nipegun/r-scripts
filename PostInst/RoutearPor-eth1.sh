@@ -9,13 +9,7 @@
 #  Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
 #
 #  Ejecución remota:
-#  curl -s x | bash
-#
-#  Ejecución remota sin caché:
-#  curl -s -H 'Cache-Control: no-cache, no-store' x | bash
-#
-#  Ejecución remota con parámetros:
-#  curl -s x | bash -s Parámetro1 Parámetro2
+#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-eth1.sh | bash
 # ----------
 
 # Comprobar si el script está corriendo como root
@@ -111,9 +105,149 @@ elif [ $OS_VERS == "11" ]; then
   echo -e "${ColorAzulClaro}  Iniciando el script de preparación de Debian 11 (Bullseye) como router por eth1...${FinColor}"
   echo ""
 
-  echo ""
-  echo -e "${ColorRojo}  Comandos para Debian 11 todavía no preparados. Prueba ejecutarlo en otra versión de Debian.${FinColor}"
-  echo ""
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${ColorRojo}  dialog no está instalado. Iniciando su instalación...${FinColor}"
+      echo ""
+      apt-get -y update
+      apt-get -y install dialog
+      echo ""
+    fi
+
+  menu=(dialog --timeout 5 --checklist "Marca los mineros que quieras instalar:" 22 96 16)
+    opciones=(
+      1 "Configurar tarjetas de red" on
+      2 "Habilitar el forwarding entre interfaces" off
+      3 "Instalar el minero de RVN con AMD para el usuario root" off
+      4 "  - Mover el minero de RVN con AMD a la carpeta de usuario no root" off
+      5 "Instalar el minero de RVN con nVidia para el usuario root" off
+      6 "  - Mover el minero de RVN con nVidia a la carpeta de usuario no root" off
+      7 "Instalar el minero de CRP para el usuario root" on
+      8 "  - Mover el minero de CRP a la carpeta de usuario no root" off
+      9 "Instalar el minero de LTC para el usuario root" off
+     10 "  - Mover el minero de LTC a la carpeta de usuario $UsuarioNoRoot" off
+     11 "Agregar los mineros del root a los ComandosPostArranque" on
+     12 "Agregar los mineros del usuario $UsuarioNoRoot a los ComandosPostArranque" off
+    )
+    choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
+    clear
+
+    for choice in $choices
+      do
+        case $choice in
+
+          1)
+
+            echo ""
+            echo -e "${ColorVerde}  Configurando tarjetas de red...${FinColor}"
+            echo ""
+
+            echo ""
+            echo "    Configurando la interfaz loopback"
+            echo ""
+            echo "auto lo"                                 > /etc/network/interfaces
+            echo "  iface lo inet loopback"               >> /etc/network/interfaces
+            echo "  pre-up nft --file /etc/nftables.conf" >> /etc/network/interfaces
+            echo ""                                       >> /etc/network/interfaces
+
+            echo ""
+            echo "  Configurando la 1ra interfaz ethernet"
+            echo ""
+            echo "auto $interfazcableada1"                >> /etc/network/interfaces
+            echo "  allow-hotplug $interfazcableada1"     >> /etc/network/interfaces
+            echo "  iface $interfazcableada1 inet dhcp"   >> /etc/network/interfaces
+            echo ""                                       >> /etc/network/interfaces
+            echo ""
+
+            echo "  Configurando la 2da interfaz ethenet"
+            echo ""
+            echo "auto $interfazcableada2"                >> /etc/network/interfaces
+            echo "  iface $interfazcableada2 inet static" >> /etc/network/interfaces
+            echo "  address $vSubred.1"                   >> /etc/network/interfaces
+            echo "  network $vSubred.0"                   >> /etc/network/interfaces
+            echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
+            echo "  broadcast $vSubred.255"               >> /etc/network/interfaces
+            echo ""                                       >> /etc/network/interfaces
+
+          ;;
+
+          2)
+
+            echo ""
+            echo "  Habilitando el forwarding entre interfaces..."
+            echo ""
+            cp /etc/sysctl.conf /etc/sysctl.conf.bak
+            sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
+
+          ;;
+
+          3)
+
+            # Crear el archivo de reglas
+              echo ""
+              echo "  Creando las reglas para el NATeo..."
+              echo ""
+              echo "table inet filter {"                                                     > /root/ReglasNFTablesNAT.rules
+              echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
+              echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
+              echo "table ip nat {"                                                         >> /root/ReglasNFTablesNAT.rules
+              echo "  chain postrouting {"                                                  >> /root/ReglasNFTablesNAT.rules
+              echo "    type nat hook postrouting priority 100; policy accept;"             >> /root/ReglasNFTablesNAT.rules
+              echo '    oifname "eth0" ip saddr '"$vSubred"'.0/24 counter masquerade'       >> /root/ReglasNFTablesNAT.rules
+              echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
+              echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
+              echo "  chain prerouting {"                                                   >> /root/ReglasNFTablesNAT.rules
+              echo "    type nat hook prerouting priority 0; policy accept;"                >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname "eth0" tcp dport 33892 counter dnat to '"$vSubred"'.2:3389' >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname "eth0" tcp dport 33893 counter dnat to '"$vSubred"'.3:3389' >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname "eth0" tcp dport 33894 counter dnat to '"$vSubred"'.4:3389' >> /root/ReglasNFTablesNAT.rules
+              echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
+              echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
+
+            # Agregar las reglas al archivo de configuración de NFTables
+              sed -i '/^flush ruleset/a include "/root/ReglasNFTablesNAT.rules"' /etc/nftables.conf
+              sed -i -e 's|flush ruleset|flush ruleset\n|g'                      /etc/nftables.conf
+
+            # Recargar las reglas generales de NFTables
+              nft --file /etc/nftables.conf
+
+            # Agregar las reglas a los ComandosPostArranque
+              sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ComandosPostArranque.sh
+              echo "nft --file /etc/nftables.conf" >>        /root/scripts/ComandosPostArranque.sh
+
+          ;;
+
+          4)
+
+          ;;
+
+          5)
+
+          ;;
+
+          6)
+
+          ;;
+    
+          9)
+
+          ;;
+
+          10)
+
+          ;;
+
+          11)
+
+          ;;
+
+          12)
+
+          ;;
+
+        esac
+
+  done
 
 fi
-
