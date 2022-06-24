@@ -9,7 +9,7 @@
 #  Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
 #
 #  Ejecución remota:
-#  curl -s x | bash
+#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-eth1-con-NAT.sh | bash
 # ----------
 
 #-------------------------------------------------------------------
@@ -212,7 +212,7 @@ elif [ $OS_VERS == "11" ]; then
     echo "table ip nat {"                                                         >> /root/ReglasNFTablesNAT.rules
     echo "  chain postrouting {"                                                  >> /root/ReglasNFTablesNAT.rules
     echo "    type nat hook postrouting priority 100; policy accept;"             >> /root/ReglasNFTablesNAT.rules
-    echo '    oifname "eth0" ip saddr 192.168.1.0/24 counter masquerade'          >> /root/ReglasNFTablesNAT.rules
+    echo '    oifname "eth0" ip saddr '"$vSubred"'.0/24 counter masquerade'       >> /root/ReglasNFTablesNAT.rules
     echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
     echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
     echo "  chain prerouting {"                                                   >> /root/ReglasNFTablesNAT.rules
