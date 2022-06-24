@@ -29,6 +29,7 @@
 interfazcableada1=eth0
 interfazcableada2=eth1
 vSubred="192.168.1"
+
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
 FinColor='\033[0m'
@@ -234,73 +235,64 @@ elif [ $OS_VERS == "11" ]; then
   echo ""
   echo "  Configurando la interfaz loopback"
   echo ""
-  echo "auto lo"                                                    > /etc/network/interfaces
-  echo "  iface lo inet loopback"                                  >> /etc/network/interfaces
-  echo "  pre-up iptables-restore < /root/ReglasIPTablesIP4Router" >> /etc/network/interfaces
-  echo ""                                                          >> /etc/network/interfaces
+  echo "auto lo"                                 > /etc/network/interfaces
+  echo "  iface lo inet loopback"               >> /etc/network/interfaces
+  echo "  pre-up nft --file /etc/nftables.conf" >> /etc/network/interfaces
+  echo ""                                       >> /etc/network/interfaces
 
   echo ""
   echo "  Configurando la 1ra interfaz ethernet"
   echo ""
-  echo "auto $interfazcableada1"              >> /etc/network/interfaces
-  echo "  allow-hotplug $interfazcableada1"   >> /etc/network/interfaces
-  echo "  iface $interfazcableada1 inet dhcp" >> /etc/network/interfaces
-  echo ""                                     >> /etc/network/interfaces
-
+  echo "auto $interfazcableada1"                >> /etc/network/interfaces
+  echo "  allow-hotplug $interfazcableada1"     >> /etc/network/interfaces
+  echo "  iface $interfazcableada1 inet dhcp"   >> /etc/network/interfaces
+  echo ""                                       >> /etc/network/interfaces
   echo ""
-  echo "  Configurando la 2da interfaz ethernet"
+
+  echo "  Configurando la 2da interfaz ethenet"
   echo ""
   echo "auto $interfazcableada2"                >> /etc/network/interfaces
   echo "  iface $interfazcableada2 inet static" >> /etc/network/interfaces
-  echo "  address 192.168.1.1"                  >> /etc/network/interfaces
-  echo "  network 192.168.1.0"                  >> /etc/network/interfaces
+  echo "  address $vSubred.1"                   >> /etc/network/interfaces
+  echo "  network $vSubred.0"                   >> /etc/network/interfaces
   echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
-  echo "  broadcast 192.168.1.255"              >> /etc/network/interfaces
+  echo "  broadcast $vSubred.255"               >> /etc/network/interfaces
   echo ""                                       >> /etc/network/interfaces
 
   echo ""
-  echo "  Habilitando el forwarding entre interfaces de red..."
+  echo "  Habilitando el forwarding entre interfaces..."
   echo ""
   cp /etc/sysctl.conf /etc/sysctl.conf.bak
   sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
 
-  echo ""
-  echo "  Creando las reglas de IPTables..."
-  echo ""
-  echo "*mangle"                                                                                                > /root/ReglasIPTablesIP4Router
-  echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesIP4Router
-  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
-  echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesIP4Router
-  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
-  echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesIP4Router
-  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
-  echo ""                                                                                                      >> /root/ReglasIPTablesIP4Router
-  echo "*nat"                                                                                                  >> /root/ReglasIPTablesIP4Router
-  echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesIP4Router
-  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
-  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
-  echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesIP4Router
-  echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE"                                                    >> /root/ReglasIPTablesIP4Router
-  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
-  echo ""                                                                                                      >> /root/ReglasIPTablesIP4Router
-  echo "*filter"                                                                                               >> /root/ReglasIPTablesIP4Router
-  echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesIP4Router
-  echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesIP4Router
-  echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesIP4Router
-  echo "-A FORWARD -i $interfazcableada1 -o $interfazcableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesIP4Router
-  echo "-A FORWARD -i $interfazcableada2 -o $interfazcableada1 -j ACCEPT"                                      >> /root/ReglasIPTablesIP4Router
-  echo "COMMIT"                                                                                                >> /root/ReglasIPTablesIP4Router
+  # Crear las reglas
+    echo "table inet filter {"                                                     > /root/ReglasNFTablesNAT.rules
+    echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
+    echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
+    echo "table ip nat {"                                                         >> /root/ReglasNFTablesNAT.rules
+    echo "  chain postrouting {"                                                  >> /root/ReglasNFTablesNAT.rules
+    echo "    type nat hook postrouting priority 100; policy accept;"             >> /root/ReglasNFTablesNAT.rules
+    echo '    oifname "eth0" ip saddr '"$vSubred"'.0/24 counter masquerade'       >> /root/ReglasNFTablesNAT.rules
+    echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
+    echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
+    echo "  chain prerouting {"                                                   >> /root/ReglasNFTablesNAT.rules
+    echo "    type nat hook prerouting priority 0; policy accept;"                >> /root/ReglasNFTablesNAT.rules
+    echo '    iifname "eth0" tcp dport 33892 counter dnat to '"$vSubred"'.2:3389' >> /root/ReglasNFTablesNAT.rules
+    echo '    iifname "eth0" tcp dport 33893 counter dnat to '"$vSubred"'.3:3389' >> /root/ReglasNFTablesNAT.rules
+    echo '    iifname "eth0" tcp dport 33894 counter dnat to '"$vSubred"'.4:3389' >> /root/ReglasNFTablesNAT.rules
+    echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
+    echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
 
-  echo ""
-  echo "  Actualizando la lista de paquetes disponibles..."
-  echo ""
-  apt-get -y update
+  # Agregar las reglas al archivo de configuración de NFTables
+    sed -i '/^flush ruleset/a include "/root/ReglasNFTablesNAT.rules"' /etc/nftables.conf
+    sed -i -e 's|flush ruleset|flush ruleset\n|g'                      /etc/nftables.conf
 
-  echo ""
-  echo "  Instalando el servidor SSH..."
-  echo ""
-  apt-get -y install tasksel
-  tasksel install ssh-server
+  # Recargar las reglas generales de NFTables
+    nft --file /etc/nftables.conf
+
+  # Agregar las reglas a los ComandosPostArranque
+    sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ComandosPostArranque.sh
+    echo "nft --file /etc/nftables.conf" >>        /root/scripts/ComandosPostArranque.sh
 
   echo ""
   echo "  Instalando el servidor DHCP..."
@@ -322,16 +314,16 @@ elif [ $OS_VERS == "11" ]; then
   echo ""
   cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
   echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
-  echo "subnet 192.168.1.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
-  echo "  range 192.168.1.100 192.168.1.199;"           >> /etc/dhcp/dhcpd.conf
-  echo "  option routers 192.168.1.1;"                  >> /etc/dhcp/dhcpd.conf
+  echo "subnet $vSubred.0 netmask 255.255.255.0 {"      >> /etc/dhcp/dhcpd.conf
+  echo "  range $vSubred.100 $vSubred.199;"             >> /etc/dhcp/dhcpd.conf
+  echo "  option routers $vSubred.1;"                   >> /etc/dhcp/dhcpd.conf
   echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
   echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
   echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
   echo ""                                               >> /etc/dhcp/dhcpd.conf
   echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
   echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
-  echo "    fixed-address 192.168.1.10;"                >> /etc/dhcp/dhcpd.conf
+  echo "    fixed-address $vSubred.10;"                 >> /etc/dhcp/dhcpd.conf
   echo "  }"                                            >> /etc/dhcp/dhcpd.conf
   echo "}"                                              >> /etc/dhcp/dhcpd.conf
 
