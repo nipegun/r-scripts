@@ -206,22 +206,22 @@ elif [ $OS_VERS == "11" ]; then
   sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
 
   # Crear las reglas
-    echo "table inet filter {"                                                   > /root/ReglasNFTablesNAT.rules
-    echo "}"                                                                    >> /root/ReglasNFTablesNAT.rules
-    echo ""                                                                     >> /root/ReglasNFTablesNAT.rules
-    echo "table ip nat {"                                                       >> /root/ReglasNFTablesNAT.rules
-    echo "  chain postrouting {"                                                >> /root/ReglasNFTablesNAT.rules
-    echo "    type nat hook postrouting priority 100; policy accept;"           >> /root/ReglasNFTablesNAT.rules
-    echo '    oifname "eth0" ip saddr 192.168.1.0/24 counter masquerade'        >> /root/ReglasNFTablesNAT.rules
-    echo "  }"                                                                  >> /root/ReglasNFTablesNAT.rules
-    echo ""                                                                     >> /root/ReglasNFTablesNAT.rules
-    echo "  chain prerouting {"                                                 >> /root/ReglasNFTablesNAT.rules
-    echo "    type nat hook prerouting priority 0; policy accept;"              >> /root/ReglasNFTablesNAT.rules
-    echo '    iifname "eth0" tcp dport 33892 counter dnat to "$vSubred".2:3389' >> /root/ReglasNFTablesNAT.rules
-    echo '    iifname "eth0" tcp dport 33893 counter dnat to "$vSubred".3:3389' >> /root/ReglasNFTablesNAT.rules
-    echo '    iifname "eth0" tcp dport 33894 counter dnat to "$vSubred".4:3389' >> /root/ReglasNFTablesNAT.rules
-    echo "  }"                                                                  >> /root/ReglasNFTablesNAT.rules
-    echo "}"                                                                    >> /root/ReglasNFTablesNAT.rules
+    echo "table inet filter {"                                                     > /root/ReglasNFTablesNAT.rules
+    echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
+    echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
+    echo "table ip nat {"                                                         >> /root/ReglasNFTablesNAT.rules
+    echo "  chain postrouting {"                                                  >> /root/ReglasNFTablesNAT.rules
+    echo "    type nat hook postrouting priority 100; policy accept;"             >> /root/ReglasNFTablesNAT.rules
+    echo '    oifname "eth0" ip saddr 192.168.1.0/24 counter masquerade'          >> /root/ReglasNFTablesNAT.rules
+    echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
+    echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
+    echo "  chain prerouting {"                                                   >> /root/ReglasNFTablesNAT.rules
+    echo "    type nat hook prerouting priority 0; policy accept;"                >> /root/ReglasNFTablesNAT.rules
+    echo '    iifname "eth0" tcp dport 33892 counter dnat to '"$vSubred"'.2:3389' >> /root/ReglasNFTablesNAT.rules
+    echo '    iifname "eth0" tcp dport 33893 counter dnat to '"$vSubred"'.3:3389' >> /root/ReglasNFTablesNAT.rules
+    echo '    iifname "eth0" tcp dport 33894 counter dnat to '"$vSubred"'.4:3389' >> /root/ReglasNFTablesNAT.rules
+    echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
+    echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
 
   # Agregar las reglas al archivo de configuración de NFTables
     sed -i '/^flush ruleset/a include "/root/ReglasNFTablesNAT.rules"' /etc/nftables.conf
