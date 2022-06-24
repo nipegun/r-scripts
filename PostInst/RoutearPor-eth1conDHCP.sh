@@ -28,8 +28,7 @@
 
 interfazcableada1=eth0
 interfazcableada2=eth1
-vSubred=""
-v
+vSubred="192.168.1"
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
 FinColor='\033[0m'
