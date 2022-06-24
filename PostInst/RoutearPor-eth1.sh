@@ -12,6 +12,8 @@
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-eth1.sh | bash
 # ----------
 
+vIntEth0="eth0"
+vIntEth1="eth1"
 vLANIP="192.168.1"
 
 # Comprobar si el script está corriendo como root
@@ -146,16 +148,16 @@ elif [ $OS_VERS == "10" ]; then
             echo ""
             echo "    Configurando la 1ra interfaz ethernet"
             echo ""
-            echo "auto $interfazcableada1"                                   >> /etc/network/interfaces
-            echo "  allow-hotplug $interfazcableada1"                        >> /etc/network/interfaces
-            echo "  iface $interfazcableada1 inet dhcp"                      >> /etc/network/interfaces
+            echo "auto $vIntEth0"                                            >> /etc/network/interfaces
+            echo "  allow-hotplug $vIntEth0"                                 >> /etc/network/interfaces
+            echo "  iface $vIntEth0 inet dhcp"                               >> /etc/network/interfaces
             echo ""                                                          >> /etc/network/interfaces
 
             echo ""
             echo "    Configurando la 2da interfaz ethenet"
             echo ""
-            echo "auto $interfazcableada2"                                   >> /etc/network/interfaces
-            echo "  iface $interfazcableada2 inet static"                    >> /etc/network/interfaces
+            echo "auto $vIntEth1"                                            >> /etc/network/interfaces
+            echo "  iface $vIntEth1 inet static"                             >> /etc/network/interfaces
             echo "  address $vLANIP.1"                                       >> /etc/network/interfaces
             echo "  network $vLANIP.0"                                       >> /etc/network/interfaces
             echo "  netmask 255.255.255.0"                                   >> /etc/network/interfaces
@@ -180,29 +182,29 @@ elif [ $OS_VERS == "10" ]; then
             echo -e "${ColorAzulClaro}  Agregando la funcionalidad NAT...${FinColor}"
             echo ""
             # Crear el archivo de reglas
-              echo "*mangle"                                                                                                > /root/ReglasIPTablesNAT.rules
-              echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesNAT.rules
-              echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesNAT.rules
-              echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesNAT.rules
-              echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesNAT.rules
-              echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesNAT.rules
-              echo "COMMIT"                                                                                                >> /root/ReglasIPTablesNAT.rules
-              echo ""                                                                                                      >> /root/ReglasIPTablesNAT.rules
-              echo "*nat"                                                                                                  >> /root/ReglasIPTablesNAT.rules
-              echo ":PREROUTING ACCEPT [0:0]"                                                                              >> /root/ReglasIPTablesNAT.rules
-              echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesNAT.rules
-              echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesNAT.rules
-              echo ":POSTROUTING ACCEPT [0:0]"                                                                             >> /root/ReglasIPTablesNAT.rules
-              echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE"                                                    >> /root/ReglasIPTablesNAT.rules
-              echo "COMMIT"                                                                                                >> /root/ReglasIPTablesNAT.rules
-              echo ""                                                                                                      >> /root/ReglasIPTablesNAT.rules
-              echo "*filter"                                                                                               >> /root/ReglasIPTablesNAT.rules
-              echo ":INPUT ACCEPT [0:0]"                                                                                   >> /root/ReglasIPTablesNAT.rules
-              echo ":FORWARD ACCEPT [0:0]"                                                                                 >> /root/ReglasIPTablesNAT.rules
-              echo ":OUTPUT ACCEPT [0:0]"                                                                                  >> /root/ReglasIPTablesNAT.rules
-              echo "-A FORWARD -i $interfazcableada1 -o $interfazcableada2 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesNAT.rules
-              echo "-A FORWARD -i $interfazcableada2 -o $interfazcableada1 -j ACCEPT"                                      >> /root/ReglasIPTablesNAT.rules
-              echo "COMMIT"                                                                                                >> /root/ReglasIPTablesNAT.rules
+              echo "*mangle"                                                                              > /root/ReglasIPTablesNAT.rules
+              echo ":PREROUTING ACCEPT [0:0]"                                                            >> /root/ReglasIPTablesNAT.rules
+              echo ":INPUT ACCEPT [0:0]"                                                                 >> /root/ReglasIPTablesNAT.rules
+              echo ":FORWARD ACCEPT [0:0]"                                                               >> /root/ReglasIPTablesNAT.rules
+              echo ":OUTPUT ACCEPT [0:0]"                                                                >> /root/ReglasIPTablesNAT.rules
+              echo ":POSTROUTING ACCEPT [0:0]"                                                           >> /root/ReglasIPTablesNAT.rules
+              echo "COMMIT"                                                                              >> /root/ReglasIPTablesNAT.rules
+              echo ""                                                                                    >> /root/ReglasIPTablesNAT.rules
+              echo "*nat"                                                                                >> /root/ReglasIPTablesNAT.rules
+              echo ":PREROUTING ACCEPT [0:0]"                                                            >> /root/ReglasIPTablesNAT.rules
+              echo ":INPUT ACCEPT [0:0]"                                                                 >> /root/ReglasIPTablesNAT.rules
+              echo ":OUTPUT ACCEPT [0:0]"                                                                >> /root/ReglasIPTablesNAT.rules
+              echo ":POSTROUTING ACCEPT [0:0]"                                                           >> /root/ReglasIPTablesNAT.rules
+              echo "-A POSTROUTING -o $vIntEth0 -j MASQUERADE"                                           >> /root/ReglasIPTablesNAT.rules
+              echo "COMMIT"                                                                              >> /root/ReglasIPTablesNAT.rules
+              echo ""                                                                                    >> /root/ReglasIPTablesNAT.rules
+              echo "*filter"                                                                             >> /root/ReglasIPTablesNAT.rules
+              echo ":INPUT ACCEPT [0:0]"                                                                 >> /root/ReglasIPTablesNAT.rules
+              echo ":FORWARD ACCEPT [0:0]"                                                               >> /root/ReglasIPTablesNAT.rules
+              echo ":OUTPUT ACCEPT [0:0]"                                                                >> /root/ReglasIPTablesNAT.rules
+              echo "-A FORWARD -i $vIntEth0 -o $vIntEth1 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesNAT.rules
+              echo "-A FORWARD -i $vIntEth1 -o $vIntEth0 -j ACCEPT"                                      >> /root/ReglasIPTablesNAT.rules
+              echo "COMMIT"                                                                              >> /root/ReglasIPTablesNAT.rules
 
             # Recargar las reglas generales de NFTables
               iptables-restore < /root/ReglasIPTablesNAT.rules
@@ -230,7 +232,7 @@ elif [ $OS_VERS == "10" ]; then
             echo ""
             cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
             echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
-            echo 'INTERFACESv4="$interfazcableada2"' >> /etc/default/isc-dhcp-server
+            echo 'INTERFACESv4="$vIntEth1"'          >> /etc/default/isc-dhcp-server
             echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
 
             echo ""
@@ -353,16 +355,16 @@ elif [ $OS_VERS == "11" ]; then
             echo ""
             echo "    Configurando la 1ra interfaz ethernet"
             echo ""
-            echo "auto $interfazcableada1"                >> /etc/network/interfaces
-            echo "  allow-hotplug $interfazcableada1"     >> /etc/network/interfaces
-            echo "  iface $interfazcableada1 inet dhcp"   >> /etc/network/interfaces
+            echo "auto $vIntEth0"                         >> /etc/network/interfaces
+            echo "  allow-hotplug $vIntEth0"              >> /etc/network/interfaces
+            echo "  iface $vIntEth0 inet dhcp"            >> /etc/network/interfaces
             echo ""                                       >> /etc/network/interfaces
 
             echo ""
             echo "    Configurando la 2da interfaz ethenet"
             echo ""
-            echo "auto $interfazcableada2"                >> /etc/network/interfaces
-            echo "  iface $interfazcableada2 inet static" >> /etc/network/interfaces
+            echo "auto $vIntEth1"                         >> /etc/network/interfaces
+            echo "  iface $vIntEth1 inet static"          >> /etc/network/interfaces
             echo "  address $vLANIP.1"                    >> /etc/network/interfaces
             echo "  network $vLANIP.0"                    >> /etc/network/interfaces
             echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
@@ -390,22 +392,22 @@ elif [ $OS_VERS == "11" ]; then
               echo ""
               echo "  Creando las reglas para el NATeo..."
               echo ""
-              echo "table inet filter {"                                                    > /root/ReglasNFTablesNAT.rules
-              echo "}"                                                                     >> /root/ReglasNFTablesNAT.rules
-              echo ""                                                                      >> /root/ReglasNFTablesNAT.rules
-              echo "table ip nat {"                                                        >> /root/ReglasNFTablesNAT.rules
-              echo "  chain postrouting {"                                                 >> /root/ReglasNFTablesNAT.rules
-              echo "    type nat hook postrouting priority 100; policy accept;"            >> /root/ReglasNFTablesNAT.rules
-              echo '    oifname "eth0" ip saddr '"$vLANIP"'.0/24 counter masquerade'       >> /root/ReglasNFTablesNAT.rules
-              echo "  }"                                                                   >> /root/ReglasNFTablesNAT.rules
-              echo ""                                                                      >> /root/ReglasNFTablesNAT.rules
-              echo "  chain prerouting {"                                                  >> /root/ReglasNFTablesNAT.rules
-              echo "    type nat hook prerouting priority 0; policy accept;"               >> /root/ReglasNFTablesNAT.rules
-              echo '    iifname "eth0" tcp dport 33892 counter dnat to '"$vLANIP"'.2:3389' >> /root/ReglasNFTablesNAT.rules
-              echo '    iifname "eth0" tcp dport 33893 counter dnat to '"$vLANIP"'.3:3389' >> /root/ReglasNFTablesNAT.rules
-              echo '    iifname "eth0" tcp dport 33894 counter dnat to '"$vLANIP"'.4:3389' >> /root/ReglasNFTablesNAT.rules
-              echo "  }"                                                                   >> /root/ReglasNFTablesNAT.rules
-              echo "}"                                                                     >> /root/ReglasNFTablesNAT.rules
+              echo "table inet filter {"                                                           > /root/ReglasNFTablesNAT.rules
+              echo "}"                                                                            >> /root/ReglasNFTablesNAT.rules
+              echo ""                                                                             >> /root/ReglasNFTablesNAT.rules
+              echo "table ip nat {"                                                               >> /root/ReglasNFTablesNAT.rules
+              echo "  chain postrouting {"                                                        >> /root/ReglasNFTablesNAT.rules
+              echo "    type nat hook postrouting priority 100; policy accept;"                   >> /root/ReglasNFTablesNAT.rules
+              echo '    oifname '"$vIntEth0"' ip saddr '"$vLANIP"'.0/24 counter masquerade'       >> /root/ReglasNFTablesNAT.rules
+              echo "  }"                                                                          >> /root/ReglasNFTablesNAT.rules
+              echo ""                                                                             >> /root/ReglasNFTablesNAT.rules
+              echo "  chain prerouting {"                                                         >> /root/ReglasNFTablesNAT.rules
+              echo "    type nat hook prerouting priority 0; policy accept;"                      >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname '"$vIntEth0"' tcp dport 33892 counter dnat to '"$vLANIP"'.2:3389' >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname '"$vIntEth0"' tcp dport 33893 counter dnat to '"$vLANIP"'.3:3389' >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname '"$vIntEth0"' tcp dport 33894 counter dnat to '"$vLANIP"'.4:3389' >> /root/ReglasNFTablesNAT.rules
+              echo "  }"                                                                          >> /root/ReglasNFTablesNAT.rules
+              echo "}"                                                                            >> /root/ReglasNFTablesNAT.rules
 
             # Agregar las reglas al archivo de configuración de NFTables
               sed -i '/^flush ruleset/a include "/root/ReglasNFTablesNAT.rules"' /etc/nftables.conf
@@ -437,7 +439,7 @@ elif [ $OS_VERS == "11" ]; then
             echo ""
             cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
             echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
-            echo 'INTERFACESv4="$interfazcableada2"' >> /etc/default/isc-dhcp-server
+            echo 'INTERFACESv4="$vIntEth1"'          >> /etc/default/isc-dhcp-server
             echo 'INTERFACESv6=""'                   >> /etc/default/isc-dhcp-server
 
             echo ""
