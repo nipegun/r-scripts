@@ -12,6 +12,8 @@
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-eth1.sh | bash
 # ----------
 
+vLANIP="192.168.1"
+
 # Comprobar si el script está corriendo como root
   if [ $(id -u) -ne 0 ]; then
     echo "Este script está preparado para ejecutarse como root y no lo has ejecutado como root." >&2
@@ -154,10 +156,10 @@ elif [ $OS_VERS == "10" ]; then
             echo ""
             echo "auto $interfazcableada2"                                   >> /etc/network/interfaces
             echo "  iface $interfazcableada2 inet static"                    >> /etc/network/interfaces
-            echo "  address $vSubred.1"                                      >> /etc/network/interfaces
-            echo "  network $vSubred.0"                                      >> /etc/network/interfaces
+            echo "  address $vLANIP.1"                                       >> /etc/network/interfaces
+            echo "  network $vLANIP.0"                                       >> /etc/network/interfaces
             echo "  netmask 255.255.255.0"                                   >> /etc/network/interfaces
-            echo "  broadcast $vSubred.255"                                  >> /etc/network/interfaces
+            echo "  broadcast $vLANIP.255"                                   >> /etc/network/interfaces
             echo ""                                                          >> /etc/network/interfaces
 
           ;;
@@ -236,16 +238,16 @@ elif [ $OS_VERS == "10" ]; then
             echo ""
             cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
             echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
-            echo "subnet $vSubred.0 netmask 255.255.255.0 {"      >> /etc/dhcp/dhcpd.conf
-            echo "  range $vSubred.100 $vSubred.199;"             >> /etc/dhcp/dhcpd.conf
-            echo "  option routers $vSubred.1;"                   >> /etc/dhcp/dhcpd.conf
+            echo "subnet $vLANIP.0 netmask 255.255.255.0 {"       >> /etc/dhcp/dhcpd.conf
+            echo "  range $vLANIP.100 $vLANIP.199;"               >> /etc/dhcp/dhcpd.conf
+            echo "  option routers $vLANIP.1;"                    >> /etc/dhcp/dhcpd.conf
             echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
             echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
             echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
             echo ""                                               >> /etc/dhcp/dhcpd.conf
             echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
             echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
-            echo "    fixed-address $vSubred.10;"                 >> /etc/dhcp/dhcpd.conf
+            echo "    fixed-address $vLANIP.10;"                  >> /etc/dhcp/dhcpd.conf
             echo "  }"                                            >> /etc/dhcp/dhcpd.conf
             echo "}"                                              >> /etc/dhcp/dhcpd.conf
 
@@ -361,10 +363,10 @@ elif [ $OS_VERS == "11" ]; then
             echo ""
             echo "auto $interfazcableada2"                >> /etc/network/interfaces
             echo "  iface $interfazcableada2 inet static" >> /etc/network/interfaces
-            echo "  address $vSubred.1"                   >> /etc/network/interfaces
-            echo "  network $vSubred.0"                   >> /etc/network/interfaces
+            echo "  address $vLANIP.1"                    >> /etc/network/interfaces
+            echo "  network $vLANIP.0"                    >> /etc/network/interfaces
             echo "  netmask 255.255.255.0"                >> /etc/network/interfaces
-            echo "  broadcast $vSubred.255"               >> /etc/network/interfaces
+            echo "  broadcast $vLANIP.255"                >> /etc/network/interfaces
             echo ""                                       >> /etc/network/interfaces
 
           ;;
@@ -388,22 +390,22 @@ elif [ $OS_VERS == "11" ]; then
               echo ""
               echo "  Creando las reglas para el NATeo..."
               echo ""
-              echo "table inet filter {"                                                     > /root/ReglasNFTablesNAT.rules
-              echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
-              echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
-              echo "table ip nat {"                                                         >> /root/ReglasNFTablesNAT.rules
-              echo "  chain postrouting {"                                                  >> /root/ReglasNFTablesNAT.rules
-              echo "    type nat hook postrouting priority 100; policy accept;"             >> /root/ReglasNFTablesNAT.rules
-              echo '    oifname "eth0" ip saddr '"$vSubred"'.0/24 counter masquerade'       >> /root/ReglasNFTablesNAT.rules
-              echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
-              echo ""                                                                       >> /root/ReglasNFTablesNAT.rules
-              echo "  chain prerouting {"                                                   >> /root/ReglasNFTablesNAT.rules
-              echo "    type nat hook prerouting priority 0; policy accept;"                >> /root/ReglasNFTablesNAT.rules
-              echo '    iifname "eth0" tcp dport 33892 counter dnat to '"$vSubred"'.2:3389' >> /root/ReglasNFTablesNAT.rules
-              echo '    iifname "eth0" tcp dport 33893 counter dnat to '"$vSubred"'.3:3389' >> /root/ReglasNFTablesNAT.rules
-              echo '    iifname "eth0" tcp dport 33894 counter dnat to '"$vSubred"'.4:3389' >> /root/ReglasNFTablesNAT.rules
-              echo "  }"                                                                    >> /root/ReglasNFTablesNAT.rules
-              echo "}"                                                                      >> /root/ReglasNFTablesNAT.rules
+              echo "table inet filter {"                                                    > /root/ReglasNFTablesNAT.rules
+              echo "}"                                                                     >> /root/ReglasNFTablesNAT.rules
+              echo ""                                                                      >> /root/ReglasNFTablesNAT.rules
+              echo "table ip nat {"                                                        >> /root/ReglasNFTablesNAT.rules
+              echo "  chain postrouting {"                                                 >> /root/ReglasNFTablesNAT.rules
+              echo "    type nat hook postrouting priority 100; policy accept;"            >> /root/ReglasNFTablesNAT.rules
+              echo '    oifname "eth0" ip saddr '"$vLANIP"'.0/24 counter masquerade'       >> /root/ReglasNFTablesNAT.rules
+              echo "  }"                                                                   >> /root/ReglasNFTablesNAT.rules
+              echo ""                                                                      >> /root/ReglasNFTablesNAT.rules
+              echo "  chain prerouting {"                                                  >> /root/ReglasNFTablesNAT.rules
+              echo "    type nat hook prerouting priority 0; policy accept;"               >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname "eth0" tcp dport 33892 counter dnat to '"$vLANIP"'.2:3389' >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname "eth0" tcp dport 33893 counter dnat to '"$vLANIP"'.3:3389' >> /root/ReglasNFTablesNAT.rules
+              echo '    iifname "eth0" tcp dport 33894 counter dnat to '"$vLANIP"'.4:3389' >> /root/ReglasNFTablesNAT.rules
+              echo "  }"                                                                   >> /root/ReglasNFTablesNAT.rules
+              echo "}"                                                                     >> /root/ReglasNFTablesNAT.rules
 
             # Agregar las reglas al archivo de configuración de NFTables
               sed -i '/^flush ruleset/a include "/root/ReglasNFTablesNAT.rules"' /etc/nftables.conf
@@ -443,16 +445,16 @@ elif [ $OS_VERS == "11" ]; then
             echo ""
             cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
             echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
-            echo "subnet $vSubred.0 netmask 255.255.255.0 {"      >> /etc/dhcp/dhcpd.conf
-            echo "  range $vSubred.100 $vSubred.199;"             >> /etc/dhcp/dhcpd.conf
-            echo "  option routers $vSubred.1;"                   >> /etc/dhcp/dhcpd.conf
+            echo "subnet $vLANIP.0 netmask 255.255.255.0 {"      >> /etc/dhcp/dhcpd.conf
+            echo "  range $vLANIP.100 $vLANIP.199;"             >> /etc/dhcp/dhcpd.conf
+            echo "  option routers $vLANIP.1;"                   >> /etc/dhcp/dhcpd.conf
             echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
             echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
             echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
             echo ""                                               >> /etc/dhcp/dhcpd.conf
             echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
             echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
-            echo "    fixed-address $vSubred.10;"                 >> /etc/dhcp/dhcpd.conf
+            echo "    fixed-address $vLANIP.10;"                 >> /etc/dhcp/dhcpd.conf
             echo "  }"                                            >> /etc/dhcp/dhcpd.conf
             echo "}"                                              >> /etc/dhcp/dhcpd.conf
 
@@ -515,9 +517,9 @@ elif [ $OS_VERS == "11" ]; then
             echo "    Creando la base de datos de prueba..."
             echo ""
             cp /etc/bind/db.local /etc/bind/db.prueba.com
-            echo -e "router\tIN\tA\t192.168.1.1"     >> /etc/bind/db.prueba.com
-            echo -e "servidor\tIN\tA\t192.168.1.10"  >> /etc/bind/db.prueba.com
-            echo -e "impresora\tIN\tA\t192.168.1.11" >> /etc/bind/db.prueba.com
+            echo -e "router\tIN\tA\t$vLANIP.1"     >> /etc/bind/db.prueba.com
+            echo -e "servidor\tIN\tA\t$vLANIP.10"  >> /etc/bind/db.prueba.com
+            echo -e "impresora\tIN\tA\t$vLANIP.11" >> /etc/bind/db.prueba.com
 
             echo ""
             echo "    Corrigiendo los posibles errores de IPv6..."
