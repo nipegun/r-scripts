@@ -26,10 +26,9 @@
 # !!!! DEBES REEMPLAZAR LOS VALORES DE LAS 2 VARIABLES DE ABAJO !!!!
 # !!!!!!!!!!!!!!!!!!! ANTES DE EJECUTAR EL SCRIPT !!!!!!!!!!!!!!!!!!
 
-interfazcableada1=eth0
-interfazcableada2=eth1
-interfazinalambrica1=wlan0
-
+vInterfazWAN=eth0
+vInterfazLAN1=eth1
+vInterfazWLAN1=wlan0
 
 ColorRojo='\033[1;31m'
 ColorVerde='\033[1;32m'
@@ -113,15 +112,15 @@ do
       echo "-------------------------------------"
       echo ""
       cp /etc/apt/sources.list /etc/apt/sources.list.bak
-      echo "deb http://ftp.debian.org/debian/ stretch main contrib non-free" > /etc/apt/sources.list
-      echo "deb-src http://ftp.debian.org/debian/ stretch main contrib non-free" >> /etc/apt/sources.list
-      echo "" >> /etc/apt/sources.list
-      echo "deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free" >> /etc/apt/sources.list
+      echo "deb http://ftp.debian.org/debian/ stretch main contrib non-free"              > /etc/apt/sources.list
+      echo "deb-src http://ftp.debian.org/debian/ stretch main contrib non-free"         >> /etc/apt/sources.list
+      echo ""                                                                            >> /etc/apt/sources.list
+      echo "deb http://ftp.debian.org/debian/ stretch-updates main contrib non-free"     >> /etc/apt/sources.list
       echo "deb-src http://ftp.debian.org/debian/ stretch-updates main contrib non-free" >> /etc/apt/sources.list
-      echo "" >> /etc/apt/sources.list
-      echo "deb http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
-      echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free" >> /etc/apt/sources.list
-      echo "" >> /etc/apt/sources.list
+      echo ""                                                                            >> /etc/apt/sources.list
+      echo "deb http://security.debian.org/ stretch/updates main contrib non-free"       >> /etc/apt/sources.list
+      echo "deb-src http://security.debian.org/ stretch/updates main contrib non-free"   >> /etc/apt/sources.list
+      echo ""                                                                            >> /etc/apt/sources.list
     ;;
 
     2)
@@ -151,29 +150,29 @@ do
       echo "  CREANDO LAS REGLAS DE IPTABLES"
       echo "----------------------------------"
       echo ""
-      echo "*mangle" > /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "COMMIT" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "*nat" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":PREROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":POSTROUTING ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "COMMIT" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "*filter" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":INPUT ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":FORWARD ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo ":OUTPUT ACCEPT [0:0]" >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "*mangle"                                                                                 > /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":PREROUTING ACCEPT [0:0]"                                                               >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":INPUT ACCEPT [0:0]"                                                                    >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":FORWARD ACCEPT [0:0]"                                                                  >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":OUTPUT ACCEPT [0:0]"                                                                   >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":POSTROUTING ACCEPT [0:0]"                                                              >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "COMMIT"                                                                                 >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ""                                                                                       >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "*nat"                                                                                   >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":PREROUTING ACCEPT [0:0]"                                                               >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":INPUT ACCEPT [0:0]"                                                                    >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":OUTPUT ACCEPT [0:0]"                                                                   >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":POSTROUTING ACCEPT [0:0]"                                                              >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "-A POSTROUTING -o $interfazcableada1 -j MASQUERADE"                                     >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "COMMIT"                                                                                 >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ""                                                                                       >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "*filter"                                                                                >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":INPUT ACCEPT [0:0]"                                                                    >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":FORWARD ACCEPT [0:0]"                                                                  >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo ":OUTPUT ACCEPT [0:0]"                                                                   >> /root/ReglasIPTablesV4RouterEthernetWiFi
       echo "-A FORWARD -i $interfazcableada1 -o br0 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "-A FORWARD -i br0 -o $interfazcableada1 -j ACCEPT" >> /root/ReglasIPTablesV4RouterEthernetWiFi
-      echo "COMMIT" >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "-A FORWARD -i br0 -o $interfazcableada1 -j ACCEPT"                                      >> /root/ReglasIPTablesV4RouterEthernetWiFi
+      echo "COMMIT"                                                                                 >> /root/ReglasIPTablesV4RouterEthernetWiFi
       echo ""
       echo "-----------------------------"
       echo "  HABILITANDO IP FORWARDING"
@@ -208,57 +207,57 @@ do
       echo "---------------------------------"
       echo ""
       cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
-      echo "authoritative;" > /etc/dhcp/dhcpd.conf
-      echo "subnet 192.168.1.0 netmask 255.255.255.0 {" >> /etc/dhcp/dhcpd.conf
-      echo "  range 192.168.1.100 192.168.1.199;" >> /etc/dhcp/dhcpd.conf
-      echo "  option routers 192.168.1.1;" >> /etc/dhcp/dhcpd.conf
+      echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
+      echo "subnet 192.168.1.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
+      echo "  range 192.168.1.100 192.168.1.199;"           >> /etc/dhcp/dhcpd.conf
+      echo "  option routers 192.168.1.1;"                  >> /etc/dhcp/dhcpd.conf
       echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
-      echo "  default-lease-time 600;" >> /etc/dhcp/dhcpd.conf
-      echo "  max-lease-time 7200;" >> /etc/dhcp/dhcpd.conf
-      echo "" >> /etc/dhcp/dhcpd.conf
-      echo "  host PrimeraReserva {" >> /etc/dhcp/dhcpd.conf
-      echo "    hardware ethernet 00:00:00:00:00:01;" >> /etc/dhcp/dhcpd.conf
-      echo "    fixed-address 192.168.1.10;" >> /etc/dhcp/dhcpd.conf
-      echo "  }" >> /etc/dhcp/dhcpd.conf
-      echo "}" >> /etc/dhcp/dhcpd.conf
+      echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
+      echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
+      echo ""                                               >> /etc/dhcp/dhcpd.conf
+      echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
+      echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
+      echo "    fixed-address 192.168.1.10;"                >> /etc/dhcp/dhcpd.conf
+      echo "  }"                                            >> /etc/dhcp/dhcpd.conf
+      echo "}"                                              >> /etc/dhcp/dhcpd.conf
       echo ""
       echo "-----------------------------------"
       echo "  CONFIGURANDO EL DEMONIO HOSTAPD"
       echo "-----------------------------------"
       echo ""
-      echo "#/etc/hostapd/hostapd.conf" > /etc/hostapd/hostapd.conf
-      echo "" >> /etc/hostapd/hostapd.conf
-      echo "# Punto de acceso básico" >> /etc/hostapd/hostapd.conf
-      echo "bridge=br0" >> /etc/hostapd/hostapd.conf
-      echo "interface=wlan0" >> /etc/hostapd/hostapd.conf
-      echo "ssid=BasicAP" >> /etc/hostapd/hostapd.conf
-      echo "channel=0" >> /etc/hostapd/hostapd.conf
-      echo "hw_mode=a" >> /etc/hostapd/hostapd.conf
-      echo "" >> /etc/hostapd/hostapd.conf
-      echo "# Primer punto de acceso" >> /etc/hostapd/hostapd.conf
-      echo "bridge=br0" >> /etc/hostapd/hostapd.conf
-      echo "interface=$interfazinalambrica1" >> /etc/hostapd/hostapd.conf
-      echo "wpa=2" >> /etc/hostapd/hostapd.conf
-      echo "wpa_key_mgmt=WPA-PSK" >> /etc/hostapd/hostapd.conf
-      echo "wpa_pairwise=TKIP" >> /etc/hostapd/hostapd.conf
-      echo "rsn_pairwise=CCMP" >> /etc/hostapd/hostapd.conf
-      echo "ignore_broadcast_ssid=0" >> /etc/hostapd/hostapd.conf
-      echo "eap_reauth_period=360000000" >> /etc/hostapd/hostapd.conf
-      echo "ssid=RouterX86" >> /etc/hostapd/hostapd.conf
-      echo "wpa_passphrase=RouterX86" >> /etc/hostapd/hostapd.conf
-      echo "" >> /etc/hostapd/hostapd.conf
-      echo "#Compex WLE1216v5-20 Atheros QCA9984/QCA9994" >> /etc/hostapd/hostapd.conf
-      echo "driver=nl80211" >> /etc/hostapd/hostapd.conf
+      echo "#/etc/hostapd/hostapd.conf"                    > /etc/hostapd/hostapd.conf
+      echo ""                                             >> /etc/hostapd/hostapd.conf
+      echo "# Punto de acceso básico"                     >> /etc/hostapd/hostapd.conf
+      echo "bridge=br0"                                   >> /etc/hostapd/hostapd.conf
+      echo "interface=wlan0"                              >> /etc/hostapd/hostapd.conf
+      echo "ssid=BasicAP"                                 >> /etc/hostapd/hostapd.conf
+      echo "channel=0"                                    >> /etc/hostapd/hostapd.conf
+      echo "hw_mode=a"                                    >> /etc/hostapd/hostapd.conf
+      echo ""                                             >> /etc/hostapd/hostapd.conf
+      echo "# Primer punto de acceso"                     >> /etc/hostapd/hostapd.conf
+      echo "bridge=br0"                                   >> /etc/hostapd/hostapd.conf
+      echo "interface=$interfazinalambrica1"              >> /etc/hostapd/hostapd.conf
+      echo "wpa=2"                                        >> /etc/hostapd/hostapd.conf
+      echo "wpa_key_mgmt=WPA-PSK"                         >> /etc/hostapd/hostapd.conf
+      echo "wpa_pairwise=TKIP"                            >> /etc/hostapd/hostapd.conf
+      echo "rsn_pairwise=CCMP"                            >> /etc/hostapd/hostapd.conf
+      echo "ignore_broadcast_ssid=0"                      >> /etc/hostapd/hostapd.conf
+      echo "eap_reauth_period=360000000"                  >> /etc/hostapd/hostapd.conf
+      echo "ssid=RouterX86"                               >> /etc/hostapd/hostapd.conf
+      echo "wpa_passphrase=RouterX86"                     >> /etc/hostapd/hostapd.conf
+      echo ""                                                                                                       >> /etc/hostapd/hostapd.conf
+      echo "#Compex WLE1216v5-20 Atheros QCA9984/QCA9994"                                                                 >> /etc/hostapd/hostapd.conf
+      echo "driver=nl80211"                                                                                               >> /etc/hostapd/hostapd.conf
       echo "channel=0       # El canal a usar. 0 significa que buscará automáticamente el canal con menos interferencias" >> /etc/hostapd/hostapd.conf
-      echo "hw_mode=a" >> /etc/hostapd/hostapd.conf
-      echo "ieee80211n=1" >> /etc/hostapd/hostapd.conf
-      echo "ieee80211ac=1" >> /etc/hostapd/hostapd.conf
-      echo "wme_enabled=1" >> /etc/hostapd/hostapd.conf
-      echo "wmm_enabled=1   # Soporte para QoS" >> /etc/hostapd/hostapd.conf
-      echo "ieee80211d=1    # Limitar las frecuencias sólo a las disponibles en el país" >> /etc/hostapd/hostapd.conf
-      echo "country_code=ES" >> /etc/hostapd/hostapd.conf
-      echo "ht_capab=[RXLDPC][HT40+][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
-      echo "#[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz" >> /etc/hostapd/hostapd.conf
+      echo "hw_mode=a"                                                                                                    >> /etc/hostapd/hostapd.conf
+      echo "ieee80211n=1"                                                                                                                                                                                >> /etc/hostapd/hostapd.conf
+      echo "ieee80211ac=1"                                                                                                                                                                               >> /etc/hostapd/hostapd.conf
+      echo "wme_enabled=1"                                                                                                                                                                               >> /etc/hostapd/hostapd.conf
+      echo "wmm_enabled=1   # Soporte para QoS"                                                                                                                                                          >> /etc/hostapd/hostapd.conf
+      echo "ieee80211d=1    # Limitar las frecuencias sólo a las disponibles en el país"                                                                                                                 >> /etc/hostapd/hostapd.conf
+      echo "country_code=ES"                                                                                                                                                                             >> /etc/hostapd/hostapd.conf
+      echo "ht_capab=[RXLDPC][HT40+][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935][DSSS_CCK-40]"                                                                                                       >> /etc/hostapd/hostapd.conf
+      echo "#[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz"                                                                                                    >> /etc/hostapd/hostapd.conf
       echo "vht_capab=[MAX-MPDU-11454][VHT160-80PLUS80][RXLDPC][SHORT-GI-80][SHORT-GI-160][TX-STBC][SU-BEAMFORMER][SU-BEAMFORMEE][MU-BEAMFORMER][MU-BEAMFORMEE][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]" >> /etc/hostapd/hostapd.conf
       echo ""
       
