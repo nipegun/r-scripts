@@ -9,7 +9,7 @@
 #  Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
 #
 #  Ejecución remota:
-#  curl -s x | bash
+#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-br0-(wlan0-y-eth1)-wlan(168c-0046).sh | bash
 # ----------
 
 # ----------
