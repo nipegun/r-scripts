@@ -9,7 +9,7 @@
 #  Script de NiPeGun para poner a Debian a routear via el puente br0 (wlan0 y eth1)
 #
 #  Ejecución remota:
-#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-br0-(wlan0-y-eth1)-wlan(168c-0030).sh | bash
+#  curl -s "https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-br0-(wlan0-y-eth1)-wlan(168c-0030).sh" | bash
 # ----------
 
 # ----------
