@@ -97,8 +97,9 @@ elif [ $OS_VERS == "9" ]; then
     1 "Agregar todos los repositorios" on
     2 "Actualizar el sistema" on
     3 "Instalar paquetes necesarios" on
-    4 "Realizar cambios en los archivos" on
-    5 "Reiniciar el sistema" on
+    4 "Crear o reemplazar archivos de configuración" on
+    5 "Instalar servidor DNS" on
+    6 "Reiniciar el sistema" on
   )
   choices=$("${cmd[@]}" "${options[@]}" 2>&1 >/dev/tty)
   clear
@@ -278,10 +279,32 @@ elif [ $OS_VERS == "9" ]; then
         ;;
 
         5)
+          echo ""
+          echo "  Instalando el servidor DNS..."
+          echo ""
+          apt-get -y update
+          apt-get -y install bind9
+          apt-get -y install dnsutils
+          service bind9 restart
+          sed -i "1s|^|nameserver 127.0.0.1\n|" /etc/resolv.conf
+          sed -i -e 's|// forwarders {|forwarders {|g' /etc/bind/named.conf.options
+          sed -i "/0.0.0.0;/c\1.1.1.1;"                /etc/bind/named.conf.options
+          sed -i -e 's|// };|};|g'                     /etc/bind/named.conf.options
+          echo 'zone "prueba.com" {'               >> /etc/bind/named.conf.local
+          echo "  type master;"                    >> /etc/bind/named.conf.local
+          echo '  file "/etc/bind/db.prueba.com";' >> /etc/bind/named.conf.local
+          echo "};"                                >> /etc/bind/named.conf.local
+          service bind9 restart
+        ;;
+    
+        6)
+          echo ""
+          echo "  Reiniciando el sistema..."
+          echo ""
           shutdown -r now
         ;;
 
-        esac
+      esac
 
     done
 
@@ -296,7 +319,7 @@ elif [ $OS_VERS == "10" ]; then
     1 "Agregar todos los repositorios" on
     2 "Actualizar el sistema" on
     3 "Instalar paquetes necesarios" on
-    4 "Realizar cambios en los archivos" on
+    4 "Crear o reemplazar archivos de configuración" on
     5 "Instalar servidor DNS" on
     6 "Reiniciar el sistema" on
   )
@@ -341,13 +364,13 @@ elif [ $OS_VERS == "10" ]; then
 
         4)
           echo ""
-          echo "    Creando o reemplazando archivos necesarios..."
+          echo "  Creando o reemplazando archivos de configuración..."
           echo ""
-          echo "  CREANDO LAS REGLAS DE NFTABLES"
+
           echo ""
+          echo "    Creando las reglas NFTables..."
           echo ""
-          echo ""
-          echo ""
+          x
       
           echo ""
           echo "    Habilitando el forwarding IPv4 entre interfaces..."
@@ -377,46 +400,53 @@ elif [ $OS_VERS == "10" ]; then
           echo ""
           cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
           echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
-          echo "subnet 192.168.1.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
-          echo "  range 192.168.1.100 192.168.1.199;"           >> /etc/dhcp/dhcpd.conf
-          echo "  option routers 192.168.1.1;"                  >> /etc/dhcp/dhcpd.conf
+          echo "subnet 192.168.2.0 netmask 255.255.255.0 {"     >> /etc/dhcp/dhcpd.conf
+          echo "  range 192.168.2.100 192.168.2.199;"           >> /etc/dhcp/dhcpd.conf
+          echo "  option routers 192.168.2.1;"                  >> /etc/dhcp/dhcpd.conf
           echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
           echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
           echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
           echo ""                                               >> /etc/dhcp/dhcpd.conf
           echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
-          echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
-          echo "    fixed-address 192.168.1.10;"                >> /etc/dhcp/dhcpd.conf
+          echo "    hardware ethernet 00:00:00:00:00:10;"       >> /etc/dhcp/dhcpd.conf
+          echo "    fixed-address 192.168.2.10;"                >> /etc/dhcp/dhcpd.conf
           echo "  }"                                            >> /etc/dhcp/dhcpd.conf
           echo "}"                                              >> /etc/dhcp/dhcpd.conf
           
           echo ""
           echo "    Configurando el demonio hostapd..."
           echo ""
-          echo "#/etc/hostapd/hostapd.conf"                                                                           > /etc/hostapd/hostapd.conf
-          echo ""                                                                                                    >> /etc/hostapd/hostapd.conf
-          echo "driver=nl80211"                                                                                      >> /etc/hostapd/hostapd.conf
-          echo "channel=0                     # El canal a usar. 0 buscará el canal con menos interferencias"        >> /etc/hostapd/hostapd.conf
-          echo "hw_mode=g"                                                                                           >> /etc/hostapd/hostapd.conf
-          echo "wme_enabled=1"                                                                                       >> /etc/hostapd/hostapd.conf
-          echo "ieee80211n=1"                                                                                        >> /etc/hostapd/hostapd.conf
-          echo "wmm_enabled=1                 # Soporte para QoS"                                                    >> /etc/hostapd/hostapd.conf
-          echo "ieee80211d=1                  # Limitar las frecuencias sólo a las disponibles en el país"           >> /etc/hostapd/hostapd.conf
-          echo "country_code=ES"                                                                                     >> /etc/hostapd/hostapd.conf
-          echo "#ht_capab=[RXLDPC][HT20+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
-          echo "#[HT40-][HT40+]"                                                                                     >> /etc/hostapd/hostapd.conf
-          echo ""                                                                                                    >> /etc/hostapd/hostapd.conf
-          echo "# Primer punto de acceso"                                                                            >> /etc/hostapd/hostapd.conf
-          echo "interface=$vInterfazWLAN1"                                                                           >> /etc/hostapd/hostapd.conf
-          echo "bridge=br0"                                                                                          >> /etc/hostapd/hostapd.conf
-          echo "ssid=RouterX86"                                                                                      >> /etc/hostapd/hostapd.conf
-          echo "ignore_broadcast_ssid=0"                                                                             >> /etc/hostapd/hostapd.conf
-          echo "wpa=2"                                                                                               >> /etc/hostapd/hostapd.conf
-          echo "wpa_key_mgmt=WPA-PSK"                                                                                >> /etc/hostapd/hostapd.conf
-          echo "wpa_pairwise=TKIP"                                                                                   >> /etc/hostapd/hostapd.conf
-          echo "rsn_pairwise=CCMP"                                                                                   >> /etc/hostapd/hostapd.conf
-          echo "wpa_passphrase=RouterX86"                                                                            >> /etc/hostapd/hostapd.conf
-          echo "eap_reauth_period=360000000"                                                                         >> /etc/hostapd/hostapd.conf
+          echo "#/etc/hostapd/hostapd.conf"                                                                                 > /etc/hostapd/hostapd.conf
+          echo ""                                                                                                          >> /etc/hostapd/hostapd.conf
+          echo "# Punto de acceso básico"                                                                                  >> /etc/hostapd/hostapd.conf
+          echo "#bridge=br0"                                                                                               >> /etc/hostapd/hostapd.conf
+          echo "#interface=wlan0"                                                                                          >> /etc/hostapd/hostapd.conf
+          echo "#ssid=BasicAP"                                                                                             >> /etc/hostapd/hostapd.conf
+          echo "#channel=0"                                                                                                >> /etc/hostapd/hostapd.conf
+          echo "#hw_mode=a"                                                                                                >> /etc/hostapd/hostapd.conf
+          echo ""                                                                                                          >> /etc/hostapd/hostapd.conf
+          echo "# Primer punto de acceso"                                                                                  >> /etc/hostapd/hostapd.conf
+          echo "bridge=br0"                                                                                                >> /etc/hostapd/hostapd.conf
+          echo "interface=$vInterfazWLAN1"                                                                                 >> /etc/hostapd/hostapd.conf
+          echo "wpa=2"                                                                                                     >> /etc/hostapd/hostapd.conf
+          echo "wpa_key_mgmt=WPA-PSK"                                                                                      >> /etc/hostapd/hostapd.conf
+          echo "wpa_pairwise=TKIP"                                                                                         >> /etc/hostapd/hostapd.conf
+          echo "rsn_pairwise=CCMP"                                                                                         >> /etc/hostapd/hostapd.conf
+          echo "ignore_broadcast_ssid=0"                                                                                   >> /etc/hostapd/hostapd.conf
+          echo "eap_reauth_period=360000000"                                                                               >> /etc/hostapd/hostapd.conf
+          echo "ssid=RouterX86"                                                                                            >> /etc/hostapd/hostapd.conf
+          echo "wpa_passphrase=RouterX86"                                                                                  >> /etc/hostapd/hostapd.conf
+          echo ""                                                                                                          >> /etc/hostapd/hostapd.conf
+          echo "#Tarjeta Atheros 9380 (168c:0030)"                                                                         >> /etc/hostapd/hostapd.conf
+          echo "driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
+          echo "channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
+          echo "hw_mode=a"                                                                                                 >> /etc/hostapd/hostapd.conf
+          echo "ieee80211n=1"                                                                                              >> /etc/hostapd/hostapd.conf
+          echo "wme_enabled=1"                                                                                             >> /etc/hostapd/hostapd.conf
+          echo "wmm_enabled=1                           # Soporte para QoS"                                                >> /etc/hostapd/hostapd.conf
+          echo "ieee80211d=1                            # Limitar las frecuencias sólo a las disponibles en el país"       >> /etc/hostapd/hostapd.conf
+          echo "country_code=ES"                                                                                           >> /etc/hostapd/hostapd.conf
+          echo "ht_capab=[RXLDPC][HT20+][HT40+][SHORT-GI-20][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
           systemctl unmask hostapd
           systemctl enable hostapd
           systemctl start hostapd
@@ -438,21 +468,21 @@ elif [ $OS_VERS == "10" ]; then
           echo ""                                              >> /etc/network/interfaces
           echo "auto br0"                                      >> /etc/network/interfaces
           echo "  iface br0 inet static"                       >> /etc/network/interfaces
-          echo "  network 192.168.1.0"                         >> /etc/network/interfaces
-          echo "  address 192.168.1.1"                         >> /etc/network/interfaces
-          echo "  broadcast 192.168.1.255"                     >> /etc/network/interfaces
+          echo "  network 192.168.2.0"                         >> /etc/network/interfaces
+          echo "  address 192.168.2.1"                         >> /etc/network/interfaces
+          echo "  broadcast 192.168.2.255"                     >> /etc/network/interfaces
           echo "  netmask 255.255.255.0"                       >> /etc/network/interfaces
           echo "  bridge-ports $vInterfazLAN1 $vInterfazWLAN1" >> /etc/network/interfaces
       
           echo ""
-          echo "Descargando archivo de nombres de fabricantes..."
+          echo "    Descargando archivo de nombres de fabricantes..."
           echo ""
           wget -O /usr/local/etc/oui.txt http://standards-oui.ieee.org/oui/oui.txt
         ;;
 
         5)
           echo ""
-          echo "    Instalando el servidor DNS..."
+          echo "  Instalando el servidor DNS..."
           echo ""
           apt-get -y update
           apt-get -y install bind9
@@ -471,12 +501,12 @@ elif [ $OS_VERS == "10" ]; then
     
         6)
           echo ""
-          echo "    Reiniciando el sistema..."
+          echo "  Reiniciando el sistema..."
           echo ""
           shutdown -r now
         ;;
 
-        esac
+      esac
 
     done
 
