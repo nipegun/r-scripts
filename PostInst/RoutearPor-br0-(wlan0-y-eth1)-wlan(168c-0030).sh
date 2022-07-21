@@ -238,7 +238,7 @@ elif [ $OS_VERS == "9" ]; then
           echo "ssid=RouterX86"                                                                                            >> /etc/hostapd/hostapd.conf
           echo "wpa_passphrase=RouterX86"                                                                                  >> /etc/hostapd/hostapd.conf
           echo ""                                                                                                          >> /etc/hostapd/hostapd.conf
-          echo "#Tarjeta Atheros 9380 (168c:0030)"                                                                         >> /etc/hostapd/hostapd.conf
+          echo "#Tarjeta TP-LINK TL-WDN4800 Atheros 9380 (168c:0030)"                                                      >> /etc/hostapd/hostapd.conf
           echo "driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
           echo "channel=0       # El canal a usar. 0 buscará el canal con menos interferencias"                            >> /etc/hostapd/hostapd.conf
           echo "hw_mode=a"                                                                                                 >> /etc/hostapd/hostapd.conf
@@ -460,7 +460,7 @@ elif [ $OS_VERS == "10" ]; then
           echo "ssid=RouterX86"                                                                                            >> /etc/hostapd/hostapd.conf
           echo "wpa_passphrase=RouterX86"                                                                                  >> /etc/hostapd/hostapd.conf
           echo ""                                                                                                          >> /etc/hostapd/hostapd.conf
-          echo "#Tarjeta Atheros 9380 (168c:0030)"                                                                         >> /etc/hostapd/hostapd.conf
+          echo "#Tarjeta TP-LINK TL-WDN4800 Atheros 9380 (168c:0030)"                                                      >> /etc/hostapd/hostapd.conf
           echo "driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
           echo "channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
           echo "hw_mode=a"                                                                                                 >> /etc/hostapd/hostapd.conf
@@ -663,7 +663,7 @@ elif [ $OS_VERS == "11" ]; then
           echo "ssid=RouterX86"                                                                                            >> /etc/hostapd/hostapd.conf
           echo "wpa_passphrase=RouterX86"                                                                                  >> /etc/hostapd/hostapd.conf
           echo ""                                                                                                          >> /etc/hostapd/hostapd.conf
-          echo "#Tarjeta Atheros 9380 (168c:0030)"                                                                         >> /etc/hostapd/hostapd.conf
+          echo "#Tarjeta TP-LINK TL-WDN4800 Atheros 9380 (168c:0030)"                                                      >> /etc/hostapd/hostapd.conf
           echo "driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
           echo "channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
           echo "hw_mode=a"                                                                                                 >> /etc/hostapd/hostapd.conf
