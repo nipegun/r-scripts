@@ -23,8 +23,8 @@
 # ----------
 
 vInterfazWAN=eth0
-vInterfazLAN1=eth1
 vInterfazWLAN1=wlan0
+vInterfazLAN1=eth1
 
 ColorAzul="\033[0;34m"
 ColorAzulClaro="\033[1;34m"
