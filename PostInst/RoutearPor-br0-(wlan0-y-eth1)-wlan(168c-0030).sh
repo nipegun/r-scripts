@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-#  Script de NiPeGun para poner a Debian a routear via el puente br0 (wlan0 y eth1) 
+#  Script de NiPeGun para poner a Debian a routear via el puente br0 (wlan0 y eth1)
 #
 #  Ejecución remota:
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-br0-(wlan0-y-eth1)-wlan(168c-0030).sh | bash
@@ -172,7 +172,7 @@ elif [ $OS_VERS == "9" ]; then
           echo "-A FORWARD -i $vInterfazWAN -o br0 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesV4RouterBR0
           echo "-A FORWARD -i br0 -o $vInterfazWAN -j ACCEPT"                                      >> /root/ReglasIPTablesV4RouterBR0
           echo "COMMIT"                                                                            >> /root/ReglasIPTablesV4RouterBR0
-          
+
           echo ""
           echo "    Habilitando el forwarding IPv4 entre interfaces..."
           echo ""
@@ -213,7 +213,7 @@ elif [ $OS_VERS == "9" ]; then
           echo "    fixed-address 192.168.2.10;"                >> /etc/dhcp/dhcpd.conf
           echo "  }"                                            >> /etc/dhcp/dhcpd.conf
           echo "}"                                              >> /etc/dhcp/dhcpd.conf
-          
+
           echo ""
           echo "    Configurando el demonio hostapd..."
           echo ""
@@ -271,7 +271,7 @@ elif [ $OS_VERS == "9" ]; then
           echo "  netmask 255.255.255.0"                                     >> /etc/network/interfaces
           echo "  broadcast 192.168.2.255"                                   >> /etc/network/interfaces
           echo "  bridge-ports $vInterfazLAN1 $vInterfazWLAN1"               >> /etc/network/interfaces
-      
+
           echo ""
           echo "    Descargando archivo de nombres de fabricantes..."
           echo ""
@@ -296,7 +296,7 @@ elif [ $OS_VERS == "9" ]; then
           echo "};"                                >> /etc/bind/named.conf.local
           service bind9 restart
         ;;
-    
+
         6)
           echo ""
           echo "  Reiniciando el sistema..."
@@ -393,8 +393,7 @@ elif [ $OS_VERS == "10" ]; then
           echo "-A FORWARD -i $vInterfazWAN -o br0 -m state --state RELATED,ESTABLISHED -j ACCEPT" >> /root/ReglasIPTablesV4RouterBR0
           echo "-A FORWARD -i br0 -o $vInterfazWAN -j ACCEPT"                                      >> /root/ReglasIPTablesV4RouterBR0
           echo "COMMIT"                                                                            >> /root/ReglasIPTablesV4RouterBR0
-          
-      
+
           echo ""
           echo "    Habilitando el forwarding IPv4 entre interfaces..."
           echo ""
@@ -435,7 +434,7 @@ elif [ $OS_VERS == "10" ]; then
           echo "    fixed-address 192.168.2.10;"                >> /etc/dhcp/dhcpd.conf
           echo "  }"                                            >> /etc/dhcp/dhcpd.conf
           echo "}"                                              >> /etc/dhcp/dhcpd.conf
-          
+
           echo ""
           echo "    Configurando el demonio hostapd..."
           echo ""
@@ -496,7 +495,7 @@ elif [ $OS_VERS == "10" ]; then
           echo "  broadcast 192.168.2.255"                                   >> /etc/network/interfaces
           echo "  netmask 255.255.255.0"                                     >> /etc/network/interfaces
           echo "  bridge-ports $vInterfazLAN1 $vInterfazWLAN1"               >> /etc/network/interfaces
-      
+
           echo ""
           echo "    Descargando archivo de nombres de fabricantes..."
           echo ""
@@ -521,7 +520,7 @@ elif [ $OS_VERS == "10" ]; then
           echo "};"                                >> /etc/bind/named.conf.local
           service bind9 restart
         ;;
-    
+
         6)
           echo ""
           echo "  Reiniciando el sistema..."
@@ -661,7 +660,7 @@ elif [ $OS_VERS == "11" ]; then
           echo "    fixed-address 192.168.2.10;"                >> /etc/dhcp/dhcpd.conf
           echo "  }"                                            >> /etc/dhcp/dhcpd.conf
           echo "}"                                              >> /etc/dhcp/dhcpd.conf
-          
+
           echo ""
           echo "    Configurando el demonio hostapd..."
           echo ""
@@ -722,7 +721,7 @@ elif [ $OS_VERS == "11" ]; then
           echo "  broadcast 192.168.2.255"                     >> /etc/network/interfaces
           echo "  netmask 255.255.255.0"                       >> /etc/network/interfaces
           echo "  bridge-ports $vInterfazLAN1 $vInterfazWLAN1" >> /etc/network/interfaces
-      
+
           echo ""
           echo "    Descargando archivo de nombres de fabricantes..."
           echo ""
@@ -747,7 +746,7 @@ elif [ $OS_VERS == "11" ]; then
           echo "};"                                >> /etc/bind/named.conf.local
           service bind9 restart
         ;;
-    
+
         6)
           echo ""
           echo "  Reiniciando el sistema..."
