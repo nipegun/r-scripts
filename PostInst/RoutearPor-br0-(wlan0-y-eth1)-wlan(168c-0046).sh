@@ -92,6 +92,15 @@ elif [ $OS_VERS == "9" ]; then
   echo -e "${ColorAzulClaro}Iniciando el script de preparación de Debian 9 (Stretch) para que routee por br0...${FinColor}"
   echo ""
 
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${ColorRojo}  dialog no está instalado. Iniciando su instalación...${FinColor}"
+      echo ""
+      apt-get -y update && apt-get -y install dialog
+      echo ""
+    fi
+
   cmd=(dialog --checklist "Opciones del script:" 22 76 16)
   options=(
     1 "Agregar todos los repositorios" on
@@ -315,6 +324,15 @@ elif [ $OS_VERS == "10" ]; then
   echo ""
   echo -e "${ColorAzulClaro}Iniciando el script de preparación de Debian 10 (Buster) para que routee por br0...${FinColor}"
   echo ""
+
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${ColorRojo}  dialog no está instalado. Iniciando su instalación...${FinColor}"
+      echo ""
+      apt-get -y update && apt-get -y install dialog
+      echo ""
+    fi
 
   cmd=(dialog --checklist "Opciones del script:" 22 76 16)
   options=(
@@ -544,6 +562,15 @@ elif [ $OS_VERS == "11" ]; then
   echo ""
   echo -e "${ColorAzulClaro}Iniciando el script de preparación de Debian 11 (Bullseye) para que routee por br0...${FinColor}"
   echo ""
+
+  # Comprobar si el paquete dialog está instalado. Si no lo está, instalarlo.
+    if [[ $(dpkg-query -s dialog 2>/dev/null | grep installed) == "" ]]; then
+      echo ""
+      echo -e "${ColorRojo}  dialog no está instalado. Iniciando su instalación...${FinColor}"
+      echo ""
+      apt-get -y update && apt-get -y install dialog
+      echo ""
+    fi
 
   cmd=(dialog --checklist "Opciones del script:" 22 76 16)
   options=(
