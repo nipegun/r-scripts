@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-#  Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
+#  Script de NiPeGun para poner a Debian a routear via el puente br0 (wlan0 y eth1)
 #
 #  Ejecución remota:
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/RoutearPor-br0-(wlan0-y-eth1)-wlan(168c-0046).sh | bash
@@ -247,13 +247,13 @@ elif [ $OS_VERS == "9" ]; then
           echo ""                                                                                                                                                                                            >> /etc/hostapd/hostapd.conf
           echo "#Tarjeta Compex WLE1216v5-20 Atheros QCA9984/QCA9994 (168c:0046)"                                                                                                                            >> /etc/hostapd/hostapd.conf
           echo "driver=nl80211"                                                                                                                                                                              >> /etc/hostapd/hostapd.conf
-          echo "channel=0       # El canal a usar. 0 buscará el canal con menos interferencias"                                                                                                              >> /etc/hostapd/hostapd.conf
+          echo "channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"                                                                                      >> /etc/hostapd/hostapd.conf
           echo "hw_mode=a"                                                                                                                                                                                   >> /etc/hostapd/hostapd.conf
           echo "ieee80211n=1"                                                                                                                                                                                >> /etc/hostapd/hostapd.conf
           echo "ieee80211ac=1"                                                                                                                                                                               >> /etc/hostapd/hostapd.conf
           echo "wme_enabled=1"                                                                                                                                                                               >> /etc/hostapd/hostapd.conf
-          echo "wmm_enabled=1   # Soporte para QoS"                                                                                                                                                          >> /etc/hostapd/hostapd.conf
-          echo "ieee80211d=1    # Limitar las frecuencias sólo a las disponibles en el país"                                                                                                                 >> /etc/hostapd/hostapd.conf
+          echo "wmm_enabled=1                           # Soporte para QoS"                                                                                                                                  >> /etc/hostapd/hostapd.conf
+          echo "ieee80211d=1                            # Limitar las frecuencias sólo a las disponibles en el país"                                                                                         >> /etc/hostapd/hostapd.conf
           echo "country_code=ES"                                                                                                                                                                             >> /etc/hostapd/hostapd.conf
           echo "ht_capab=[RXLDPC][HT40+][SHORT-GI-40][TX-STBC][RX-STBC1][MAX-AMSDU-7935][DSSS_CCK-40]"                                                                                                       >> /etc/hostapd/hostapd.conf
           echo "#[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz"                                                                                                    >> /etc/hostapd/hostapd.conf
@@ -272,7 +272,12 @@ elif [ $OS_VERS == "9" ]; then
           echo "  iface $vInterfazWAN inet dhcp"                             >> /etc/network/interfaces
           echo ""                                                            >> /etc/network/interfaces
           echo "auto $vInterfazWLAN1"                                        >> /etc/network/interfaces
+          echo "  allow-hotplug $vInterfazWLAN1"                             >> /etc/network/interfaces
           echo "  iface $vInterfazWLAN1 inet manual"                         >> /etc/network/interfaces
+          echo ""                                                            >> /etc/network/interfaces
+          echo "auto $vInterfazLAN1"                                         >> /etc/network/interfaces
+          echo "  allow-hotplug $vInterfazLAN1"                              >> /etc/network/interfaces
+          echo "  iface $vInterfazLAN1 inet manual"                          >> /etc/network/interfaces
           echo ""                                                            >> /etc/network/interfaces
           echo "auto br0"                                                    >> /etc/network/interfaces
           echo "  iface br0 inet static"                                     >> /etc/network/interfaces
@@ -509,7 +514,12 @@ elif [ $OS_VERS == "10" ]; then
           echo "  iface $vInterfazWAN inet dhcp"                             >> /etc/network/interfaces
           echo ""                                                            >> /etc/network/interfaces
           echo "auto $vInterfazWLAN1"                                        >> /etc/network/interfaces
+          echo "  allow-hotplug $vInterfazWLAN1"                             >> /etc/network/interfaces
           echo "  iface $vInterfazWLAN1 inet manual"                         >> /etc/network/interfaces
+          echo ""                                                            >> /etc/network/interfaces
+          echo "auto $vInterfazLAN1"                                         >> /etc/network/interfaces
+          echo "  allow-hotplug $vInterfazLAN1"                              >> /etc/network/interfaces
+          echo "  iface $vInterfazLAN1 inet manual"                          >> /etc/network/interfaces
           echo ""                                                            >> /etc/network/interfaces
           echo "auto br0"                                                    >> /etc/network/interfaces
           echo "  iface br0 inet static"                                     >> /etc/network/interfaces
@@ -746,7 +756,12 @@ elif [ $OS_VERS == "11" ]; then
           echo "  iface $vInterfazWAN inet dhcp"               >> /etc/network/interfaces
           echo ""                                              >> /etc/network/interfaces
           echo "auto $vInterfazWLAN1"                          >> /etc/network/interfaces
+          echo "  allow-hotplug $vInterfazWLAN1"               >> /etc/network/interfaces
           echo "  iface $vInterfazWLAN1 inet manual"           >> /etc/network/interfaces
+          echo ""                                              >> /etc/network/interfaces
+          echo "auto $vInterfazLAN1"                           >> /etc/network/interfaces
+          echo "  allow-hotplug $vInterfazLAN1"                >> /etc/network/interfaces
+          echo "  iface $vInterfazLAN1 inet manual"            >> /etc/network/interfaces
           echo ""                                              >> /etc/network/interfaces
           echo "auto br0"                                      >> /etc/network/interfaces
           echo "  iface br0 inet static"                       >> /etc/network/interfaces
