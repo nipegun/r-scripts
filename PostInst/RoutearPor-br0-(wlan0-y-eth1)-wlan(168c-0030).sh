@@ -283,7 +283,7 @@ elif [ $OS_VERS == "9" ]; then
           echo "  network 192.168.2.0"                                       >> /etc/network/interfaces
           echo "  netmask 255.255.255.0"                                     >> /etc/network/interfaces
           echo "  broadcast 192.168.2.255"                                   >> /etc/network/interfaces
-          echo "  bridge-ports $vInterfazLAN1 $vInterfazWLAN1"               >> /etc/network/interfaces
+          echo "  bridge-ports $vInterfazWLAN1 $vInterfazLAN1"               >> /etc/network/interfaces
 
           echo ""
           echo "    Descargando archivo de nombres de fabricantes..."
@@ -520,7 +520,7 @@ elif [ $OS_VERS == "10" ]; then
           echo "  address 192.168.2.1"                                       >> /etc/network/interfaces
           echo "  broadcast 192.168.2.255"                                   >> /etc/network/interfaces
           echo "  netmask 255.255.255.0"                                     >> /etc/network/interfaces
-          echo "  bridge-ports $vInterfazLAN1 $vInterfazWLAN1"               >> /etc/network/interfaces
+          echo "  bridge-ports $vInterfazWLAN1 $vInterfazLAN1"               >> /etc/network/interfaces
 
           echo ""
           echo "    Descargando archivo de nombres de fabricantes..."
@@ -758,7 +758,7 @@ elif [ $OS_VERS == "11" ]; then
           echo "  address 192.168.2.1"                         >> /etc/network/interfaces
           echo "  broadcast 192.168.2.255"                     >> /etc/network/interfaces
           echo "  netmask 255.255.255.0"                       >> /etc/network/interfaces
-          echo "  bridge-ports $vInterfazLAN1 $vInterfazWLAN1" >> /etc/network/interfaces
+          echo "  bridge-ports $vInterfazWLAN1 $vInterfazLAN1" >> /etc/network/interfaces
 
           echo ""
           echo "    Descargando archivo de nombres de fabricantes..."
