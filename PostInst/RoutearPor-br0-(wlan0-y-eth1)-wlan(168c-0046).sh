@@ -196,8 +196,7 @@ elif [ $OS_VERS == "9" ]; then
           echo ""
 
           echo ""
-          echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
-          echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
+          echo "    Indicando la ubicación del archivo de configuración del demonio dhcpd y la interfaz sobre la que correrá..."
           echo ""
           cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
           echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
@@ -430,8 +429,7 @@ elif [ $OS_VERS == "10" ]; then
           echo ""
 
           echo ""
-          echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
-          echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
+          echo "    Indicando la ubicación del archivo de configuración del demonio dhcpd y la interfaz sobre la que correrá..."
           echo ""
           cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
           echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
@@ -668,8 +666,7 @@ elif [ $OS_VERS == "11" ]; then
           echo ""
 
           echo ""
-          echo -e "${ColorVerde}Indicando la ubicación del archivo de configuración del demonio dhcpd${FinColor}"
-          echo -e "${ColorVerde}y la interfaz sobre la que correrá...${FinColor}"
+          echo "    Indicando la ubicación del archivo de configuración del demonio dhcpd y la interfaz sobre la que correrá..."
           echo ""
           cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
           echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'  > /etc/default/isc-dhcp-server
