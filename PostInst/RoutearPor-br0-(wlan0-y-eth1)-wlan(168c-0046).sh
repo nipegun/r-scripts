@@ -599,10 +599,33 @@ elif [ $OS_VERS == "11" ]; then
           echo ""
 
           echo ""
-          echo "    Creando las reglas NFTables..."
+          echo "    Creando las reglas IPTables..."
           echo ""
-          x
-      
+          echo "table inet filter {"                                                               > /root/ReglasNFTablesV4RouterBR0
+          echo "}"                                                                                >> /root/ReglasNFTablesV4RouterBR0
+          echo ""                                                                                 >> /root/ReglasNFTablesV4RouterBR0
+          echo "table ip nat {"                                                                   >> /root/ReglasNFTablesV4RouterBR0
+          echo "  chain postrouting {"                                                            >> /root/ReglasNFTablesV4RouterBR0
+          echo "    type nat hook postrouting priority 100; policy accept;"                       >> /root/ReglasNFTablesV4RouterBR0
+          echo '    oifname "'"$vInterfazWAN"'" ip saddr 192.168.2.0/24 counter masquerade'       >> /root/ReglasNFTablesV4RouterBR0
+          echo "  }"                                                                              >> /root/ReglasNFTablesV4RouterBR0
+          echo ""                                                                                 >> /root/ReglasNFTablesV4RouterBR0
+          echo "  chain prerouting {"                                                             >> /root/ReglasNFTablesV4RouterBR0
+          echo "    type nat hook prerouting priority 0; policy accept;"                          >> /root/ReglasNFTablesV4RouterBR0
+          echo '    iifname "'"$vInterfazWAN"'" tcp dport 33892 counter dnat to 192.168.2.2:3389' >> /root/ReglasNFTablesV4RouterBR0
+          echo '    iifname "'"$vInterfazWAN"'" tcp dport 33893 counter dnat to 192.168.2.3:3389' >> /root/ReglasNFTablesV4RouterBR0
+          echo '    iifname "'"$vInterfazWAN"'" tcp dport 33894 counter dnat to 192.168.2.4:3389' >> /root/ReglasNFTablesV4RouterBR0
+          echo "  }"                                                                              >> /root/ReglasNFTablesV4RouterBR0
+          echo "}"                                                                                >> /root/ReglasNFTablesV4RouterBR0
+          # Agregar las reglas al archivo de configuración de NFTables
+            sed -i '/^flush ruleset/a include "/root/ReglasNFTablesV4RouterBR0"' /etc/nftables.conf
+            sed -i -e 's|flush ruleset|flush ruleset\n|g'                        /etc/nftables.conf
+          # Recargar las reglas generales de NFTables
+            nft --file /etc/nftables.conf
+          # Agregar las reglas a los ComandosPostArranque
+            sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ComandosPostArranque.sh
+            echo "nft --file /etc/nftables.conf" >>        /root/scripts/ComandosPostArranque.sh
+    
           echo ""
           echo "    Habilitando el forwarding IPv4 entre interfaces..."
           echo ""
@@ -692,7 +715,7 @@ elif [ $OS_VERS == "11" ]; then
           cp /etc/network/interfaces /etc/network/interfaces.bak
           echo "auto lo"                                        > /etc/network/interfaces
           echo "  iface lo inet loopback"                      >> /etc/network/interfaces
-          echo "  pre-up /root/scripts/ComandosNFTables.sh"    >> /etc/network/interfaces
+          echo "  pre-up nft --file /etc/nftables.conf"        >> /etc/network/interfaces
           echo ""                                              >> /etc/network/interfaces
           echo "auto $vInterfazWAN"                            >> /etc/network/interfaces
           echo "  allow-hotplug $vInterfazWAN"                 >> /etc/network/interfaces
