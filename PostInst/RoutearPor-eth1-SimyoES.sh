@@ -92,14 +92,17 @@ elif [ $OS_VERS == "10" ]; then
   echo ""
   echo -e "${ColorVerde}Instalando el servidor SSH...${FinColor}"
   echo ""
-  apt-get update
+  apt-get -y update
   apt-get -y install tasksel
   tasksel install ssh-server
 
   echo ""
   echo -e "${ColorVerde}Instalando paquetes de red...${FinColor}"
   echo ""
-  apt-get -y install vlan pppoe isc-dhcp-server wget
+  apt-get -y install vlan
+  apt-get -y install pppoe
+  apt-get -y install isc-dhcp-server
+  apt-get -y install wget
 
   echo ""
   echo -e "${ColorVerde}Activando el módulo 8021q para VLANs...${FinColor}"
@@ -135,11 +138,11 @@ elif [ $OS_VERS == "10" ]; then
   echo ""                                       >> /etc/network/interfaces
 
   echo ""
-  echo -e "${ColorVerde}Configurando la vlan de datos (100) y telefonía (100)...${FinColor}"
+  echo -e "${ColorVerde}Configurando la vlan de datos (832) y telefonía (832)...${FinColor}"
   echo ""
   echo "# VLAN de Datos y Telefonía"                                                                       >> /etc/network/interfaces
-  echo "auto $InterfazCableada1.100 # Datos y voz"                                                         >> /etc/network/interfaces
-  echo "  iface $InterfazCableada1.100 inet manual"                                                        >> /etc/network/interfaces
+  echo "auto $InterfazCableada1.832 # Datos y voz"                                                         >> /etc/network/interfaces
+  echo "  iface $InterfazCableada1.832 inet manual"                                                        >> /etc/network/interfaces
   echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
   echo "  metric 0"                                                                                        >> /etc/network/interfaces
   echo ""                                                                                                  >> /etc/network/interfaces
@@ -149,16 +152,16 @@ elif [ $OS_VERS == "10" ]; then
   echo ""
   echo "auto SimyoWAN"                                       >> /etc/network/interfaces
   echo "  iface SimyoWAN inet ppp"                           >> /etc/network/interfaces
-  echo "  pre-up /bin/ip link set $InterfazCableada1.100 up" >> /etc/network/interfaces
+  echo "  pre-up /bin/ip link set $InterfazCableada1.832 up" >> /etc/network/interfaces
   echo "  provider SimyoWAN"                                 >> /etc/network/interfaces
   echo ""                                                    >> /etc/network/interfaces
 
   echo ""
-  echo -e "${ColorVerde}Configurando la vlan de televisión (105) y prioridad (4)...${FinColor}"
+  echo -e "${ColorVerde}Configurando la vlan de televisión (838) y prioridad (4)...${FinColor}"
   echo ""
   echo "# VLAN de Televisión"                                                                              >> /etc/network/interfaces
-  echo "auto $InterfazCableada1.105"                                                                       >> /etc/network/interfaces
-  echo "  iface $InterfazCableada1.105 inet dhcp"                                                          >> /etc/network/interfaces
+  echo "auto $InterfazCableada1.838"                                                                       >> /etc/network/interfaces
+  echo "  iface $InterfazCableada1.838 inet dhcp"                                                          >> /etc/network/interfaces
   echo "  vlan-raw-device $InterfazCableada1 # Necesario si la vlan se crea con un nombre no convencional" >> /etc/network/interfaces
   echo "  metric 4"                                                                                        >> /etc/network/interfaces
   echo ""                                                                                                  >> /etc/network/interfaces
@@ -178,7 +181,7 @@ elif [ $OS_VERS == "10" ]; then
   echo "#maxfail 0"                 >> /etc/ppp/peers/SimyoWAN
   echo "#holdoff 20"                >> /etc/ppp/peers/SimyoWAN
   echo "plugin rp-pppoe.so"         >> /etc/ppp/peers/SimyoWAN
-  echo "nic-$InterfazCableada1.100" >> /etc/ppp/peers/SimyoWAN
+  echo "nic-$InterfazCableada1.832" >> /etc/ppp/peers/SimyoWAN
   echo 'user "'$UsuarioPPPSimyo'"'  >> /etc/ppp/peers/SimyoWAN
   echo "usepeerdns"                 >> /etc/ppp/peers/SimyoWAN
 
