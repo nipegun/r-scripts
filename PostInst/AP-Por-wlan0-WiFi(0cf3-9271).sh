@@ -25,6 +25,18 @@ cp /etc/default/hostapd /etc/default/hostapd.bak
 sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
 sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
 
+auto eth0
+iface eth0 inet manual
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+
+auto br0
+iface br0 inet dhcp
+  bridge_ports eth0
+
+
+
 echo "-----------------------------------"
 echo "  CONFIGURANDO EL DEMONIO HOSTAPD"
 echo "-----------------------------------"
