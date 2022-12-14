@@ -144,7 +144,7 @@ elif [ $OS_VERS == "11" ]; then
           echo "  0cf3:9271"
           echo ""
           apt-get -y update
-          apt-get install firmware-atheros
+          apt-get -y install firmware-ath9k-htc
 
         ;;
 
