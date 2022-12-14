@@ -16,7 +16,8 @@ apt-get -y update
 apt-get -y install firmware-ath9k-htc
 apt-get -y install hostapd
 apt-get -y install crda
-
+apt-get -y install bridge-utils
+ 
 cp /etc/sysctl.conf /etc/sysctl.conf.bak
 sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
 
