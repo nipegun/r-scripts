@@ -45,12 +45,13 @@
   echo "auto br0"                   >> /etc/network/interfaces
   echo "  iface br0 inet dhcp"      >> /etc/network/interfaces
   echo "  bridge_ports eth0 wlan0"  >> /etc/network/interfaces
+  echo "  bridge_stp off"           >> /etc/network/interfaces
   echo "  bridge_fd 0"              >> /etc/network/interfaces
   echo "  bridge_maxwait 0"         >> /etc/network/interfaces
   echo ""                           >> /etc/network/interfaces
   echo "#auto br0"                  >> /etc/network/interfaces
   echo "  #iface br0 inet static"   >> /etc/network/interfaces
-  echo "  #bridge_ports eth0 wlan0" >> /etc/network/interfaces
+  echo "  #bridge-ports eth0 wlan0" >> /etc/network/interfaces
   echo "  #address 192.168.1.2"     >> /etc/network/interfaces
   echo "  #netmask 255.255.255.0"   >> /etc/network/interfaces
   echo "  #gateway 192.168.1.1"     >> /etc/network/interfaces
