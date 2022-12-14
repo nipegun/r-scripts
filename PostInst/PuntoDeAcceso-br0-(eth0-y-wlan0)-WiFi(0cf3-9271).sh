@@ -29,7 +29,7 @@
 
 # Configurar opciones por defecto para hostapd
   cp /etc/default/hostapd /etc/default/hostapd.bak
-  sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
+  sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g'      /etc/default/hostapd
   sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
 
 # Configurar interfaces de red
@@ -45,6 +45,8 @@
   echo "auto br0"                   >> /etc/network/interfaces
   echo "  iface br0 inet dhcp"      >> /etc/network/interfaces
   echo "  bridge_ports eth0 wlan0"  >> /etc/network/interfaces
+  echo "  bridge_fd 0"              >> /etc/network/interfaces
+  echo "  bridge_maxwait 0"         >> /etc/network/interfaces
   echo ""                           >> /etc/network/interfaces
   echo "#auto br0"                  >> /etc/network/interfaces
   echo "  #iface br0 inet static"   >> /etc/network/interfaces
@@ -55,13 +57,17 @@
   echo "  #network 192.168.1.0"     >> /etc/network/interfaces
   echo "  #broadcast 192.168.1.255" >> /etc/network/interfaces
 
+# Capacidades HT y VHT del adaptador (Para saber las capacidades ejecutar iw list)
+  # HT:
+    # HT20/HT40
+    # SM Power Save disabled
+    # RX HT20 SGI                                    :[SHORT-GI-20]
+    # RX HT40 SGI                                    :[SHORT-GI-40]
+    # RX STBC 1-stream                               :[RX-STBC1]
+    # Max AMSDU length: 3839 bytes                   :[MAX-AMSDU-3839]
+    # No DSSS/CCK HT40                               :[DSSS_CCK-40]
+
 # Configurar el demonio hostapd
-
-
-# Para saber las capacidades del adaptador WiFi, ejecutar:
-# iw list
-# Instalar la utilidad con apt-get -y install iw
-
   echo ""
   echo "    Configurando el demonio hostapd..."
   echo ""
@@ -72,7 +78,7 @@
   echo "  interface=wlan0"                                                                                           >> /etc/hostapd/hostapd.conf
   echo "  ssid=HostAPD"                                                                                              >> /etc/hostapd/hostapd.conf
   echo ""                                                                                                            >> /etc/hostapd/hostapd.conf
-  echo "# Firmware Mediatek MT7610U"                                                                                 >> /etc/hostapd/hostapd.conf
+  echo "# Firmware Atheros AR9271"                                                                                   >> /etc/hostapd/hostapd.conf
   echo "  driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
   echo "  channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
   echo "  hw_mode=a"                                                                                                 >> /etc/hostapd/hostapd.conf
@@ -83,15 +89,24 @@
   echo "  country_code=ES"                                                                                           >> /etc/hostapd/hostapd.conf
   echo "  ht_capab=[SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]"                                             >> /etc/hostapd/hostapd.conf
   echo "  #[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz"                  >> /etc/hostapd/hostapd.conf
-  echo "  vht_capab=[MAX-MPDU-3895][VHT160-80PLUS80][SHORT-GI-80][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]"           >> /etc/hostapd/hostapd.conf
 
-denyinterfaces wlan0 /etc/dhcpd.conf
-denyinterfaces eth0 /etc/dhcpd.conf
-# This configuration will prevent both ETH0 and WLAN0 from getting addresses from the DHCP client services.
-#This is important, because we only want our virtual bridge interface BR0 to get an IP address.
+# Asegurarse que eth0 y wlan0 no reciban direcciones IP por DHCP. Só queremos que el br0 las reciba.
+  touch /etc/dhcpd.conf
+  echo "denyinterfaces wlan0" >> /etc/dhcpd.conf
+  echo "denyinterfaces eth0"  >> /etc/dhcpd.conf
 
+# Desenmascarar, activar e iniciar el servicio
+  systemctl unmask hostapd
+  systemctl enable hostapd --now
 
+# Crear regla del cortafuegos
+  iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
-systemctl unmask hostapd
-systemctl enable hostapd --now
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+# Reglas con NFTables
+  # Crear la tabla nat
+    nft add table nat
+  # Crear las cadenas de la tabla nat
+    nft add chain nat prerouting { type nat hook prerouting priority 0 \; }
+    nft add chain nat postrouting { type nat hook postrouting priority 100 \; }
+  # Crear regla
+    nft add rule ip nat POSTROUTING oifname "eth0" counter masquerade
