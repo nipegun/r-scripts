@@ -12,6 +12,49 @@
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/PuntoDeAcceso-br0-(eth0-y-wlan0)-WiFi(0b05-17d1).sh | bash
 # ----------
 
+# Actualizar lista de paquetes
+  apt-get -y update
+
+# Instalar paquetes necesarios
+  apt-get -y install hostapd
+  apt-get -y install crda
+  apt-get -y install bridge-utils
+
+# Instalar controlador para el firmware
+  apt-get -y install firmware-ath9k-htc
+
+# Activar forwarding
+  cp /etc/sysctl.conf /etc/sysctl.conf.bak
+  sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
+
+# Configurar opciones por defecto para hostapd
+  cp /etc/default/hostapd /etc/default/hostapd.bak
+  sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
+  sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
+
+# Configurar interfaces de red
+  echo "auto lo"                     > /etc/network/interfaces
+  echo "  iface lo inet loopback"   >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "auto eth0"                  >> /etc/network/interfaces
+  echo "  iface eth0 inet manual"   >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "allow-hotplug wlan0"        >> /etc/network/interfaces
+  echo "  iface wlan0 inet manual"  >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "auto br0"                   >> /etc/network/interfaces
+  echo "  iface br0 inet dhcp"      >> /etc/network/interfaces
+  echo "  bridge_ports eth0 wlan0"  >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "#auto br0"                  >> /etc/network/interfaces
+  echo "  #iface br0 inet static"   >> /etc/network/interfaces
+  echo "  #bridge_ports eth0 wlan0" >> /etc/network/interfaces
+  echo "  #address 192.168.1.2"     >> /etc/network/interfaces
+  echo "  #netmask 255.255.255.0"   >> /etc/network/interfaces
+  echo "  #gateway 192.168.1.1"     >> /etc/network/interfaces
+  echo "  #network 192.168.1.0"     >> /etc/network/interfaces
+  echo "  #broadcast 192.168.1.255" >> /etc/network/interfaces
+
 # Capacidades HT y VHT del adaptador
   # HT:
     # HT20/HT40
