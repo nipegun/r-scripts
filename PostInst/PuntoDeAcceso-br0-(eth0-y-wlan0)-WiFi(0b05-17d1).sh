@@ -9,7 +9,7 @@
 #  Script de NiPeGun para crear un punto de acceso en modo puente en Debian con el adaptador WiFi Asus USB AC51 (Mediatek MT7610U)
 #
 #  Ejecución remota:
-#  curl -s x | bash
+#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/PuntoDeAcceso-br0-(eth0-y-wlan0)-WiFi(0b05-17d1).sh | bash
 # ----------
 
 # Capacidades HT y VHT del adaptador
