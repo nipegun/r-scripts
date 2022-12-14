@@ -6,7 +6,7 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-#  Script de NiPeGun para instalar y configurar xxxxxxxxx en Debian
+#  Script de NiPeGun para crear un punto de acceso en modo puente en Debian con el adaptador WiFi USB TP-Link TL-WN722N (Atheros AR9271)
 #
 #  Ejecución remota:
 #  curl -s x | bash
