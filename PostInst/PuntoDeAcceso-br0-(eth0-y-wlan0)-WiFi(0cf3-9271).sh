@@ -12,68 +12,78 @@
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/PuntoDeAcceso-br0-(eth0-y-wlan0)-WiFi(0cf3-9271).sh | bash
 # ----------
 
-apt-get -y update
-apt-get -y install firmware-ath9k-htc
-apt-get -y install hostapd
-apt-get -y install crda
-apt-get -y install bridge-utils
- 
-cp /etc/sysctl.conf /etc/sysctl.conf.bak
-sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
+# Actualizar lista de paquetes
+  apt-get -y update
 
-cp /etc/default/hostapd /etc/default/hostapd.bak
-sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
-sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
+# Instalar paquetes necesarios
+  apt-get -y install hostapd
+  apt-get -y install crda
+  apt-get -y install bridge-utils
 
-auto eth0
-iface eth0 inet manual
+# Instalar controlador para el firmware
+  apt-get -y install firmware-ath9k-htc
 
-allow-hotplug wlan0
-iface wlan0 inet manual
+# Activar forwarding
+  cp /etc/sysctl.conf /etc/sysctl.conf.bak
+  sed -i -e 's|#net.ipv4.ip_forward=1|net.ipv4.ip_forward=1|g' /etc/sysctl.conf
 
-auto br0
-iface br0 inet dhcp
-  bridge_ports eth0 wlan0
+# Configurar opciones por defecto para hostapd
+  cp /etc/default/hostapd /etc/default/hostapd.bak
+  sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
+  sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
 
-auto br0
-iface br0 inet static
-  bridge_ports eth0 wlan0
-  address 192.168.1.2
-  netmask 255.255.255.0
-  gateway 192.168.1.1
-  #network 192.168.1.0
-  #broadcast 192.168.1.255
+# Configurar interfaces de red
+  echo "auto lo"                     > /etc/network/interfaces
+  echo "  iface lo inet loopback"   >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "auto eth0"                  >> /etc/network/interfaces
+  echo "  iface eth0 inet manual"   >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "allow-hotplug wlan0"        >> /etc/network/interfaces
+  echo "  iface wlan0 inet manual"  >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "auto br0"                   >> /etc/network/interfaces
+  echo "  iface br0 inet dhcp"      >> /etc/network/interfaces
+  echo "  bridge_ports eth0 wlan0"  >> /etc/network/interfaces
+  echo ""                           >> /etc/network/interfaces
+  echo "#auto br0"                  >> /etc/network/interfaces
+  echo "  #iface br0 inet static"   >> /etc/network/interfaces
+  echo "  #bridge_ports eth0 wlan0" >> /etc/network/interfaces
+  echo "  #address 192.168.1.2"     >> /etc/network/interfaces
+  echo "  #netmask 255.255.255.0"   >> /etc/network/interfaces
+  echo "  #gateway 192.168.1.1"     >> /etc/network/interfaces
+  echo "  #network 192.168.1.0"     >> /etc/network/interfaces
+  echo "  #broadcast 192.168.1.255" >> /etc/network/interfaces
 
-echo "-----------------------------------"
-echo "  CONFIGURANDO EL DEMONIO HOSTAPD"
-echo "-----------------------------------"
-echo ""
+# Configurar el demonio hostapd
+
 
 # Para saber las capacidades del adaptador WiFi, ejecutar:
 # iw list
 # Instalar la utilidad con apt-get -y install iw
 
-vInterfazInalambrica="wlan0"
-echo "#/etc/hostapd/hostapd.conf"                                                                > /etc/hostapd/hostapd.conf
-echo "interface=$vInterfazInalambrica"                                                          >> /etc/hostapd/hostapd.conf
-echo "driver=nl80211"                                                                           >> /etc/hostapd/hostapd.conf
-echo "bridge=br0"                                                                               >> /etc/hostapd/hostapd.conf
-echo "hw_mode=g"                                                                                >> /etc/hostapd/hostapd.conf
-echo "wme_enabled=1"                                                                            >> /etc/hostapd/hostapd.conf
-echo "ieee80211n=1"                                                                             >> /etc/hostapd/hostapd.conf
-echo "ieee80211d=1"                                                                             >> /etc/hostapd/hostapd.conf
-echo "channel=1"                                                                                >> /etc/hostapd/hostapd.conf
-echo "country_code=ES"                                                                          >> /etc/hostapd/hostapd.conf
-echo "wmm_enabled=1"                                                                            >> /etc/hostapd/hostapd.conf
-echo "ht_capab=[HT20+][HT40+][SHORT-GI-20][SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
-echo "ignore_broadcast_ssid=0"                                                                  >> /etc/hostapd/hostapd.conf
-echo "ssid=RouterX86"                                                                           >> /etc/hostapd/hostapd.conf
-echo "eap_reauth_period=360000000"                                                              >> /etc/hostapd/hostapd.conf
-echo "wpa=2"                                                                                    >> /etc/hostapd/hostapd.conf
-echo "wpa_key_mgmt=WPA-PSK"                                                                     >> /etc/hostapd/hostapd.conf
-echo "wpa_pairwise=TKIP"                                                                        >> /etc/hostapd/hostapd.conf
-echo "rsn_pairwise=CCMP"                                                                        >> /etc/hostapd/hostapd.conf
-echo "wpa_passphrase=RouterX86"                                                                 >> /etc/hostapd/hostapd.conf
+  echo ""
+  echo "    Configurando el demonio hostapd..."
+  echo ""
+  echo "#/etc/hostapd/hostapd.conf"                                                                                   > /etc/hostapd/hostapd.conf
+  echo ""                                                                                                            >> /etc/hostapd/hostapd.conf
+  echo "# Punto de acceso abierto"                                                                                   >> /etc/hostapd/hostapd.conf
+  echo "  bridge=br0"                                                                                                >> /etc/hostapd/hostapd.conf
+  echo "  interface=wlan0"                                                                                           >> /etc/hostapd/hostapd.conf
+  echo "  ssid=HostAPD"                                                                                              >> /etc/hostapd/hostapd.conf
+  echo ""                                                                                                            >> /etc/hostapd/hostapd.conf
+  echo "# Firmware Mediatek MT7610U"                                                                                 >> /etc/hostapd/hostapd.conf
+  echo "  driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
+  echo "  channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
+  echo "  hw_mode=a"                                                                                                 >> /etc/hostapd/hostapd.conf
+  echo "  ieee80211n=1"                                                                                              >> /etc/hostapd/hostapd.conf
+  echo "  wme_enabled=1"                                                                                             >> /etc/hostapd/hostapd.conf
+  echo "  wmm_enabled=1                           # Soporte para QoS"                                                >> /etc/hostapd/hostapd.conf
+  echo "  ieee80211d=1                            # Limitar las frecuencias sólo a las disponibles en el país"       >> /etc/hostapd/hostapd.conf
+  echo "  country_code=ES"                                                                                           >> /etc/hostapd/hostapd.conf
+  echo "  ht_capab=[SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]"                                             >> /etc/hostapd/hostapd.conf
+  echo "  #[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz"                  >> /etc/hostapd/hostapd.conf
+  echo "  vht_capab=[MAX-MPDU-3895][VHT160-80PLUS80][SHORT-GI-80][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]"           >> /etc/hostapd/hostapd.conf
 
 denyinterfaces wlan0 /etc/dhcpd.conf
 denyinterfaces eth0 /etc/dhcpd.conf
