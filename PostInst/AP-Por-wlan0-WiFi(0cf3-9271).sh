@@ -65,6 +65,8 @@ echo "wpa_passphrase=RouterX86"                                                 
 
 denyinterfaces wlan0 /etc/dhcpd.conf
 denyinterfaces eth0 /etc/dhcpd.conf
+# This configuration will prevent both ETH0 and WLAN0 from getting addresses from the DHCP client services.
+#This is important, because we only want our virtual bridge interface BR0 to get an IP address.
 
 systemctl unmask hostapd
 systemctl enable hostapd --now
