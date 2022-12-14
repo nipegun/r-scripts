@@ -33,7 +33,7 @@ iface wlan0 inet manual
 
 auto br0
 iface br0 inet dhcp
-  bridge_ports eth0
+  bridge_ports eth0 wlan0
 
 
 
