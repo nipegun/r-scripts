@@ -48,6 +48,11 @@ echo "-----------------------------------"
 echo "  CONFIGURANDO EL DEMONIO HOSTAPD"
 echo "-----------------------------------"
 echo ""
+
+# Para saber las capacidades del adaptador WiFi, ejecutar:
+# iw list
+# Instalar la utilidad con apt-get -y install iw
+
 vInterfazInalambrica="wlan0"
 echo "#/etc/hostapd/hostapd.conf"                                                                > /etc/hostapd/hostapd.conf
 echo "interface=$vInterfazInalambrica"                                                          >> /etc/hostapd/hostapd.conf
