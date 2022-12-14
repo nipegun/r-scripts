@@ -35,7 +35,14 @@ auto br0
 iface br0 inet dhcp
   bridge_ports eth0 wlan0
 
-
+auto br0
+iface br0 inet static
+  bridge_ports eth0 wlan0
+  address 192.168.1.2
+  netmask 255.255.255.0
+  gateway 192.168.1.1
+  #network 192.168.1.0
+  #broadcast 192.168.1.255
 
 echo "-----------------------------------"
 echo "  CONFIGURANDO EL DEMONIO HOSTAPD"
@@ -67,6 +74,8 @@ denyinterfaces wlan0 /etc/dhcpd.conf
 denyinterfaces eth0 /etc/dhcpd.conf
 # This configuration will prevent both ETH0 and WLAN0 from getting addresses from the DHCP client services.
 #This is important, because we only want our virtual bridge interface BR0 to get an IP address.
+
+
 
 systemctl unmask hostapd
 systemctl enable hostapd --now
