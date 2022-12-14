@@ -30,15 +30,6 @@ vFinColor='\033[0m'
     exit 1
   fi
 
-# Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
-  if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
-    echo ""
-    echo -e "${vColorRojo}curl no está instalado. Iniciando su instalación...${vFinColor}"
-    echo ""
-    apt-get -y update && apt-get -y install curl
-    echo ""
-  fi
-
 # Determinar la versión de Debian
   if [ -f /etc/os-release ]; then             # Para systemd y freedesktop.org.
     . /etc/os-release
@@ -132,6 +123,15 @@ elif [ $OS_VERS == "11" ]; then
           echo ""
           echo "  Poner todos los respositorios..."
           echo ""
+          # Comprobar si el paquete curl está instalado. Si no lo está, instalarlo.
+            if [[ $(dpkg-query -s curl 2>/dev/null | grep installed) == "" ]]; then
+              echo ""
+              echo -e "${vColorRojo}curl no está instalado. Iniciando su instalación...${vFinColor}"
+              echo ""
+              apt-get -y update && apt-get -y install curl
+              echo ""
+            fi
+          curl -s https://raw.githubusercontent.com/nipegun/d-scripts/master/PostInst/CLI/Repositorios-PonerTodos.sh | bash
 
         ;;
 
