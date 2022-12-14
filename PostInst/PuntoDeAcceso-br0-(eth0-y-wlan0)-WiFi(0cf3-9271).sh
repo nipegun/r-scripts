@@ -32,6 +32,8 @@
   sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g'      /etc/default/hostapd
   sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
 
+vMacEth0=$(cat /sys/class/net/eth0/address)
+
 # Configurar interfaces de red
   echo "auto lo"                     > /etc/network/interfaces
   echo "  iface lo inet loopback"   >> /etc/network/interfaces
@@ -48,6 +50,7 @@
   echo "  bridge_stp off"           >> /etc/network/interfaces
   echo "  bridge_fd 0"              >> /etc/network/interfaces
   echo "  bridge_maxwait 0"         >> /etc/network/interfaces
+  echo "  hwaddress $vMacEth0"      >> /etc/network/interfaces
   echo ""                           >> /etc/network/interfaces
   echo "#auto br0"                  >> /etc/network/interfaces
   echo "  #iface br0 inet static"   >> /etc/network/interfaces
