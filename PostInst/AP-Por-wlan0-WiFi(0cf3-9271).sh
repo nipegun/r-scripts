@@ -24,3 +24,28 @@ cp /etc/default/hostapd /etc/default/hostapd.bak
 sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g' /etc/default/hostapd
 sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
 
+echo "-----------------------------------"
+echo "  CONFIGURANDO EL DEMONIO HOSTAPD"
+echo "-----------------------------------"
+echo ""
+vInterfazInalambrica="wlan0"
+echo "#/etc/hostapd/hostapd.conf"                                                                > /etc/hostapd/hostapd.conf
+echo "interface=$vInterfazInalambrica"                                                          >> /etc/hostapd/hostapd.conf
+echo "driver=nl80211"                                                                           >> /etc/hostapd/hostapd.conf
+echo "bridge=br0"                                                                               >> /etc/hostapd/hostapd.conf
+echo "hw_mode=g"                                                                                >> /etc/hostapd/hostapd.conf
+echo "wme_enabled=1"                                                                            >> /etc/hostapd/hostapd.conf
+echo "ieee80211n=1"                                                                             >> /etc/hostapd/hostapd.conf
+echo "ieee80211d=1"                                                                             >> /etc/hostapd/hostapd.conf
+echo "channel=1"                                                                                >> /etc/hostapd/hostapd.conf
+echo "country_code=ES"                                                                          >> /etc/hostapd/hostapd.conf
+echo "wmm_enabled=1"                                                                            >> /etc/hostapd/hostapd.conf
+echo "ht_capab=[HT20+][HT40+][SHORT-GI-20][SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]" >> /etc/hostapd/hostapd.conf
+echo "ignore_broadcast_ssid=0"                                                                  >> /etc/hostapd/hostapd.conf
+echo "ssid=RouterX86"                                                                           >> /etc/hostapd/hostapd.conf
+echo "eap_reauth_period=360000000"                                                              >> /etc/hostapd/hostapd.conf
+echo "wpa=2"                                                                                    >> /etc/hostapd/hostapd.conf
+echo "wpa_key_mgmt=WPA-PSK"                                                                     >> /etc/hostapd/hostapd.conf
+echo "wpa_pairwise=TKIP"                                                                        >> /etc/hostapd/hostapd.conf
+echo "rsn_pairwise=CCMP"                                                                        >> /etc/hostapd/hostapd.conf
+echo "wpa_passphrase=RouterX86"                                                                 >> /etc/hostapd/hostapd.conf
