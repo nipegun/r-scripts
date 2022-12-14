@@ -79,4 +79,4 @@ denyinterfaces eth0 /etc/dhcpd.conf
 
 systemctl unmask hostapd
 systemctl enable hostapd --now
-
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
