@@ -79,24 +79,53 @@ vMacEth0=$(cat /sys/class/net/eth0/address)
   echo ""
   echo "    Configurando el demonio hostapd..."
   echo ""
-  echo "#/etc/hostapd/hostapd.conf"                                                                                   > /etc/hostapd/hostapd.conf
-  echo ""                                                                                                            >> /etc/hostapd/hostapd.conf
-  echo "# Punto de acceso abierto"                                                                                   >> /etc/hostapd/hostapd.conf
-  echo "  bridge=br0"                                                                                                >> /etc/hostapd/hostapd.conf
-  echo "  interface=wlan0"                                                                                           >> /etc/hostapd/hostapd.conf
-  echo "  ssid=HostAPD"                                                                                              >> /etc/hostapd/hostapd.conf
-  echo ""                                                                                                            >> /etc/hostapd/hostapd.conf
-  echo "# Firmware Atheros AR9271"                                                                                   >> /etc/hostapd/hostapd.conf
-  echo "  driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
-  echo "  channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
-  echo "  hw_mode=g"                                                                                                 >> /etc/hostapd/hostapd.conf
-  echo "  ieee80211n=1"                                                                                              >> /etc/hostapd/hostapd.conf
-  echo "  wme_enabled=1"                                                                                             >> /etc/hostapd/hostapd.conf
-  echo "  wmm_enabled=1                           # Soporte para QoS"                                                >> /etc/hostapd/hostapd.conf
-  echo "  ieee80211d=1                            # Limitar las frecuencias sólo a las disponibles en el país"       >> /etc/hostapd/hostapd.conf
-  echo "  country_code=ES"                                                                                           >> /etc/hostapd/hostapd.conf
-  echo "  ht_capab=[SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]"                                             >> /etc/hostapd/hostapd.conf
-  echo "  #[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz"                  >> /etc/hostapd/hostapd.conf
+  echo "#/etc/hostapd/hostapd.conf"                                                                > /etc/hostapd/hostapd.conf
+  echo ""                                                                                         >> /etc/hostapd/hostapd.conf
+  echo "# Punto de acceso abierto"                                                                >> /etc/hostapd/hostapd.conf
+  echo "bridge=br0"                                                                               >> /etc/hostapd/hostapd.conf
+  echo "interface=wlan0"                                                                          >> /etc/hostapd/hostapd.conf
+  echo "ssid=HostAPD"                                                                             >> /etc/hostapd/hostapd.conf
+  echo ""                                                                                         >> /etc/hostapd/hostapd.conf
+  echo "# Opciones para el adaptador con firmware Atheros AR9271"                                 >> /etc/hostapd/hostapd.conf
+  echo "driver=nl80211"                                                                           >> /etc/hostapd/hostapd.conf
+  echo "channel=0              # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
+  echo "hw_mode=g"                                                                                >> /etc/hostapd/hostapd.conf
+  echo "ieee80211n=1"                                                                             >> /etc/hostapd/hostapd.conf
+  echo "wme_enabled=1"                                                                            >> /etc/hostapd/hostapd.conf
+  echo "wmm_enabled=1                 Soporte para QoS"                                           >> /etc/hostapd/hostapd.conf
+  echo "ieee80211d=1                   Limitar las frecuencias sólo a las disponibles en el país" >> /etc/hostapd/hostapd.conf
+  echo "country_code=ES"                                                                          >> /etc/hostapd/hostapd.conf
+  echo "ht_capab=[SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]"                            >> /etc/hostapd/hostapd.conf
+  echo "#[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz" >> /etc/hostapd/hostapd.conf
+
+  echo ""
+  echo "    Configurando el demonio hostapd..."
+  echo ""
+  echo "#/etc/hostapd/hostapd.conf"                                                                > /etc/hostapd/hostapd.conf
+  echo ""                                                                                         >> /etc/hostapd/hostapd.conf
+  echo "# Punto de acceso cerrado"                                                                >> /etc/hostapd/hostapd.conf
+  echo "bridge=br0"                                                                               >> /etc/hostapd/hostapd.conf
+  echo "interface=wlan0"                                                                          >> /etc/hostapd/hostapd.conf
+  echo "ssid=HostAPD"                                                                             >> /etc/hostapd/hostapd.conf
+  echo "wpa=2"                                                                                    >> /etc/hostapd/hostapd.conf
+  echo "wpa_key_mgmt=WPA-PSK"                                                                     >> /etc/hostapd/hostapd.conf
+  echo "wpa_pairwise=TKIP"                                                                        >> /etc/hostapd/hostapd.conf
+  echo "rsn_pairwise=CCMP"                                                                        >> /etc/hostapd/hostapd.conf
+  echo "ignore_broadcast_ssid=0"                                                                  >> /etc/hostapd/hostapd.conf
+  echo "eap_reauth_period=360000000"                                                              >> /etc/hostapd/hostapd.conf
+  echo "wpa_passphrase=HostAPD"                                                                   >> /etc/hostapd/hostapd.conf
+  echo ""                                                                                         >> /etc/hostapd/hostapd.conf
+  echo "# Opciones para el adaptador con firmware Atheros AR9271"                                 >> /etc/hostapd/hostapd.conf
+  echo "driver=nl80211"                                                                           >> /etc/hostapd/hostapd.conf
+  echo "channel=0                 # El canal a usar. 0 buscará el canal con menos interferencias" >> /etc/hostapd/hostapd.conf
+  echo "hw_mode=a"                                                                                >> /etc/hostapd/hostapd.conf
+  echo "ieee80211n=1"                                                                             >> /etc/hostapd/hostapd.conf
+  echo "wme_enabled=1"                                                                            >> /etc/hostapd/hostapd.conf
+  echo "wmm_enabled=1                    # Soporte para QoS"                                      >> /etc/hostapd/hostapd.conf
+  echo "ieee80211d=1                 # Limitar las frecuencias sólo a las disponibles en el país" >> /etc/hostapd/hostapd.conf
+  echo "country_code=ES"                                                                          >> /etc/hostapd/hostapd.conf
+  echo "ht_capab=[SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]"                            >> /etc/hostapd/hostapd.conf
+  echo "#[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz" >> /etc/hostapd/hostapd.conf
 
 # Asegurarse que eth0 y wlan0 no reciban direcciones IP por DHCP. Só queremos que el br0 las reciba.
   touch /etc/dhcpd.conf
