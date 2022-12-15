@@ -6,7 +6,9 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-#  Script de NiPeGun para crear un punto de acceso en modo puente en Debian con el adaptador WiFi USB TP-Link TL-WN722N (Atheros AR9271)
+#  Script de NiPeGun para crear un punto de acceso en modo puente en Debian con los siguientes adaptadores WiFi:
+#  - USB TP-Link TL-WN722N (Atheros AR9271)
+#  - USB Alfa Networks AWUS036NHA
 #
 #  Ejecución remota:
 #  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/PuntoDeAcceso-br0-(eth0-y-wlan0)-WiFi(0cf3-9271).sh | bash
