@@ -89,7 +89,7 @@ vMacEth0=$(cat /sys/class/net/eth0/address)
   echo "# Firmware Atheros AR9271"                                                                                   >> /etc/hostapd/hostapd.conf
   echo "  driver=nl80211"                                                                                            >> /etc/hostapd/hostapd.conf
   echo "  channel=0                               # El canal a usar. 0 buscará el canal con menos interferencias"    >> /etc/hostapd/hostapd.conf
-  echo "  hw_mode=a"                                                                                                 >> /etc/hostapd/hostapd.conf
+  echo "  hw_mode=g"                                                                                                 >> /etc/hostapd/hostapd.conf
   echo "  ieee80211n=1"                                                                                              >> /etc/hostapd/hostapd.conf
   echo "  wme_enabled=1"                                                                                             >> /etc/hostapd/hostapd.conf
   echo "  wmm_enabled=1                           # Soporte para QoS"                                                >> /etc/hostapd/hostapd.conf
@@ -112,9 +112,9 @@ vMacEth0=$(cat /sys/class/net/eth0/address)
 
 # Reglas con NFTables
   # Crear la tabla nat
-    nft add table nat
+  #  nft add table nat
   # Crear las cadenas de la tabla nat
-    nft add chain nat prerouting { type nat hook prerouting priority 0 \; }
-    nft add chain nat postrouting { type nat hook postrouting priority 100 \; }
+  #  nft add chain nat prerouting { type nat hook prerouting priority 0 \; }
+  #  nft add chain nat postrouting { type nat hook postrouting priority 100 \; }
   # Crear regla
-    nft add rule ip nat POSTROUTING oifname "eth0" counter masquerade
+  #  nft add rule ip nat POSTROUTING oifname "eth0" counter masquerade
