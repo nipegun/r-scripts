@@ -390,16 +390,20 @@ elif [ $OS_VERS == "11" ]; then
             echo "    Creando reglas con NFTables..."
             echo ""
             mkdir -p /root/scripts/ 2> /dev/null
-            echo "# Crear la tabla nat"                                                           > /root/scripts/ReglasIPTablesAP.sh
-            echo "  nft add table nat"                                                           >> /root/scripts/ReglasIPTablesAP.sh
-            echo "# Crear las cadenas de la tabla nat"                                           >> /root/scripts/ReglasIPTablesAP.sh
-            echo "  nft add chain nat prerouting { type nat hook prerouting priority 0 \; }"     >> /root/scripts/ReglasIPTablesAP.sh
-            echo "  nft add chain nat postrouting { type nat hook postrouting priority 100 \; }" >> /root/scripts/ReglasIPTablesAP.sh
-            echo "# Crear regla"                                                                 >> /root/scripts/ReglasIPTablesAP.sh
-            echo "nft add rule ip nat postrouting oifname "eth0" counter masquerade"             >> /root/scripts/ReglasIPTablesAP.sh
+            echo "# Crear la tabla nat"                                                           > /root/scripts/ReglasNFTablesAP.sh
+            echo "  nft add table nat"                                                           >> /root/scripts/ReglasNFTablesAP.sh
+            echo "# Crear las cadenas de la tabla nat"                                           >> /root/scripts/ReglasNFTablesAP.sh
+            echo "  nft add chain nat prerouting { type nat hook prerouting priority 0 \; }"     >> /root/scripts/ReglasNFTablesAP.sh
+            echo "  nft add chain nat postrouting { type nat hook postrouting priority 100 \; }" >> /root/scripts/ReglasNFTablesAP.sh
+            echo "# Crear regla"                                                                 >> /root/scripts/ReglasNFTablesAP.sh
+            echo "  nft add rule ip nat postrouting oifname "br0" counter masquerade"            >> /root/scripts/ReglasNFTablesAP.sh
             echo ""
-            chmod +x /root/scripts/ReglasIPTablesAP.sh
-            echo "/root/scripts/ReglasIPTablesAP.sh"                                             >> /root/scripts/ComandosPostArranque.sh
+            chmod +x /root/scripts/ReglasNFTablesAP.sh
+            echo "/root/scripts/ReglasNFTablesAP.sh"                                             >> /root/scripts/ComandosPostArranque.sh
+            # Con IPTables sería tal que así:
+            #   iptables -t nat -A POSTROUTING -o br0 -j MASQUERADE
+            #   o
+            #   iptables --table nat --append POSTROUTING --out-interface br0 -j MASQUERADE
 
           ;;
 
@@ -409,8 +413,3 @@ elif [ $OS_VERS == "11" ]; then
 
 fi
 
-
-
-
-# Crear regla del cortafuegos
-  iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
