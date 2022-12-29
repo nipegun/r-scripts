@@ -123,8 +123,8 @@ elif [ $OS_VERS == "11" ]; then
       1 "Instalar paquetes necesarios." on
       2 "Instalar controlador para el firmware WiFi." on
       3 "Activar el forwarding entre interfaces de red." on
-      4 "Configurando interfaces de red con puente con IP por DHCP." on
-      5 "Configurando interfaces de red con puente con IP fija." off
+      4 "Configurar interfaces de red con puente con IP por DHCP." on
+      5 "Configurar interfaces de red con puente con IP fija." off
       6 "Configurar opciones por defecto para hostapd." on
       7 "Configurar hostapd para AP abierto (WiFi n 2,4GHz canal 1)..." off
       8 "Configurar hostapd para AP cerrado (WiFi n 2,4GHz canal 1)..." off
