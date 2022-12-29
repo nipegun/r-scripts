@@ -129,6 +129,9 @@ elif [ $OS_VERS == "11" ]; then
       8 "Configurar hostapd para AP cerrado (WiFi n 2,4GHz canal 1)." off
       9 "Configurar hostapd para AP abierto (WiFi n 5GHz canal 36)." off
      10 "Configurar hostapd para AP cerrado (WiFi n 5GHz canal 36)." off
+     11 "Bloquear DHCP en eth0 y wlan0." on
+     12 "Desenmascar, activar e iniciar hostapd." on
+     13 "Crear reglas de NFTables." on
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
