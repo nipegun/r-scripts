@@ -174,35 +174,26 @@ elif [ $OS_VERS == "11" ]; then
             echo "  Configurando interfaces de red con puente con IP por DHCP..."
             echo ""
             vMacEth0=$(cat /sys/class/net/eth0/address)
-            echo "auto lo"                     > /etc/network/interfaces
-            echo "  iface lo inet loopback"   >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "auto eth0"                  >> /etc/network/interfaces
-            echo "  iface eth0 inet manual"   >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "allow-hotplug wlan0"        >> /etc/network/interfaces
-            echo "  iface wlan0 inet manual"  >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "auto br0"                   >> /etc/network/interfaces
-            echo "  iface br0 inet dhcp"      >> /etc/network/interfaces
-            echo "  bridge_ports eth0 wlan0"  >> /etc/network/interfaces
-            echo "  bridge_stp off"           >> /etc/network/interfaces
-            echo "  bridge_fd 0"              >> /etc/network/interfaces
-            echo "  bridge_maxwait 0"         >> /etc/network/interfaces
-            echo "  hwaddress $vMacEth0"      >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "#auto br0"                  >> /etc/network/interfaces
-            echo "  #iface br0 inet static"   >> /etc/network/interfaces
-            echo "  #bridge_ports eth0 wlan0" >> /etc/network/interfaces
-            echo "  #bridge_stp off"          >> /etc/network/interfaces
-            echo "  #bridge_fd 0"             >> /etc/network/interfaces
-            echo "  #bridge_maxwait 0"        >> /etc/network/interfaces
-            echo "  #hwaddress $vMacEth0"     >> /etc/network/interfaces
-            echo "  #address 192.168.1.2"     >> /etc/network/interfaces
-            echo "  #netmask 255.255.255.0"   >> /etc/network/interfaces
-            echo "  #gateway 192.168.1.1"     >> /etc/network/interfaces
-            echo "  #network 192.168.1.0"     >> /etc/network/interfaces
-            echo "  #broadcast 192.168.1.255" >> /etc/network/interfaces
+            echo "auto lo"                                                                                             > /etc/network/interfaces
+            echo "  iface lo inet loopback"                                                                           >> /etc/network/interfaces
+            echo ""                                                                                                   >> /etc/network/interfaces
+            echo "auto eth0"                                                                                          >> /etc/network/interfaces
+            echo "  iface eth0 inet manual"                                                                           >> /etc/network/interfaces
+            echo ""                                                                                                   >> /etc/network/interfaces
+            echo "allow-hotplug wlan0"                                                                                >> /etc/network/interfaces
+            echo "  iface wlan0 inet manual"                                                                          >> /etc/network/interfaces
+            echo ""                                                                                                   >> /etc/network/interfaces
+            echo "auto br0"                                                                                           >> /etc/network/interfaces
+            echo "  iface br0 inet dhcp"                                                                              >> /etc/network/interfaces
+            echo "  bridge_ports eth0"                                                                                >> /etc/network/interfaces
+            echo "    # No hace falta agregar wlan0 a los puertos del puente."                                        >> /etc/network/interfaces
+            echo "    # Si existe la línea bridge=br0 en hostapd.conf,"                                               >> /etc/network/interfaces
+            echo "    # hostapd lo agrega cuando se levanta el servicio."                                             >> /etc/network/interfaces
+            echo "    # Esto es útil también para que el puente se levante aunque no encuentre un dispositivo wlan0." >> /etc/network/interfaces
+            echo "  bridge_stp off"                                                                                   >> /etc/network/interfaces
+            echo "  bridge_fd 0"                                                                                      >> /etc/network/interfaces
+            echo "  bridge_maxwait 0"                                                                                 >> /etc/network/interfaces
+            echo "  hwaddress $vMacEth0"                                                                              >> /etc/network/interfaces
 
           ;;
 
@@ -212,35 +203,31 @@ elif [ $OS_VERS == "11" ]; then
             echo "  Configurando interfaces de red con puente con IP fija..."
             echo ""
             vMacEth0=$(cat /sys/class/net/eth0/address)
-            echo "auto lo"                     > /etc/network/interfaces
-            echo "  iface lo inet loopback"   >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "auto eth0"                  >> /etc/network/interfaces
-            echo "  iface eth0 inet manual"   >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "allow-hotplug wlan0"        >> /etc/network/interfaces
-            echo "  iface wlan0 inet manual"  >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "#auto br0"                  >> /etc/network/interfaces
-            echo "#  iface br0 inet dhcp"     >> /etc/network/interfaces
-            echo "#  bridge_ports eth0 wlan0" >> /etc/network/interfaces
-            echo "#  bridge_stp off"          >> /etc/network/interfaces
-            echo "#  bridge_fd 0"             >> /etc/network/interfaces
-            echo "#  bridge_maxwait 0"        >> /etc/network/interfaces
-            echo "#  hwaddress $vMacEth0"     >> /etc/network/interfaces
-            echo ""                           >> /etc/network/interfaces
-            echo "auto br0"                   >> /etc/network/interfaces
-            echo "  iface br0 inet static"    >> /etc/network/interfaces
-            echo "  bridge_ports eth0 wlan0"  >> /etc/network/interfaces
-            echo "  bridge_stp off"           >> /etc/network/interfaces
-            echo "  bridge_fd 0"              >> /etc/network/interfaces
-            echo "  bridge_maxwait 0"         >> /etc/network/interfaces
-            echo "  hwaddress $vMacEth0"      >> /etc/network/interfaces
-            echo "  address 192.168.1.2"      >> /etc/network/interfaces
-            echo "  netmask 255.255.255.0"    >> /etc/network/interfaces
-            echo "  gateway 192.168.1.1"      >> /etc/network/interfaces
-            echo "  #network 192.168.1.0"     >> /etc/network/interfaces
-            echo "  #broadcast 192.168.1.255" >> /etc/network/interfaces
+            echo "auto lo"                                                                                             > /etc/network/interfaces
+            echo "  iface lo inet loopback"                                                                           >> /etc/network/interfaces
+            echo ""                                                                                                   >> /etc/network/interfaces
+            echo "auto eth0"                                                                                          >> /etc/network/interfaces
+            echo "  iface eth0 inet manual"                                                                           >> /etc/network/interfaces
+            echo ""                                                                                                   >> /etc/network/interfaces
+            echo "allow-hotplug wlan0"                                                                                >> /etc/network/interfaces
+            echo "  iface wlan0 inet manual"                                                                          >> /etc/network/interfaces
+            echo ""                                                                                                   >> /etc/network/interfaces
+            echo "auto br0"                                                                                           >> /etc/network/interfaces
+            echo "  iface br0 inet static"                                                                            >> /etc/network/interfaces
+            echo "  bridge_ports eth0"                                                                                >> /etc/network/interfaces
+            echo "    # No hace falta agregar wlan0 a los puertos del puente."                                        >> /etc/network/interfaces
+            echo "    # Si existe la línea bridge=br0 en hostapd.conf,"                                               >> /etc/network/interfaces
+            echo "    # hostapd lo agrega cuando se levanta el servicio."                                             >> /etc/network/interfaces
+            echo "    # Esto es útil también para que el puente se levante aunque no encuentre un dispositivo wlan0." >> /etc/network/interfaces
+            echo "  bridge_stp off"                                                                                   >> /etc/network/interfaces
+            echo "  bridge_fd 0"                                                                                      >> /etc/network/interfaces
+            echo "  bridge_maxwait 0"                                                                                 >> /etc/network/interfaces
+            echo "  hwaddress $vMacEth0"                                                                              >> /etc/network/interfaces
+            echo "  address 192.168.1.2"                                                                              >> /etc/network/interfaces
+            echo "  netmask 255.255.255.0"                                                                            >> /etc/network/interfaces
+            echo "  gateway 192.168.1.1"                                                                              >> /etc/network/interfaces
+            echo "  #network 192.168.1.0"                                                                             >> /etc/network/interfaces
+            echo "  #broadcast 192.168.1.255"                                                                         >> /etc/network/interfaces
 
           ;;
 
