@@ -126,10 +126,10 @@ elif [ $OS_VERS == "11" ]; then
       4 "Configurar interfaces de red con puente con IP por DHCP." on
       5 "Configurar interfaces de red con puente con IP fija." off
       6 "Configurar opciones por defecto para hostapd." on
-      7 "Configurar hostapd para AP abierto (WiFi n 2,4GHz canal 1)..." off
-      8 "Configurar hostapd para AP cerrado (WiFi n 2,4GHz canal 1)..." off
-      9 "Configurar hostapd para AP abierto (WiFi n 5GHz canal 36)..." off
-     10 "Configurar hostapd para AP cerrado (WiFi n 5GHz canal 36)..." off
+      7 "Configurar hostapd para AP abierto (WiFi n 2,4GHz canal 1)." off
+      8 "Configurar hostapd para AP cerrado (WiFi n 2,4GHz canal 1)." off
+      9 "Configurar hostapd para AP abierto (WiFi n 5GHz canal 36)." off
+     10 "Configurar hostapd para AP cerrado (WiFi n 5GHz canal 36)." off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
 
@@ -374,6 +374,46 @@ elif [ $OS_VERS == "11" ]; then
             echo "ht_capab=[HT40][SHORT-GI-40][RX-STBC1][MAX-AMSDU-3839][DSSS_CCK-40]"                             >> /etc/hostapd/hostapd.conf
             echo "#[HT20][SHORT-GI-20] dejados fuera para forzar que la red n se cree en el canal de 40Mhz"        >> /etc/hostapd/hostapd.conf
             echo "vht_capab=[MAX-MPDU-3895][VHT160-80PLUS80][SHORT-GI-80][RX-ANTENNA-PATTERN][TX-ANTENNA-PATTERN]" >> /etc/hostapd/hostapd.conf
+
+          ;;
+
+         11)
+
+            echo ""
+            echo "    Bloqueando DHCP en eth0 y wlan0 (dejando sólo el puente br0)..."
+            echo ""
+            touch /etc/dhcpd.conf
+            echo "denyinterfaces wlan0" >> /etc/dhcpd.conf
+            echo "denyinterfaces eth0"  >> /etc/dhcpd.conf
+
+          ;;
+
+         12)
+
+            echo ""
+            echo "    Desenmascarando, activando e iniciando el servicio hostapd..."
+            echo ""
+            systemctl unmask hostapd
+            systemctl enable hostapd --now
+  
+          ;;
+
+         13)
+
+            echo ""
+            echo "    Creando reglas con NFTables..."
+            echo ""
+            mkdir -p /root/scripts/ 2> /dev/null
+            echo "# Crear la tabla nat"                                                           > /root/scripts/ReglasIPTablesAP.sh
+            echo "  nft add table nat"                                                           >> /root/scripts/ReglasIPTablesAP.sh
+            echo "# Crear las cadenas de la tabla nat"                                           >> /root/scripts/ReglasIPTablesAP.sh
+            echo "  nft add chain nat prerouting { type nat hook prerouting priority 0 \; }"     >> /root/scripts/ReglasIPTablesAP.sh
+            echo "  nft add chain nat postrouting { type nat hook postrouting priority 100 \; }" >> /root/scripts/ReglasIPTablesAP.sh
+            echo "# Crear regla"                                                                 >> /root/scripts/ReglasIPTablesAP.sh
+            echo "nft add rule ip nat postrouting oifname "eth0" counter masquerade"             >> /root/scripts/ReglasIPTablesAP.sh
+            echo ""
+            chmod +x /root/scripts/ReglasIPTablesAP.sh
+            echo "/root/scripts/ReglasIPTablesAP.sh"                                             >> /root/scripts/ComandosPostArranque.sh
 
           ;;
 
