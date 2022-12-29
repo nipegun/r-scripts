@@ -118,7 +118,6 @@ elif [ $OS_VERS == "11" ]; then
       echo ""
     fi
 
-  #menu=(dialog --timeout 5 --checklist "Marca las opciones que quieras instalar:" 22 96 16)
   menu=(dialog --checklist "Marca las opciones que quieras instalar:" 22 96 16)
     opciones=(
       1 "Instalar paquetes necesarios." on
@@ -127,13 +126,12 @@ elif [ $OS_VERS == "11" ]; then
       4 "Configurando interfaces de red con puente con IP por DHCP." on
       5 "Configurando interfaces de red con puente con IP fija." off
       6 "Configurar opciones por defecto para hostapd." on
-      7 "Opción 5" off
-      8 "Opción 5" off
-      9 "Opción 5" off
-     10 "Opción 5" off
+      7 "Configurar hostapd para AP abierto (WiFi n 2,4GHz canal 1)..." off
+      8 "Configurar hostapd para AP cerrado (WiFi n 2,4GHz canal 1)..." off
+      9 "Configurar hostapd para AP abierto (WiFi n 5GHz canal 36)..." off
+     10 "Configurar hostapd para AP cerrado (WiFi n 5GHz canal 36)..." off
     )
   choices=$("${menu[@]}" "${opciones[@]}" 2>&1 >/dev/tty)
-  #clear
 
     for choice in $choices
       do
