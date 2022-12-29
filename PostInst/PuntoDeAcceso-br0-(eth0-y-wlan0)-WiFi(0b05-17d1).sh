@@ -382,9 +382,9 @@ elif [ $OS_VERS == "11" ]; then
             echo ""
             echo "    Bloqueando DHCP en eth0 y wlan0 (dejando sólo el puente br0)..."
             echo ""
-            touch /etc/dhcpd.conf
-            echo "denyinterfaces wlan0" >> /etc/dhcpd.conf
-            echo "denyinterfaces eth0"  >> /etc/dhcpd.conf
+            touch /etc/dhcpcd.conf
+            echo "denyinterfaces wlan0" >> /etc/dhcpcd.conf
+            echo "denyinterfaces eth0"  >> /etc/dhcpcd.conf
 
           ;;
 
