@@ -15,7 +15,7 @@
 # Agregar líneas de configuración a /etc/hostapd/hostapd.conf
   echo "wpa_psk_file=/etc/hostapd.psk"                                      >> /etc/hostapd/hostapd.conf
   echo "ctrl_interface=/var/run/hostapd"                                    >> /etc/hostapd/hostapd.conf
-  echo"eap_server=1"                                                        >> /etc/hostapd/hostapd.conf
+  echo "eap_server=1"                                                       >> /etc/hostapd/hostapd.conf
   echo ""                                                                   >> /etc/hostapd/hostapd.conf
   echo "# WPS (No permite registradores WPS externos)"                      >> /etc/hostapd/hostapd.conf
   echo "wps_state=2 ap_setup_locked=1"                                      >> /etc/hostapd/hostapd.conf
