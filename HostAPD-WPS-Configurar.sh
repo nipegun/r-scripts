@@ -10,7 +10,7 @@
 # ----------
 
 # Crear el archivo hostapd.psk
- touch /etc/hostapd.psk
+  touch /etc/hostapd.psk
 
 # Agregar líneas de configuración a /etc/hostapd/hostapd.conf
   echo ""                                                                   >> /etc/hostapd/hostapd.conf
