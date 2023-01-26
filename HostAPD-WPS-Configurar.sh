@@ -20,7 +20,7 @@
   echo ""                                                                   >> /etc/hostapd/hostapd.conf
   echo "# WPS (No permite registradores WPS externos)"                      >> /etc/hostapd/hostapd.conf
   echo "wps_state=2 ap_setup_locked=1"                                      >> /etc/hostapd/hostapd.conf
-  echo "uuid=87654321-9abc-def0-1234-56789abc0000 # Si no se proporciona un UUID se generará uno automáticamente basado en la dirección mac.">> /etc/hostapd/hostapd.conf
+  echo "uuid=87654321-9abc-def0-1234-56789abc0000 # Si no se proporciona un UUID se generará uno automáticamente basado en la dirección mac." >> /etc/hostapd/hostapd.conf
   echo "wps_pin_requests=/var/run/hostapd.pin-req"                          >> /etc/hostapd/hostapd.conf
   echo "device_name=Wireless AP manufacturer=Company"                       >> /etc/hostapd/hostapd.conf
   echo "model_name=WAP"                                                     >> /etc/hostapd/hostapd.conf
