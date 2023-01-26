@@ -10,5 +10,7 @@
 # ----------
 
 # Lanzar WPS
-  hostapd_cli wps_pin 53b63a98-d29e-4457-a2ed-094d7e6a669c 12345678
+  # hostapd_cli wps_pin 53b63a98-d29e-4457-a2ed-094d7e6a669c 12345678
+  # wpa_cli wps_pbc -i wlan0
+  hostapd_cli wps_pbc
 
