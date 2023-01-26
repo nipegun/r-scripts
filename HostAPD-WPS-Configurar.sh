@@ -13,6 +13,7 @@
  touch /etc/hostapd.psk
 
 # Agregar líneas de configuración a /etc/hostapd/hostapd.conf
+  echo ""                                                                   >> /etc/hostapd/hostapd.conf
   echo "wpa_psk_file=/etc/hostapd.psk"                                      >> /etc/hostapd/hostapd.conf
   echo "ctrl_interface=/var/run/hostapd"                                    >> /etc/hostapd/hostapd.conf
   echo "eap_server=1"                                                       >> /etc/hostapd/hostapd.conf
