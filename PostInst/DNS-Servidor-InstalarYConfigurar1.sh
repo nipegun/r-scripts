@@ -20,7 +20,7 @@
 
 # Variables automáticas
   vHostName="$(cat /etc/hostname)"
-  vIPLANHost=$(hostname -I)
+  vIPLANHost=$(hostname -I | cut -d' ' -f2)
   vOcteto1=$(echo $vTresOctetosClaseC | cut -d'.' -f1)
   vOcteto2=$(echo $vTresOctetosClaseC | cut -d'.' -f2)
   vOcteto3=$(echo $vTresOctetosClaseC | cut -d'.' -f3)
