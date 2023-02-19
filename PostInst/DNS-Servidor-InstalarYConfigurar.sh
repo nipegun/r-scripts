@@ -251,13 +251,12 @@ if [ $# -ne $vCantArgsCorrectos ]
 
       # resolvconf
         echo ""
-        echo "    Instalando resolvconf y configurando IP loopack..."
+        echo "    Indicando la IP loopback como servidor DNS..."
         echo ""
-        apt-get -y install resolvconf
-        sed -i -e 's|nameserver 127.0.0.1||g' /etc/resolvconf/resolv.conf.d/head
-        echo "nameserver 127.0.0.1"        >> /etc/resolvconf/resolv.conf.d/head
-        # Regenerar /etc/resolv.conf
-          resolvconf -u
+        echo "nameserver 127.0.0.1"        > /etc/resolv.conf
+        echo "nameserver 9.9.9.9"         >> /etc/resolv.conf
+        echo "nameserver 149.112.112.112" >> /etc/resolv.conf
+        chattr +i /etc/resolv.conf
 
       # Herramientas extra
         echo ""
