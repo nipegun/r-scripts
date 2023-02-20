@@ -5,22 +5,24 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#----------------------------------------------------
+# ----------
 #  Script de NiPeGun para sincronizar los r-scripts
-#----------------------------------------------------
+#
+# Ejecución remota:
+# curl -s https://raw.githubusercontent.com/nipegun/d-scripts/master/DScripts-Sincronizar.sh | bash
+# ----------
 
-ColorRojo='\033[1;31m'
-ColorVerde='\033[1;32m'
-FinColor='\033[0m'
+vColorAzul="\033[0;34m"
+vColorAzulClaro="\033[1;34m"
+vColorVerde='\033[1;32m'
+vColorRojo='\033[1;31m'
+vFinColor='\033[0m'
 
 # Comprobar si hay conexión a Internet antes de sincronizar los r-scripts
 wget -q --tries=10 --timeout=20 --spider https://github.com
   if [[ $? -eq 0 ]]; then
     echo ""
-    echo -e "${ColorVerde}-----------------------------------------------------${FinColor}"
-    echo -e "${ColorVerde}Sincronizando los r-scripts con las últimas versiones${FinColor}"
-    echo -e "${ColorVerde} y descargando nuevos r-scripts si es que existen... ${FinColor}"
-    echo -e "${ColorVerde}-----------------------------------------------------${FinColor}"
+    echo -e "${vColorAzulClaro}  Sincronizando los r-scripts con las últimas versiones y descargando nuevos d-scripts (si es que existen)...${vFinColor}"
     echo ""
     rm /root/scripts/r-scripts -R 2> /dev/null
     mkdir /root/scripts 2> /dev/null
@@ -31,15 +33,11 @@ wget -q --tries=10 --timeout=20 --spider https://github.com
     find /root/scripts/r-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
     /root/scripts/r-scripts/RScripts-CrearAlias.sh
     echo ""
-    echo -e "${ColorVerde}-------------------------------------${FinColor}"
-    echo -e "${ColorVerde}r-scripts sincronizados correctamente${FinColor}"
-    echo -e "${ColorVerde}-------------------------------------${FinColor}"
+    echo -e "${vColorVerde}    r-scripts sincronizados correctamente.${vFinColor}"
     echo ""
   else
     echo ""
-    echo -e "${ColorRojo}-----------------------------------------------------------------------------------------------${FinColor}"
-    echo -e "${ColorRojo}No se pudo iniciar la sincronización de los r-scripts porque no se detectó conexión a Internet.${FinColor}"
-    echo -e "${ColorRojo}-----------------------------------------------------------------------------------------------${FinColor}"
+    echo -e "${vColorRojo}  No se pudo iniciar la sincronización de los r-scripts porque no se detectó conexión a Internet.${vFinColor}"
     echo ""
   fi
 
