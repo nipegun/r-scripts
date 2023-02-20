@@ -18,26 +18,35 @@ vColorVerde='\033[1;32m'
 vColorRojo='\033[1;31m'
 vFinColor='\033[0m'
 
-# Comprobar si hay conexión a Internet antes de sincronizar los r-scripts
-wget -q --tries=10 --timeout=20 --spider https://github.com
-  if [[ $? -eq 0 ]]; then
+# Comprobar si el paquete wget está instalado. Si no lo está, instalarlo.
+  if [[ $(dpkg-query -s wget 2>/dev/null | grep installed) == "" ]]; then
     echo ""
-    echo -e "${vColorAzulClaro}  Sincronizando los r-scripts con las últimas versiones y descargando nuevos d-scripts (si es que existen)...${vFinColor}"
+    echo "wget no está instalado. Iniciando su instalación..."
     echo ""
-    rm /root/scripts/r-scripts -R 2> /dev/null
-    mkdir /root/scripts 2> /dev/null
-    cd /root/scripts
-    git clone --depth=1 https://github.com/nipegun/r-scripts
-    mkdir -p /root/scripts/r-scripts/Alias/
-    rm /root/scripts/r-scripts/.git -R 2> /dev/null
-    find /root/scripts/r-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
-    /root/scripts/r-scripts/RScripts-CrearAlias.sh
-    echo ""
-    echo -e "${vColorVerde}    r-scripts sincronizados correctamente.${vFinColor}"
-    echo ""
-  else
-    echo ""
-    echo -e "${vColorRojo}  No se pudo iniciar la sincronización de los r-scripts porque no se detectó conexión a Internet.${vFinColor}"
-    echo ""
+    sudo apt-get -y update
+    sudo apt-get -y install wget
   fi
+
+# Comprobar si hay conexión a Internet antes de sincronizar los r-scripts
+  wget -q --tries=10 --timeout=20 --spider https://github.com
+    if [[ $? -eq 0 ]]; then
+      echo ""
+      echo -e "${vColorAzulClaro}  Sincronizando los r-scripts con las últimas versiones y descargando nuevos r-scripts (si es que existen)...${vFinColor}"
+      echo ""
+      rm /root/scripts/r-scripts -R 2> /dev/null
+      mkdir /root/scripts 2> /dev/null
+      cd /root/scripts
+      git clone --depth=1 https://github.com/nipegun/r-scripts
+      mkdir -p /root/scripts/r-scripts/Alias/
+      rm /root/scripts/r-scripts/.git -R 2> /dev/null
+      find /root/scripts/r-scripts/ -type f -iname "*.sh" -exec chmod +x {} \;
+      /root/scripts/r-scripts/RScripts-CrearAlias.sh
+      echo ""
+      echo -e "${vColorVerde}    r-scripts sincronizados correctamente.${vFinColor}"
+      echo ""
+    else
+      echo ""
+      echo -e "${vColorRojo}  No se pudo iniciar la sincronización de los r-scripts porque no se detectó conexión a Internet.${vFinColor}"
+      echo ""
+    fi
 
