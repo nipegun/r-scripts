@@ -56,4 +56,5 @@ for vNumPeer in {2..254}
         cat /root/WireGuard/WireGuardUser"$vNumPeer".conf | qrencode -t ansiutf8
     fi
   done
+echo ""
 
