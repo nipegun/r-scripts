@@ -36,7 +36,7 @@ for vNumPeer in {2..254}
   do
     if [ -f /root/WireGuard/WireGuardUser"$vNumPeer".conf ]; then
       echo ""
-      echo "    Creando el archivo /root/WireGuard/WireGuardUser"$vNumPeer"QR.png con el código QR de la conexión del Peer $vNumPeer..."
+      echo "    Creando el archivo /root/WireGuard/WireGuardUser"$vNumPeer"QR.png con el código QR de la conexión del peer $vNumPeer..."
       echo ""
       qrencode -t png -o /root/WireGuard/WireGuardUser"$vNumPeer"QR.png -r /root/WireGuard/WireGuardUser"$vNumPeer".conf
       # Determinar si el archivo PNG se ha creado correctamente e informarlo
