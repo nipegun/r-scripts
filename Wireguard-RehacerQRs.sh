@@ -39,7 +39,21 @@ for vNumPeer in {2..254}
       echo "    Rehaciendo el código QR para la conexión del peer User$vNumPeer a partir del archivo /root/WireGuard/WireGuardUser$vNumPeer.conf..."
       echo ""
       qrencode -t png -o /root/WireGuard/WireGuardUser"$vNumPeer"QR.png -r /root/WireGuard/WireGuardUser"$vNumPeer".conf
-      cat /root/WireGuard/WireGuardUser"$vNumPeer".conf | qrencode -t ansiutf8
+      # Determinar si el archivo PNG se ha creado correctamente e informarlo
+        if [ -f /root/WireGuard/WireGuardUser"$vNumPeer"QR.png ]; then
+          echo ""
+          echo -e "${vColorVerde}      Archivo /root/WireGuard/WireGuardUser"$vNumPeer"QR.png, creado.${vFinColor}"
+          echo ""
+        else
+          echo ""
+          echo -e "${vColorRojo}      Por alguna razón el archivo /root/WireGuard/WireGuardUser"$vNumPeer"QR.png no se ha podido crear.${vFinColor}"
+          echo ""
+        fi
+      # Mostrar el código QR por pantalla
+        echo ""
+        echo "    Mostrando el código QR correspondiente a la conexión /root/WireGuard/WireGuardUser"$vNumPeer".conf..."
+        echo ""
+        cat /root/WireGuard/WireGuardUser"$vNumPeer".conf | qrencode -t ansiutf8
     fi
   done
 
