@@ -34,10 +34,12 @@ echo ""
 
 for vNumPeer in {2..254}
   do
-    echo ""
-    echo "    Rehaciendo el código QR para la conexión del peer User$vNumPeer a partir del archivo /root/WireGuard/WireGuardUser$vNumPeer.conf..."
-    echo ""
-    qrencode -t png -o /root/WireGuard/WireGuardUser"$vNumPeer"QR.png -r /root/WireGuard/WireGuardUser"$vNumPeer".conf 2> /dev/null
-    cat /root/WireGuard/WireGuardUser"$vNumPeer".conf | qrencode -t ansiutf8 2> /dev/null
+    if [ -f /root/WireGuard/WireGuardUser"$vNumPeer".conf ]; then
+      echo ""
+      echo "    Rehaciendo el código QR para la conexión del peer User$vNumPeer a partir del archivo /root/WireGuard/WireGuardUser$vNumPeer.conf..."
+      echo ""
+      qrencode -t png -o /root/WireGuard/WireGuardUser"$vNumPeer"QR.png -r /root/WireGuard/WireGuardUser"$vNumPeer".conf
+      cat /root/WireGuard/WireGuardUser"$vNumPeer".conf | qrencode -t ansiutf8
+    fi
   done
 
