@@ -5,15 +5,18 @@
 # Si se te llena la boca hablando de libertad entonces hazlo realmente libre.
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
-#-----------------------------------------------------------
-#  Script de NiPeGun para crear los alias de los r-scripts 
-#-----------------------------------------------------------
+# ----------
+# Script de NiPeGun para crear los alias de los r-scripts 
+# ----------
 
-ColorVerde="\033[1;32m"
-FinColor="\033[0m"
+vColorAzul="\033[0;34m"
+vColorAzulClaro="\033[1;34m"
+vColorVerde='\033[1;32m'
+vColorRojo='\033[1;31m'
+vFinColor='\033[0m'
 
 echo ""
-echo -e "${ColorVerde}Creando alias para los r-scripts...${FinColor}"
+echo -e "${vColorAzulClaro}  Creando alias para los r-scripts...${vFinColor}"
 echo ""
 
 ln -s /root/scripts/r-scripts/RScripts-Sincronizar.sh      /root/scripts/r-scripts/Alias/sinrs
@@ -21,8 +24,9 @@ ln -s /root/scripts/r-scripts/RScripts-Sincronizar.sh      /root/scripts/r-scrip
 ln -s /root/scripts/r-scripts/DHCP-Editar.sh               /root/scripts/r-scripts/Alias/edhcp
 ln -s /root/scripts/r-scripts/HostAPD-Editar.sh            /root/scripts/r-scripts/Alias/ehostapd
 ln -s /root/scripts/r-scripts/MostrarAparatosConectados.sh /root/scripts/r-scripts/Alias/aparatos
+ln -s /root/scripts/r-scripts/Wireguard-Editar.sh          /root/scripts/r-scripts/Alias/ewireguard
 
 echo ""
-echo -e "${ColorVerde}Alias creados. Deberías poder ejecutar los r-scripts escribiendo el nombre de su alias.${FinColor}"
+echo -e "${vColorVerde}    Alias creados. Deberías poder ejecutar los r-scripts escribiendo el nombre de su alias.${vFinColor}"
 echo ""
 
