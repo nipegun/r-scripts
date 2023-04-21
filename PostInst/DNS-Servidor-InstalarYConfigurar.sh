@@ -6,10 +6,10 @@
 # No tienes que aceptar ningún tipo de términos de uso o licencia para utilizarlo o modificarlo porque va sin CopyLeft.
 
 # ----------
-#  Script de NiPeGun para instalar y configurar bind9 en un Debian configurado como router
+# Script de NiPeGun para instalar y configurar bind9 en un Debian configurado como router
 #
-#  Ejecución remota:
-#  curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/DNS-Servidor-InstalarYConfigurar.sh | bash
+# Ejecución remota:
+#   curl -s https://raw.githubusercontent.com/nipegun/r-scripts/master/PostInst/DNS-Servidor-InstalarYConfigurar.sh | bash
 # ----------
 
 # Declaraciones
