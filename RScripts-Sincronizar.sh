@@ -26,6 +26,7 @@
     echo ""
     sudo apt-get -y update
     sudo apt-get -y install wget
+    echo ""
   fi
 
 # Comprobar si hay conexión a Internet antes de sincronizar los r-scripts
