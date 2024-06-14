@@ -107,15 +107,21 @@
       systemctl restart nagios4
 
       echo ""
-      echo "  Ordenador Debian agregado."
-      echo "  Si la monitorización no funciona comprueba que en el ordenador estén instalado los paquetes:"
+      echo "  Host agregado."
+      echo "  Recuerda correr el siguiente script en el host, para que la monitorización funcione:"
       echo ""
-      echo "  monitoring-plugins"
-      echo "  nagios-nrpe-server"
+      echo "    curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/master/SoftInst/ParaCLI/Nagios-RemotePluginExecutor-InstalarEnHost.sh | bash"
       echo ""
-      echo "  Y que has activado en ese Debian la IP del servidor nagios:"
-      echo "  sed -i -e 's/allowed_hosts=127.0.0.1,::1/allowed_hosts=127.0.0.1,::1,IpDelServidorNagios/g' /etc/nagios/nrpe.cfg"
-      echo "  service nagios-nrpe-server restart"
+      echo "    ...y también revisa que hays activado en ese host la IP del servidor nagios:"
+      echo ""
+      echo "      sed -i -e 's/allowed_hosts=127.0.0.1,::1/allowed_hosts=127.0.0.1,::1,IpDelServidorNagios/g' /etc/nagios/nrpe.cfg"
+      echo "      service nagios-nrpe-server restart"
+      echo ""
+      echo "  Para comprobar manualmente nrpe desde el servidor Nagios4, ejecuta:"
+      echo "  /usr/lib/nagios/plugins/check_nrpe -H IPDelHostAComprobar -c Comando"
+      echo ""
+      echo "  Si al haber agregado este host, Nagios4 no incia, comprueba que error de da la configuración, ejecutando:"
+      echo "  /usr/sbin/nagios4 -v /etc/nagios4/nagios.cfg"
       echo ""
 
   fi
