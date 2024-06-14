@@ -245,7 +245,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 1 Part 1"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hda1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hda1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -253,7 +253,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 1 Part 2"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hda2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hda2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -261,7 +261,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 1 Part 3"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hda3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hda3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -269,7 +269,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 1 Part 4"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hda4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hda4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -277,7 +277,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 2 Part 1"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdb1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdb1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -285,7 +285,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 2 Part 2"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdb2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdb2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -293,7 +293,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 2 Part 3"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdb3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdb3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -301,7 +301,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 2 Part 4"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdb4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdb4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -309,7 +309,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 3 Part 1"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdc1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdc1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -317,7 +317,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 3 Part 2"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdc2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdc2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -325,7 +325,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 3 Part 3"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdc3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdc3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -333,7 +333,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 3 Part 4"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdc4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdc4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -341,7 +341,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 4 Part 1"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdd1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdd1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -349,7 +349,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 4 Part 2"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdd2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdd2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -357,7 +357,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 4 Part 3"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdd3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdd3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -365,7 +365,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco IDE 4 Part 4"         >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part hdd4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_hdd4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -373,7 +373,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 1 Part 1"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sda1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sda1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -381,7 +381,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 1 Part 2"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sda2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sda2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -389,7 +389,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 1 Part 3"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sda3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sda3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -397,7 +397,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 1 Part 4"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sda4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sda4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -405,7 +405,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 2 Part 1"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdb1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdb1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -413,7 +413,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 2 Part 2"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdb2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdb2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -421,7 +421,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 2 Part 3"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdb3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdb3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -429,7 +429,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 2 Part 4"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdb4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdb4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -437,7 +437,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 3 Part 1"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdc1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdc1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -445,7 +445,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 3 Part 2"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdc2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdc2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -453,7 +453,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 3 Part 3"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdc3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdc3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -461,7 +461,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 3 Part 4"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdc4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdc4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -469,7 +469,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 4 Part 1"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdd1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdd1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -477,7 +477,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 4 Part 2"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdd2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdd2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -485,7 +485,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 4 Part 3"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdd3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdd3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -493,7 +493,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 4 Part 4"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sdd4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sdd4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -501,7 +501,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 5 Part 1"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sde1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sde1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -509,7 +509,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 5 Part 2"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sde2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sde2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -517,7 +517,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 5 Part 3"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sde3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sde3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -525,7 +525,7 @@
       echo "define service{"                                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"            >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"             >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco SATA 5 Part 4"        >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part sde4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_sde4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                 >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -533,7 +533,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 0 Part 1"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme0n1p1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme0n1p1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -541,7 +541,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 0 Part 2"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme0n1p2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme0n1p2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -549,7 +549,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 0 Part 3"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme0n1p3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme0n1p3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -557,7 +557,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 0 Part 4"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme0n1p4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme0n1p4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -565,7 +565,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 1 Part 1"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme1n1p1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme1n1p1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -573,7 +573,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 1 Part 2"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme1n1p2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme1n1p2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -581,7 +581,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 1 Part 3"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme1n1p3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme1n1p3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -589,14 +589,14 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 1 Part 4"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme1n1p4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme1n1p4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 2 Part 1"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme2n1p1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme2n1p1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -604,7 +604,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 2 Part 2"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme2n1p2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme2n1p2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -612,7 +612,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 2 Part 3"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme2n1p3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme2n1p3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -620,14 +620,14 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 2 Part 4"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme2n1p4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme2n1p4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 3 Part 1"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme3n1p1"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme3n1p1" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -635,7 +635,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 3 Part 2"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme3n1p2"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme3n1p2" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -643,7 +643,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 3 Part 3"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme3n1p3"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme3n1p3" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
@@ -651,7 +651,7 @@
       echo "define service{"                                       >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  use                 generic-service"                 >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  host_name           $NombreDelHost"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
-      echo "  service_description Disco NVMe 3 Part 4"             >> /etc/nagios4/servers/$NombreDelHost.cfg
+      echo "  service_description Part nvme3n1p4"                  >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "  check_command       pers_check_nrpe!check_nvme3n1p4" >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo "}"                                                     >> /etc/nagios4/servers/$NombreDelHost.cfg
       echo ""                                                      >> /etc/nagios4/servers/$NombreDelHost.cfg
