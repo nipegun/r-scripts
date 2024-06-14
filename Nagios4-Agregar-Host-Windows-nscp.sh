@@ -9,10 +9,10 @@
 # Script de NiPeGun para agregar un host de Windows a Nagios para monitorear con NSClient++
 #
 # Ejecución remota:
-#  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/master/Nagios4-Agregar-Host-Windows-nscp.sh | bash -s URL Servicio
+#  curl -sL https://raw.githubusercontent.com/nipegun/r-scripts/master/Nagios4-Agregar-Host-Windows-nscp.sh | bash -s URL Servicio
 #
 #  Ejemplo:
-#  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/master/Nagios4-Agregar-Host-Windows-nscp.sh | bash -s miwindows "Mi máquina de Windows" "192.168.0.122"
+#  curl -sL https://raw.githubusercontent.com/nipegun/r-scripts/master/Nagios4-Agregar-Host-Windows-nscp.sh | bash -s miwindows "Mi máquina de Windows" "192.168.0.122"
 # ----------
 
 # Definir constantes de color
