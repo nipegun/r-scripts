@@ -357,7 +357,10 @@ elif [ $cVerSO == "11" ]; then
                 apt-get -y install curl
                 echo ""
               fi
-
+            # Antes para CentOS
+              #yum update
+              #yum install tar
+              #dnf install 'dnf-command(config-manager)
             curl -sL https://assets.nagios.com/downloads/nagiosxi/install.sh | sh
           ;;
 
