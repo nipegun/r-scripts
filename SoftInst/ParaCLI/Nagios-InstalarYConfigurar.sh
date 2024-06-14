@@ -357,7 +357,7 @@ elif [ $cVerSO == "11" ]; then
                 apt-get -y install curl
                 echo ""
               fi
-            # Antes para CentOS
+            # Antes para CentOS Stream 9
               #yum update
               #yum install tar
               #dnf install 'dnf-command(config-manager)
