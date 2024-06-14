@@ -9,10 +9,10 @@
 # Script de NiPeGun para agregar un Mac a Nagios
 #
 # Ejecución remota:
-#  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/master/Nagios4-Agregar-Host-Mac.sh | bash -s URL Servicio
+#  curl -sL https://raw.githubusercontent.com/nipegun/r-scripts/master/Nagios4-Agregar-Host-Mac.sh | bash -s URL Servicio
 #
 #  Ejemplo:
-#  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/master/Nagios4-Agregar-Host-Mac.sh | bash -s mimac "Mi Mac" "192.168.0.123"
+#  curl -sL https://raw.githubusercontent.com/nipegun/r-scripts/master/Nagios4-Agregar-Host-Mac.sh | bash -s mimac "Mi Mac" "192.168.0.123"
 # ----------
 
 # Definir constantes de color
