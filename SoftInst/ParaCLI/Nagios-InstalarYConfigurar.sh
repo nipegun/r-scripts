@@ -259,6 +259,26 @@ elif [ $cVerSO == "11" ]; then
             apt-get -y install tang-nagios
             apt-get -y install nordugrid-arc-nagios-plugins
             apt-get -y install monitoring-plugins-btrfs
+            apt-get -y install monitoring-plugins
+            apt-get -y install monitoring-plugins-basic
+            apt-get -y install monitoring-plugins-contrib
+            apt-get -y install monitoring-plugins-standard
+            apt-get -y install nagios-plugins-contrib
+            apt-get -y install nagios-plugins-rabbitmq
+            apt-get -y install centreon-plugins
+            apt-get -y install check-pgactivity
+            apt-get -y install monitoring-plugins
+            apt-get -y install monitoring-plugins-basic
+            apt-get -y install monitoring-plugins-btrfs
+            apt-get -y install monitoring-plugins-check-logfiles
+            apt-get -y install monitoring-plugins-common
+            apt-get -y install monitoring-plugins-contrib
+            apt-get -y install monitoring-plugins-standard
+            apt-get -y install monitoring-plugins-systemd
+            apt-get -y install nagios-check-xmppng
+            apt-get -y install nagios-nrpe-plugin
+            apt-get -y install nagios-nrpe-server
+            apt-get -y install nagios-snmp-plugins
 
             echo ""
             echo -e "${ColorAzul}    Activando el servicio $PaqueteEnRepos...${cFinColor}"
