@@ -9,10 +9,10 @@
 # Script de NiPeGun para agregar un host de Ubuntu a Nagios
 #
 # Ejecución remota:
-#  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/master/Nagios4-Agregar-Host-Ubuntu.sh | bash -s URL Servicio
+#  curl -sL https://raw.githubusercontent.com/nipegun/r-scripts/master/Nagios4-Agregar-Host-Ubuntu.sh | bash -s URL Servicio
 #
 #  Ejemplo:
-#  curl -sL https://raw.githubusercontent.com/nipegun/d-scripts/master/Nagios4-Agregar-Host-Ubuntu.sh | bash -s miubuntu "Mi Ubuntu" "192.168.0.123"
+#  curl -sL https://raw.githubusercontent.com/nipegun/r-scripts/master/Nagios4-Agregar-Host-Ubuntu.sh | bash -s miubuntu "Mi Ubuntu" "192.168.0.123"
 # ----------
 
 # Controlar que la cantidad de argumentos ingresados sea la correcta
