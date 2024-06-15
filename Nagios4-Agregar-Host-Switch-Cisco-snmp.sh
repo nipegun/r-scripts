@@ -25,17 +25,17 @@
   cFinColor='\033[0m'
 
 # Definir la cantidad de argumentos esperados
-  cCantArgumEsperados=2
+  cCantArgumEsperados=4
 
 # Controlar que la cantidad de argumentos ingresados sea la correcta
   if [ $# -ne $cCantArgumEsperados ]
     then
       echo ""
       echo -e "${cColorRojo}  Mal uso del script. El uso correcto sería: ${cFinColor}"
-      echo "    $0 [NombreDelHost] [AliasDelHost] [IPDelHost]"
+      echo "    $0 [NombreDelHost] [AliasDelHost] [IPDelHost] [CantDePuertos]"
       echo ""
       echo "  Ejemplo:"
-      echo "    $0 'servdebian' 'servdebian' '192.168.1.10'"
+      echo "    $0 'servdebian' 'servdebian' '192.168.1.10' '24'"
       echo ""
       exit
     else
@@ -43,7 +43,7 @@
       NombreDelHost=$1
       AliasDelHost=$2
       IPDelHost=$3
-      CantPuertos=24
+      CantPuertos=$4
 
       mkdir -p /etc/nagios4/switches/ 2> /dev/null
 
