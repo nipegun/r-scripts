@@ -25,7 +25,8 @@
   cFinColor='\033[0m'
 
 # Definir la cantidad de argumentos esperados
-  cCantArgumEsperados=2
+  cCantArgumEsperados=3
+
 # Controlar que la cantidad de argumentos ingresados sea la correcta
   if [ $# -ne $cCantArgumEsperados ]
     then
