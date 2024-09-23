@@ -196,8 +196,8 @@ elif [ $OS_VERS == "12" ]; then
               nft --file /etc/nftables.conf
 
             # Agregar las reglas a los ComandosPostArranque
-              sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ComandosPostArranque.sh
-              echo "nft --file /etc/nftables.conf" >>        /root/scripts/ComandosPostArranque.sh
+              sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
+              echo "nft --file /etc/nftables.conf" >>        /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
 
           ;;
 
@@ -225,19 +225,19 @@ elif [ $OS_VERS == "12" ]; then
             echo "    Configurando dhcp..."
             echo ""
             cp /etc/dhcp/dhcpd.conf /etc/dhcp/dhcpd.conf.bak
-            echo "authoritative;"                                  > /etc/dhcp/dhcpd.conf
-            echo "subnet $vLANIP.0 netmask 255.255.255.0 {"       >> /etc/dhcp/dhcpd.conf
-            echo "  range $vLANIP.100 $vLANIP.199;"               >> /etc/dhcp/dhcpd.conf
-            echo "  option routers $vLANIP.1;"                    >> /etc/dhcp/dhcpd.conf
-            echo "  option domain-name-servers 1.1.1.1, 1.0.0.1;" >> /etc/dhcp/dhcpd.conf
-            echo "  default-lease-time 600;"                      >> /etc/dhcp/dhcpd.conf
-            echo "  max-lease-time 7200;"                         >> /etc/dhcp/dhcpd.conf
-            echo ""                                               >> /etc/dhcp/dhcpd.conf
-            echo "  host PrimeraReserva {"                        >> /etc/dhcp/dhcpd.conf
-            echo "    hardware ethernet 00:00:00:00:00:01;"       >> /etc/dhcp/dhcpd.conf
-            echo "    fixed-address $vLANIP.10;"                  >> /etc/dhcp/dhcpd.conf
-            echo "  }"                                            >> /etc/dhcp/dhcpd.conf
-            echo "}"                                              >> /etc/dhcp/dhcpd.conf
+            echo "authoritative;"                                                     > /etc/dhcp/dhcpd.conf
+            echo "subnet $vLANIP.0 netmask 255.255.255.0 {"                          >> /etc/dhcp/dhcpd.conf
+            echo "  range $vLANIP.100 $vLANIP.199;"                                  >> /etc/dhcp/dhcpd.conf
+            echo "  option routers $vLANIP.1;"                                       >> /etc/dhcp/dhcpd.conf
+            echo "  option domain-name-servers $vLANIP.1, 9.9.9.9, 149.112.112..12;" >> /etc/dhcp/dhcpd.conf
+            echo "  default-lease-time 600;"                                         >> /etc/dhcp/dhcpd.conf
+            echo "  max-lease-time 7200;"                                            >> /etc/dhcp/dhcpd.conf
+            echo ""                                                                  >> /etc/dhcp/dhcpd.conf
+            echo "  host PrimeraReserva {"                                           >> /etc/dhcp/dhcpd.conf
+            echo "    hardware ethernet 00:00:00:00:00:01;"                          >> /etc/dhcp/dhcpd.conf
+            echo "    fixed-address $vLANIP.10;"                                     >> /etc/dhcp/dhcpd.conf
+            echo "  }"                                                               >> /etc/dhcp/dhcpd.conf
+            echo "}"                                                                 >> /etc/dhcp/dhcpd.conf
 
             echo ""
             echo "    Descargando archivo de nombres de fabricantes..."
