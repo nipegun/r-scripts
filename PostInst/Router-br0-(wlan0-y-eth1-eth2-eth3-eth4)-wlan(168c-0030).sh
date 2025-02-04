@@ -25,9 +25,9 @@
 vInterfazWAN=eth0
 vInterfazWLAN1=wlan0
 vInterfazLAN1=eth1
-vInterfazLAN1=eth2
-vInterfazLAN1=eth3
-vInterfazLAN1=eth4
+vInterfazLAN2=eth2
+vInterfazLAN3=eth3
+vInterfazLAN4=eth4
 
 ColorAzul="\033[0;34m"
 ColorAzulClaro="\033[1;34m"
@@ -40,7 +40,8 @@ FinColor='\033[0m'
     echo ""
     echo -e "${ColorRojo}curl no está instalado. Iniciando su instalación...${FinColor}"
     echo ""
-    apt-get -y update && apt-get -y install curl
+    apt-get -y update
+    apt-get -y install curl
     echo ""
   fi
 
@@ -634,7 +635,10 @@ elif [ $OS_VERS == "11" ]; then
           echo ""
           echo "   Actualizando el sistema..."
           echo ""
-          apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get autoremove
+          apt-get update
+          apt-get -y upgrade
+          apt-get -y dist-upgrade
+          apt-get autoremove
         ;;
 
         3)
@@ -654,7 +658,7 @@ elif [ $OS_VERS == "11" ]; then
           echo ""
 
           echo ""
-          echo "    Creando las reglas IPTables..."
+          echo "    Creando las reglas NFTables..."
           echo ""
           echo "table inet filter {"                                                               > /root/ReglasNFTablesV4RouterBR0
           echo "}"                                                                                >> /root/ReglasNFTablesV4RouterBR0
