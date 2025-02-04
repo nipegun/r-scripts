@@ -22,12 +22,13 @@
 #  Debes reemplazar los valores de las 3 variables de abajo antes de ejecutar el script.
 # ----------
 
-vInterfazWAN=eth0
-vInterfazWLAN1=wlan0
-vInterfazLAN1=eth1
-vInterfazLAN2=eth2
-vInterfazLAN3=eth3
-vInterfazLAN4=eth4
+vInterfazWAN="eth0"
+vInterfazLAN1="eth1"
+vInterfazLAN2="eth2"
+vInterfazLAN3="eth3"
+vInterfazLAN4="eth4"
+vInterfazWLAN1="wlan0"
+
 
 ColorAzul="\033[0;34m"
 ColorAzulClaro="\033[1;34m"
