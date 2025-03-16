@@ -22,6 +22,7 @@ echo ""
 ln -s /root/scripts/r-scripts/RScripts-Sincronizar.sh      /root/scripts/r-scripts/Alias/sinrs
 
 ln -s /root/scripts/r-scripts/DHCP-Editar.sh               /root/scripts/r-scripts/Alias/edhcp
+ln -s /root/scripts/r-scripts/HAProxy-Editar.sh            /root/scripts/r-scripts/Alias/ehaproxy
 ln -s /root/scripts/r-scripts/HostAPD-Editar.sh            /root/scripts/r-scripts/Alias/ehostapd
 ln -s /root/scripts/r-scripts/MostrarAparatosConectados.sh /root/scripts/r-scripts/Alias/aparatos
 ln -s /root/scripts/r-scripts/WireGuard-Editar.sh          /root/scripts/r-scripts/Alias/ewireguard
