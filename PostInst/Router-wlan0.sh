@@ -208,8 +208,8 @@ vInterfazInalambrica0='wlan0'
       # Recargar las reglas generales de NFTables
         sudo nft --file /etc/nftables.conf
       # Agregar las reglas a los ComandosPostArranque
-        sudo sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
-        echo "nft --file /etc/nftables.conf" |  sudo tee -a /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
+        ##udo sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
+        #echo "nft --file /etc/nftables.conf" |  sudo tee -a /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
 
   elif [ $cVerSO == "11" ]; then
 
