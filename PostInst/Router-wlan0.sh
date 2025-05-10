@@ -124,9 +124,9 @@ vInterfazInalambrica0='wlan0'
       echo "#/etc/hostapd/hostapd.conf"       | sudo tee    /etc/hostapd/hostapd.conf
       echo "interface=$vInterfazInalambrica0" | sudo tee -a /etc/hostapd/hostapd.conf
       echo "driver=nl80211"                   | sudo tee -a /etc/hostapd/hostapd.conf
-      echo "bridge=br0"                       | sudo tee -a /etc/hostapd/hostapd.conf
+      echo "#bridge=br0"                      | sudo tee -a /etc/hostapd/hostapd.conf
       echo "country_code=ES"                  | sudo tee -a /etc/hostapd/hostapd.conf
-      echo "channel=0"                        | sudo tee -a /etc/hostapd/hostapd.conf
+      echo "channel=1"                        | sudo tee -a /etc/hostapd/hostapd.conf
       echo "ssid=MiAP"                        | sudo tee -a /etc/hostapd/hostapd.conf
 
     # Desenmascarar y activar el servicio (Si no, con entorno gráfico NetworkManager no lo deja iniciar)
