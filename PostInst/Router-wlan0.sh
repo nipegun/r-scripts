@@ -112,7 +112,7 @@ vInterfazInalambrica0=wlan0
 
     # Indicar la ubicación del archivo de configuración de hostapd
       echo ""
-      echo "  Indicando la ubicación del archivo de configuración de hostapd"
+      echo "  Indicando la ubicación del archivo de configuración de hostapd..."
       echo ""
       sudo cp /etc/default/hostapd /etc/default/hostapd.bak
       sudo sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g'      /etc/default/hostapd
