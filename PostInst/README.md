@@ -1,4 +1,7 @@
-#
+# Scripts
+
+.
+
 ## Router-wlan0.sh
 
 Transforma un Debian recién instalado en un router WiFi que sirva IPs en la interfaz inalámbrica.
