@@ -100,7 +100,6 @@ vInterfazInalambrica0='wlan0'
       sudo apt-get -y update
       sudo apt-get -y install isc-dhcp-server
       sudo apt-get -y install hostapd
-      sudo apt-get -y install crda
       #sudo apt-get -y install firmware-atheros
 
     # Habilitar el forwarding
