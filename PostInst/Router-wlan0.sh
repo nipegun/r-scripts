@@ -135,9 +135,9 @@ vInterfazInalambrica0='wlan0'
       echo "  Indicando la ubicación del archivo de configuración del demonio dhcpd y la interfaz sobre la que correrá..."
       echo ""
       sudo cp /etc/default/isc-dhcp-server /etc/default/isc-dhcp-server.bak
-      echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'     | sudo tee    /etc/default/isc-dhcp-server
-      echo 'INTERFACESv4="$vInterfazInalambrica0"' | sudo tee -a /etc/default/isc-dhcp-server
-      echo 'INTERFACESv6=""'                       | sudo tee -a /etc/default/isc-dhcp-server
+      echo 'DHCPDv4_CONF=/etc/dhcp/dhcpd.conf'       | sudo tee    /etc/default/isc-dhcp-server
+      echo 'INTERFACESv4='"$vInterfazInalambrica0"'' | sudo tee -a /etc/default/isc-dhcp-server
+      echo 'INTERFACESv6=""'                         | sudo tee -a /etc/default/isc-dhcp-server
 
     # Configurar el servidor DHCP
       echo ""
