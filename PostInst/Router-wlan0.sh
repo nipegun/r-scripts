@@ -184,6 +184,33 @@ vInterfazInalambrica0='wlan0'
       echo "netmask 255.255.255.0"                                      | sudo tee -a /etc/network/interfaces
       echo "broadcast 192.168.1.255"                                    | sudo tee -a /etc/network/interfaces
 
+    # Crear las reglas para NFTables
+      echo ""
+      echo "  Creando las reglas para NFTables..."
+      echo ""
+      echo "table inet filter {"                                                                      | sudo tee    /root/ReglasNFTablesAP.txt
+      echo "}"                                                                                        | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo ""                                                                                         | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "table ip nat {"                                                                           | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "  chain postrouting {"                                                                    | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "    type nat hook postrouting priority 100; policy accept;"                               | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo '    oifname "'"$vInterfazCableada0"'" ip saddr 192.168.100.0/24 counter masquerade'       | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "  }"                                                                                      | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo ""                                                                                         | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "  chain prerouting {"                                                                     | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "    type nat hook prerouting priority 0; policy accept;"                                  | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo '    iifname "'"$vInterfazCableada0"'" tcp dport 33892 counter dnat to 192.168.100.2:3389' | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "  }"                                                                                      | sudo tee -a /root/ReglasNFTablesAP.txt
+      echo "}"                                                                                        | sudo tee -a /root/ReglasNFTablesAP.txt
+      # Agregar las reglas al archivo de configuración de NFTables
+        sudo sed -i '/^flush ruleset/a include "/root/ReglasNFTablesAP.txt"' /etc/nftables.conf
+        sudo sed -i -e 's|flush ruleset|flush ruleset\n|g'                   /etc/nftables.conf
+      # Recargar las reglas generales de NFTables
+        sudo nft --file /etc/nftables.conf
+      # Agregar las reglas a los ComandosPostArranque
+        sudo sed -i -e 's|nft --file /etc/nftables.conf||g' /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
+        echo "nft --file /etc/nftables.conf" |  sudo tee -a /root/scripts/ParaEsteDebian/ComandosPostArranque.sh
+
   elif [ $cVerSO == "11" ]; then
 
     echo ""
