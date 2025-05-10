@@ -129,6 +129,12 @@ vInterfazInalambrica0='wlan0'
       echo "channel=0"                        | sudo tee -a /etc/hostapd/hostapd.conf
       echo "ssid=MiAP"                        | sudo tee -a /etc/hostapd/hostapd.conf
 
+    # Desenmascarar y activar el servicio (Si no, con entorno gráfico NetworkManager no lo deja iniciar)
+      echo ""
+      echo "  Desenmascarando y activando el servicio hostapd..."
+      echo ""
+      sudo systemctl unmask hostapd
+      sudo systemctl enable hostapd --now
 
     # Indicar la ubicación del archivo de configuración del demonio dhcpd y la interfaz sobre la que correrá
       echo ""
