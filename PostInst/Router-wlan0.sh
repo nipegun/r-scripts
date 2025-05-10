@@ -169,20 +169,20 @@ vInterfazInalambrica0='wlan0'
       echo "  Configurando interfaces de red..."
       echo ""
       sudo cp /etc/network/interfaces /etc/network/interfaces.bak
-      echo "auto lo"                                                    | sudo tee    /etc/network/interfaces
-      echo "iface lo inet loopback"                                     | sudo tee -a /etc/network/interfaces
-      echo "pre-up iptables-restore < /root/ReglasIPTablesV4RouterWiFi" | sudo tee -a /etc/network/interfaces
-      echo ""                                                           | sudo tee -a /etc/network/interfaces
-      echo "auto $vInterfazCableada0"                                   | sudo tee -a /etc/network/interfaces
-      echo "allow-hotplug $vInterfazCableada0"                          | sudo tee -a /etc/network/interfaces
-      echo "iface $vInterfazCableada0 inet dhcp"                        | sudo tee -a /etc/network/interfaces
-      echo ""                                                           | sudo tee -a /etc/network/interfaces
-      echo "auto $vInterfazInalambrica0"                                | sudo tee -a /etc/network/interfaces
-      echo "iface $vInterfazInalambrica0 inet static"                   | sudo tee -a /etc/network/interfaces
-      echo "address 192.168.100.1"                                      | sudo tee -a /etc/network/interfaces
-      echo "network 192.168.100.0"                                      | sudo tee -a /etc/network/interfaces
-      echo "netmask 255.255.255.0"                                      | sudo tee -a /etc/network/interfaces
-      echo "broadcast 192.168.1.255"                                    | sudo tee -a /etc/network/interfaces
+      echo "auto lo"                                  | sudo tee    /etc/network/interfaces
+      echo "iface lo inet loopback"                   | sudo tee -a /etc/network/interfaces
+      echo "pre-up nft --file /etc/nftables.conf"     | sudo tee -a /etc/network/interfaces
+      echo ""                                         | sudo tee -a /etc/network/interfaces
+      echo "auto $vInterfazCableada0"                 | sudo tee -a /etc/network/interfaces
+      echo "allow-hotplug $vInterfazCableada0"        | sudo tee -a /etc/network/interfaces
+      echo "iface $vInterfazCableada0 inet dhcp"      | sudo tee -a /etc/network/interfaces
+      echo ""                                         | sudo tee -a /etc/network/interfaces
+      echo "auto $vInterfazInalambrica0"              | sudo tee -a /etc/network/interfaces
+      echo "iface $vInterfazInalambrica0 inet static" | sudo tee -a /etc/network/interfaces
+      echo "address 192.168.100.1"                    | sudo tee -a /etc/network/interfaces
+      echo "network 192.168.100.0"                    | sudo tee -a /etc/network/interfaces
+      echo "netmask 255.255.255.0"                    | sudo tee -a /etc/network/interfaces
+      echo "broadcast 192.168.1.255"                  | sudo tee -a /etc/network/interfaces
 
     # Crear las reglas para NFTables
       echo ""
