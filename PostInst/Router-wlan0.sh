@@ -24,8 +24,8 @@
 #   curl -sL https://raw.githubusercontent.com/nipegun/r-scripts/refs/heads/master/PostInst/Router-wlan0.sh | nano -
 # ----------
 
-vInterfazCableada0=eth0
-vInterfazInalambrica0=wlan0
+vInterfazCableada0='eth0'
+vInterfazInalambrica0='wlan0'
 
 # Definir constantes de color
   cColorAzul='\033[0;34m'
