@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Desinstalar todo lo instalado previamente
-  mv /etc/hostapd/hostapd.conf /tmp/
-  apt-get -y autoremove --purge hostapd
-  rm -rf /etc/hostapd/
+  sudo mv /etc/hostapd/hostapd.conf /tmp/
+  sudo apt-get -y autoremove --purge hostapd
+  sudo rm -rf /etc/hostapd/
 
 # Instalar el paquete oficial del repo de Dbian
   sudo apt-get -y install hostapd
