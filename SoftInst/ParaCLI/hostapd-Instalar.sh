@@ -26,6 +26,7 @@
   echo ""
   sudo systemctl unmask hostapd
   sudo systemctl enable hostapd --now
+  sudo systemctl status hostapd --no-pager
 
 # Copiar el binario compilado reemplazando el binario instalado desde el repo
   sudo cp -fv hostapd /usr/sbin/
