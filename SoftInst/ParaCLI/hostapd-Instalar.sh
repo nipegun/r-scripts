@@ -14,4 +14,4 @@ cd hostap/hostapd
 cp defconfig .config
 
 make -j$(nproc)
-sudo cp -fv hostapd /usr/local/bin/
+sudo cp -fv hostapd /usr/sbin/
