@@ -16,6 +16,9 @@
   sudo sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g'      /etc/default/hostapd
   sudo sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
 
+# Volver a copiar el archivo de configuración viejo, si es que existía
+  sudo cp -fv /tmp/hostapd.conf /etc/hostapd/hostapd.conf
+
 # Desenmascarar y activar el servicio (Si no, con entorno gráfico NetworkManager no lo deja iniciar)
   echo ""
   echo "  Desenmascarando y activando el servicio hostapd..."
