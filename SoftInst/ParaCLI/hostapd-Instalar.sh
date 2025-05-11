@@ -20,6 +20,14 @@
 # Instalar el paquete oficial del repo de Dbian
   sudo apt-get -y install hostapd
 
+# Indicar la ubicación del archivo de configuración de hostapd
+  echo ""
+  echo "  Indicando la ubicación del archivo de configuración de hostapd..."
+  echo ""
+  sudo cp /etc/default/hostapd /etc/default/hostapd.bak
+  sudo sed -i -e 's|#DAEMON_CONF=""|DAEMON_CONF="/etc/hostapd/hostapd.conf"|g'      /etc/default/hostapd
+  sudo sed -i -e 's|#DAEMON_OPTS=""|DAEMON_OPTS="-dd -t -f /var/log/hostapd.log"|g' /etc/default/hostapd
+
 # Desenmascarar y activar el servicio (Si no, con entorno gráfico NetworkManager no lo deja iniciar)
   echo ""
   echo "  Desenmascarando y activando el servicio hostapd..."
